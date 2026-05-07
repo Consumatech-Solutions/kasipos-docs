@@ -1,0 +1,127 @@
+---
+title: Home
+description: Welcome to KasiPOS documentation.
+---
+
+import {
+  ArrowRight,
+  BookOpen,
+  Code2,
+  Rocket,
+  Search,
+  Sparkles,
+  Wrench,
+  Plug,
+  MessageSquare,
+  Terminal,
+  Globe,
+  AtSign
+} from 'lucide-react'
+
+<div className="home-docs-page">
+  <section className="home-docs-hero">
+    <h1>KasiPOS Documentation</h1>
+    <p>Everything you need to build, integrate, and scale your retail operations with our developer-first platform.</p>
+    <div className="home-docs-search">
+      <Search size={18} />
+      <input type="text" placeholder="Search documentation..." />
+      <span>Ctrl K</span>
+    </div>
+    <div className="home-docs-trending">
+      <strong>Trending:</strong>
+      <a href="/docs/user-guide/inventory">Inventory API</a>
+      <a href="/docs/getting-started/installation">Hardware Setup</a>
+      <a href="/docs/developer/architecture">Webhooks</a>
+    </div>
+  </section>
+
+  <section className="home-docs-categories">
+    <a className="home-docs-card" href="/docs/getting-started/introduction">
+      <div className="home-docs-card-icon"><Rocket size={18} /></div>
+      <h3>Getting Started</h3>
+      <p>Start processing sales in minutes with our quickstart guides.</p>
+    </a>
+    <a className="home-docs-card" href="/docs/modules/overview">
+      <div className="home-docs-card-icon"><BookOpen size={18} /></div>
+      <h3>User Guide</h3>
+      <p>Detailed manuals for managing inventory and daily reports.</p>
+    </a>
+    <a className="home-docs-card" href="/docs/developer/contributing">
+      <div className="home-docs-card-icon"><Code2 size={18} /></div>
+      <h3>Developer Guide</h3>
+      <p>Build deep integrations using our APIs and SDKs.</p>
+    </a>
+  </section>
+
+  <section className="home-docs-content">
+    <aside>
+      <h2><Sparkles size={16} /> Common Tasks</h2>
+      <a href="/docs/getting-started/installation">Setting up your printer</a>
+      <a href="/docs/user-guide/pos">Offline POS sync guide</a>
+      <a href="/docs/developer/contributing">Advanced Security Standards</a>
+      <a href="/docs/user-guide/inventory">Bulk Inventory Import</a>
+    </aside>
+
+    <div className="home-docs-feature-area">
+      <article className="home-docs-feature">
+        <img
+          src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1400&q=80"
+          alt="Analytics dashboard"
+        />
+        <div className="home-docs-feature-body">
+          <span>New Release</span>
+          <h3>Analytics Dashboard v1.2</h3>
+          <p>Master our new predictive stock management engine with real-time data visualization and automated restock alerts.</p>
+          <a href="/docs/developer/architecture">Read the update <ArrowRight size={14} /></a>
+        </div>
+      </article>
+
+      <div className="home-docs-subcards">
+        <article className="home-docs-subcard">
+          <MessageSquare size={24} />
+          <h4>Community Discord</h4>
+          <p>Join 5,000+ developers and retail experts.</p>
+          <a href="/docs/contributing">Join Server <ArrowRight size={14} /></a>
+        </article>
+        <article className="home-docs-subcard dark">
+          <Terminal size={24} />
+          <h4>API Playground</h4>
+          <p>Test your endpoints in a sandbox environment.</p>
+          <a href="/docs/developer/architecture">Open Sandbox <ArrowRight size={14} /></a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section className="home-docs-newsletter">
+    <h2>Stay in the loop</h2>
+    <p>Get the latest news on API changes and new documentation guides.</p>
+    <form>
+      <input type="email" placeholder="Enter your email" />
+      <button type="button">Subscribe</button>
+    </form>
+  </section>
+
+  <footer className="home-docs-footer">
+    <div>
+      <a className="home-docs-brand" href="/docs/home">KasiPOS</a>
+      <p>© 2024 KasiPOS Technologies.<br />Built for the future of retail.</p>
+    </div>
+    <div className="home-docs-footer-links">
+      <div>
+        <h5>Resources</h5>
+        <a href="/docs/getting-started/introduction">Status</a>
+        <a href="/docs/contributing">Contact</a>
+      </div>
+      <div>
+        <h5>Legal</h5>
+        <a href="/docs/contributing">Privacy</a>
+        <a href="/docs/contributing">Terms</a>
+      </div>
+    </div>
+    <div className="home-docs-social">
+      <a href="/docs/home" aria-label="Website"><Globe size={16} /></a>
+      <a href="/docs/contributing" aria-label="Contact"><AtSign size={16} /></a>
+    </div>
+  </footer>
+</div>

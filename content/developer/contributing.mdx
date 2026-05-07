@@ -1,0 +1,75 @@
+---
+title: Overview
+description: Developer guide overview.
+fullWidth: true
+---
+
+import { ChevronRight } from 'lucide-react'
+
+<div className="min-h-screen bg-[hsl(var(--background))] text-[hsl(var(--foreground))]">
+  <div className="mx-auto flex max-w-[1400px]">
+    <main className="min-h-screen flex-1 px-6 pb-20 pt-24 md:px-12 lg:pl-64 xl:pl-64 xl:pr-64">
+      <div className="mx-auto max-w-[720px]">
+        <nav className="mb-6 flex items-center gap-2 text-[12px] text-[hsl(var(--foreground))/0.45]">
+          <span>Developer Guide</span>
+          <ChevronRight size={14} />
+          <span className="font-medium text-[hsl(var(--foreground))]">Overview</span>
+        </nav>
+
+        <header className="mb-10">
+          <h1 className="mb-4 text-[40px] font-extrabold tracking-tight">Developer Overview</h1>
+          <p className="text-[17px] leading-relaxed text-[hsl(var(--foreground))/0.7]">
+            This guide helps developers understand how to collaborate, ship safely, and keep KasiPOS reliable as it grows.
+          </p>
+        </header>
+
+        <section id="why-contribute" className="mb-10">
+          <h2 className="mb-3 text-2xl font-semibold">Why contribute to this project?</h2>
+          <p className="mb-4 text-[15px] leading-relaxed text-[hsl(var(--foreground))/0.75]">
+            KasiPOS is built for real-world retail environments where reliability and speed matter. Every contribution improves cashier workflows, inventory accuracy, and resilience in low-connectivity setups.
+          </p>
+          <p className="text-[15px] leading-relaxed text-[hsl(var(--foreground))/0.75]">
+            From a developer perspective, it is a strong place to contribute practical architecture work: offline-first behavior, data sync stability, maintainable UI patterns, and clear DX practices for team-scale delivery.
+          </p>
+        </section>
+
+        <section id="workflow" className="mb-10">
+          <h2 className="mb-3 text-2xl font-semibold">Developer Workflow</h2>
+          <ul className="list-disc space-y-1 pl-5 text-[15px] text-[hsl(var(--foreground))/0.75]">
+            <li>Create focused branches for one concern at a time.</li>
+            <li>Open pull requests with clear intent and scope.</li>
+            <li>Include screenshots or recordings for UI-affecting changes.</li>
+          </ul>
+        </section>
+
+        <section id="review-standards" className="mb-10">
+          <h2 className="mb-3 text-2xl font-semibold">Review Standards</h2>
+          <ul className="list-disc space-y-1 pl-5 text-[15px] text-[hsl(var(--foreground))/0.75]">
+            <li>Keep changes readable and easy to verify.</li>
+            <li>Describe trade-offs and follow-up work in the PR body.</li>
+            <li>Address review feedback with explicit updates.</li>
+          </ul>
+        </section>
+
+        <section id="testing">
+          <h2 className="mb-3 text-2xl font-semibold">Testing Expectations</h2>
+          <ul className="list-disc space-y-1 pl-5 text-[15px] text-[hsl(var(--foreground))/0.75]">
+            <li>Run local lint checks before opening a PR.</li>
+            <li>Verify impacted routes manually for regressions.</li>
+            <li>Document the exact test plan in your PR description.</li>
+          </ul>
+        </section>
+      </div>
+    </main>
+
+    <aside className="fixed right-[max(0px,calc(50%-700px))] top-14 hidden h-[calc(100vh-3.5rem)] w-64 overflow-y-auto px-8 py-10 xl:block">
+      <h4 className="mb-6 text-[11px] font-bold uppercase tracking-widest text-[hsl(var(--foreground))/0.45]">On this page</h4>
+      <nav className="flex flex-col gap-3">
+        <a className="-ml-[2px] border-l-2 border-[hsl(var(--secondary))] pl-4 text-[13px] font-medium" href="#why-contribute">Why Contribute</a>
+        <a className="pl-4 text-[13px] text-[hsl(var(--foreground))/0.65] hover:text-[hsl(var(--foreground))]" href="#workflow">Developer Workflow</a>
+        <a className="pl-4 text-[13px] text-[hsl(var(--foreground))/0.65] hover:text-[hsl(var(--foreground))]" href="#review-standards">Review Standards</a>
+        <a className="pl-4 text-[13px] text-[hsl(var(--foreground))/0.65] hover:text-[hsl(var(--foreground))]" href="#testing">Testing Expectations</a>
+      </nav>
+    </aside>
+  </div>
+</div>
