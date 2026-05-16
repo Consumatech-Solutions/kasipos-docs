@@ -9,6 +9,7 @@ type ActiveItem =
   | 'modules'
   | 'overview'
   | 'project-architecture'
+  | 'github-workflow'
   | 'contributing'
   | 'social-network'
 
@@ -40,6 +41,7 @@ export function Sidebar() {
     if (pathname.startsWith('/docs/user-guide')) return 'user-guide'
     if (pathname.startsWith('/docs/modules')) return 'modules'
     if (pathname.startsWith('/docs/developer/architecture')) return 'project-architecture'
+    if (pathname.startsWith('/docs/developer/github-workflow')) return 'github-workflow'
     if (pathname.startsWith('/docs/developer')) return 'overview'
     if (pathname.startsWith('/docs/contributing')) return 'contributing'
     if (pathname.startsWith('/docs/social-network')) return 'social-network'
@@ -94,6 +96,9 @@ export function Sidebar() {
           </Link>
           <Link className={itemClass(activeItem === 'project-architecture')} href="/docs/developer/architecture">
             Project Architecture
+          </Link>
+          <Link className={itemClass(activeItem === 'github-workflow')} href="/docs/developer/github-workflow">
+            GitHub Workflow Guide
           </Link>
           <Link className={itemClass(activeItem === 'contributing')} href="/docs/contributing">
             Contributing
