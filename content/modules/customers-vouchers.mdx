@@ -1,45 +1,17 @@
 ---
 title: Customers & Vouchers
 description: Customer context and voucher-driven checkout flows.
-fullWidth: true
 ---
 
-<div className="min-h-screen bg-[hsl(var(--background))] text-[hsl(var(--foreground))]">
-  <div className="mx-auto flex max-w-[1400px]">
-    <main className="min-h-screen flex-1 px-6 pb-20 pt-24 md:px-12 lg:pl-64 xl:pl-64 xl:pr-64">
-      <div className="mx-auto max-w-[720px]">
-        <header className="mb-10">
-          <h1 className="mb-4 text-[40px] font-extrabold tracking-tight">Customers &amp; Vouchers</h1>
-          <p className="text-[17px] leading-relaxed text-[hsl(var(--foreground))/0.7]">
-            Handle customer-linked selling and voucher lifecycle operations.
-          </p>
-        </header>
+# Customers & Vouchers
 
-        <section id="covered-routes" className="mb-10">
-          <h2 className="mb-3 text-2xl font-semibold">Covered Routes</h2>
-          <ul className="list-disc space-y-1 pl-5 text-[15px] text-[hsl(var(--foreground))/0.75]">
-            <li><code>/customers</code></li>
-            <li><code>/vouchers</code></li>
-          </ul>
-        </section>
+Handle customer-linked selling and voucher lifecycle operations.
 
-        <section id="scope">
-          <h2 className="mb-3 text-2xl font-semibold">Scope</h2>
-          <ul className="list-disc space-y-1 pl-5 text-[15px] text-[hsl(var(--foreground))/0.75]">
-            <li>Customer records and profile context during sales</li>
-            <li>Voucher issuance, validation, and redemption</li>
-            <li>Promotion-aware checkout behavior</li>
-          </ul>
-        </section>
-      </div>
-    </main>
+## Covered Routes
+* `/customers`
+* `/vouchers`
 
-    <aside className="fixed right-[max(0px,calc(50%-700px))] top-14 hidden h-[calc(100vh-3.5rem)] w-64 overflow-y-auto px-8 py-10 xl:block">
-      <h4 className="mb-6 text-[11px] font-bold uppercase tracking-widest text-[hsl(var(--foreground))/0.45]">On this page</h4>
-      <nav className="flex flex-col gap-3">
-        <a className="-ml-[2px] border-l-2 border-[hsl(var(--primary))] pl-4 text-[13px] font-medium" href="#covered-routes">Covered Routes</a>
-        <a className="pl-4 text-[13px] text-[hsl(var(--foreground))/0.65] hover:text-[hsl(var(--foreground))]" href="#scope">Scope</a>
-      </nav>
-    </aside>
-  </div>
-</div>
+## Scope
+* Customer records and profile context during sales
+* Voucher issuance, validation, and redemption
+* Promotion-aware checkout behavior

@@ -1,91 +1,57 @@
 ---
 title: Project Architecture
 description: High-level architecture guide.
-fullWidth: true
 ---
 
-import {
-  ChevronRight,
-  Folder,
-  FileText,
-  Info,
-  Copy,
-  ArrowLeft,
-  ArrowRight
-} from 'lucide-react'
+import { Folder, FileText, Info } from 'lucide-react'
 
-<div className="min-h-screen bg-[hsl(var(--background))] text-[hsl(var(--foreground))]">
-  <div className="mx-auto flex max-w-[1400px]">
+# Project Architecture
 
-    <main className="min-h-screen flex-1 px-6 pb-20 pt-24 md:px-12 lg:pl-64 xl:pl-64 xl:pr-64">
-      <div className="mx-auto max-w-[720px]">
-        <nav className="mb-6 flex items-center gap-2 text-[12px] text-[hsl(var(--foreground))/0.45]">
-          <span>Developer Guide</span>
-          <ChevronRight size={14} />
-          <span className="font-medium text-[hsl(var(--foreground))]">Project Architecture</span>
-        </nav>
+KasiPOS is built with a resilient, offline-first architecture designed to operate in low-connectivity environments while maintaining a high-performance retail experience.
 
-        <header className="mb-12">
-          <h1 className="mb-6 text-[40px] font-extrabold tracking-tight">Project Architecture</h1>
-          <p className="text-[17px] leading-relaxed text-[hsl(var(--foreground))/0.7]">
-            KasiPOS is built with a resilient, offline-first architecture designed to operate in
-            low-connectivity environments while maintaining a high-performance retail experience.
-          </p>
-        </header>
+## Folder Structure
 
-        <section className="mb-16 scroll-mt-24" id="folder-structure">
-          <h2 className="mb-6 text-xl font-bold">Folder Structure</h2>
-          <div className="rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--muted))] p-6 text-[13px] leading-relaxed">
-            <div className="mb-2 flex items-center gap-2 text-[hsl(var(--foreground))]"><Folder size={16} className="text-amber-500" /> src/</div>
-            <div className="ml-3 border-l border-[hsl(var(--border))] pl-4">
-              <div className="mb-2 flex items-center gap-2 text-[hsl(var(--foreground))/0.75]"><Folder size={16} className="text-amber-500" /> components/ <span className="ml-3 text-[11px] text-[hsl(var(--foreground))/0.45]">// Atomic UI elements &amp; layout shells</span></div>
-              <div className="mb-2 flex items-center gap-2 text-[hsl(var(--foreground))/0.75]"><Folder size={16} className="text-amber-500" /> hooks/ <span className="ml-3 text-[11px] text-[hsl(var(--foreground))/0.45]">// Reusable logic &amp; database queries</span></div>
-              <div className="mb-2 flex items-center gap-2 text-[hsl(var(--foreground))/0.75]"><Folder size={16} className="text-amber-500" /> store/ <span className="ml-3 text-[11px] text-[hsl(var(--foreground))/0.45]">// State management (Zustand)</span></div>
-              <div className="mb-2 flex items-center gap-2 text-[hsl(var(--foreground))/0.75]"><Folder size={16} className="text-amber-500" /> db/ <span className="ml-3 text-[11px] text-[hsl(var(--foreground))/0.45]">// IndexedDB schema &amp; utils</span></div>
-              <div className="mb-2 flex items-center gap-2 text-[hsl(var(--foreground))/0.75]"><FileText size={16} className="text-[hsl(var(--primary))/0.7]" /> main.tsx</div>
-              <div className="flex items-center gap-2 text-[hsl(var(--foreground))/0.75]"><FileText size={16} className="text-[hsl(var(--primary))/0.7]" /> App.tsx</div>
-            </div>
-          </div>
-        </section>
+<div className="rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--muted))] p-6 text-[13px] leading-relaxed my-6">
+  <div className="mb-2 flex items-center gap-2 text-[hsl(var(--foreground))]"><Folder size={16} className="text-amber-500" /> src/</div>
+  <div className="ml-3 border-l border-[hsl(var(--border))] pl-4">
+    <div className="mb-2 flex items-center gap-2 text-[hsl(var(--foreground))/0.75]"><Folder size={16} className="text-amber-500" /> components/ <span className="ml-3 text-[11px] text-[hsl(var(--foreground))/0.45]">// Atomic UI elements &amp; layout shells</span></div>
+    <div className="mb-2 flex items-center gap-2 text-[hsl(var(--foreground))/0.75]"><Folder size={16} className="text-amber-500" /> hooks/ <span className="ml-3 text-[11px] text-[hsl(var(--foreground))/0.45]">// Reusable logic &amp; database queries</span></div>
+    <div className="mb-2 flex items-center gap-2 text-[hsl(var(--foreground))/0.75]"><Folder size={16} className="text-amber-500" /> store/ <span className="ml-3 text-[11px] text-[hsl(var(--foreground))/0.45]">// State management (Zustand)</span></div>
+    <div className="mb-2 flex items-center gap-2 text-[hsl(var(--foreground))/0.75]"><Folder size={16} className="text-amber-500" /> db/ <span className="ml-3 text-[11px] text-[hsl(var(--foreground))/0.45]">// IndexedDB schema &amp; utils</span></div>
+    <div className="flex items-center gap-2 text-[hsl(var(--foreground))/0.75]"><FileText size={16} className="text-[hsl(var(--primary))/0.7]" /> main.tsx</div>
+    <div className="flex items-center gap-2 text-[hsl(var(--foreground))/0.75]"><FileText size={16} className="text-[hsl(var(--primary))/0.7]" /> App.tsx</div>
+  </div>
+</div>
 
-        <section className="mb-16 scroll-mt-24" id="state-management">
-          <h2 className="mb-6 text-xl font-bold">State Management</h2>
-          <div className="mb-8 grid grid-cols-1 gap-4 md:grid-cols-2">
-            <div className="rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--background))] p-5">
-              <h3 className="mb-2 text-sm font-bold">Offline Persistence</h3>
-              <p className="text-[13px] leading-relaxed text-[hsl(var(--foreground))/0.7]">
-                We utilize Dexie for IndexedDB management. This ensures that every transaction
-                is stored locally immediately.
-              </p>
-            </div>
-            <div className="rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--background))] p-5">
-              <h3 className="mb-2 text-sm font-bold">Runtime State</h3>
-              <p className="text-[13px] leading-relaxed text-[hsl(var(--foreground))/0.7]">
-                Zustand handles high-frequency UI state, such as cart items and temporary modals,
-                keeping the interface snappy.
-              </p>
-            </div>
-          </div>
-          <div className="flex gap-4 rounded-lg border border-[hsl(var(--primary))/0.25] bg-[hsl(var(--accent))] p-4">
-            <Info size={18} className="text-[hsl(var(--primary))]" />
-            <div>
-              <p className="mb-1 text-[13px] font-bold">Architecture Note</p>
-              <p className="text-[13px] text-[hsl(var(--foreground))/0.7]">The synchronization layer uses a background worker to push local records once connectivity is restored.</p>
-            </div>
-          </div>
-        </section>
+## State Management
 
-        <section className="mb-16 scroll-mt-24" id="database-schema">
-          <div className="mb-6 flex items-center justify-between">
-            <h2 className="text-xl font-bold">Database Schema</h2>
-          </div>
-          <div className="overflow-hidden rounded-lg border border-[hsl(var(--border))]">
-            <div className="flex items-center justify-between border-b border-[hsl(var(--border))] bg-[hsl(var(--muted))] px-4 py-2">
-              <span className="font-mono text-[11px] uppercase tracking-wider text-[hsl(var(--foreground))/0.45]">dexie-schema.ts</span>
-              <button className="flex items-center gap-1 text-[hsl(var(--foreground))/0.45] hover:text-[hsl(var(--foreground))]"><Copy size={14} /><span className="text-[10px] font-bold uppercase">Copy</span></button>
-            </div>
-            <pre className="overflow-x-auto bg-[#0f1117] p-6 text-[13px] leading-relaxed text-[#e6e0e9]">
-{`import Dexie, { Table } from 'dexie';
+<div className="mb-8 grid grid-cols-1 gap-4 md:grid-cols-2 my-6">
+  <div className="rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--background))] p-5">
+    <h3 className="mb-2 text-sm font-bold">Offline Persistence</h3>
+    <p className="text-[13px] leading-relaxed text-[hsl(var(--foreground))/0.7]">
+      We utilize Dexie for IndexedDB management. This ensures that every transaction is stored locally immediately.
+    </p>
+  </div>
+  <div className="rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--background))] p-5">
+    <h3 className="mb-2 text-sm font-bold">Runtime State</h3>
+    <p className="text-[13px] leading-relaxed text-[hsl(var(--foreground))/0.7]">
+      Zustand handles high-frequency UI state, such as cart items and temporary modals, keeping the interface snappy.
+    </p>
+  </div>
+</div>
+
+<div className="flex gap-4 rounded-lg border border-[hsl(var(--primary))/0.25] bg-[hsl(var(--accent))] p-4 my-6">
+  <Info size={18} className="text-[hsl(var(--primary))]" />
+  <div>
+    <p className="mb-1 text-[13px] font-bold">Architecture Note</p>
+    <p className="text-[13px] text-[hsl(var(--foreground))/0.7]">The synchronization layer uses a background worker to push local records once connectivity is restored.</p>
+  </div>
+</div>
+
+## Database Schema
+
+```typescript
+import Dexie, { Table } from 'dexie';
 
 export interface Sale {
   id?: number;
@@ -106,48 +72,15 @@ export class KasiDatabase extends Dexie {
   }
 }
 
-export const db = new KasiDatabase();`}
-            </pre>
-          </div>
-        </section>
+export const db = new KasiDatabase();
+```
 
-        <section className="mb-16 scroll-mt-24" id="visualization">
-          <h2 className="mb-6 text-xl font-bold">Visualization</h2>
-          <div className="overflow-hidden rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--background))] p-2">
-            <img
-              className="h-auto w-full rounded"
-              alt="Technical architecture diagram"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9GeV2laOBBSgJNdx3AnbGe8yCIqmD13cnq2LmH7dWi_zo1JptB2kooir__vVt7QXxwvcgzC7iLBDewKw6sNGK-t9VBkqhhIfuXTVuZpTY05wPm8s48NQzVxcITjRU2dMZDvhYxIhGo5CFyqbjHJywYY2eBknHP-OvsD35ZzLjad0j9q96Xy-7L3jjQvu6UPda1_1aGbHNh2lCAUB-FnyG5qYSCaes-hPNaf_FNmF5rlmkR-1tY5WuCD8M2cbciuJ90kZaMWJqvZ0"
-            />
-          </div>
-        </section>
+## Visualization
 
-        <div className="mt-12 flex items-center justify-between border-t border-[hsl(var(--border))] pt-12">
-          <a className="group flex flex-col gap-2" href="/docs/developer/contributing">
-            <span className="text-[12px] text-[hsl(var(--foreground))/0.45]">Previous</span>
-            <span className="flex items-center gap-2 font-medium group-hover:text-[hsl(var(--primary))]"><ArrowLeft size={16} /> Overview</span>
-          </a>
-          <a className="group flex flex-col items-end gap-2" href="/docs/developer/contributing">
-            <span className="text-[12px] text-[hsl(var(--foreground))/0.45]">Next</span>
-            <span className="flex items-center gap-2 font-medium group-hover:text-[hsl(var(--primary))]">Authentication <ArrowRight size={16} /></span>
-          </a>
-        </div>
-      </div>
-    </main>
-
-    <aside className="fixed right-[max(0px,calc(50%-700px))] top-14 hidden h-[calc(100vh-3.5rem)] w-64 overflow-y-auto px-8 py-10 xl:block">
-      <h4 className="mb-6 text-[11px] font-bold uppercase tracking-widest text-[hsl(var(--foreground))/0.45]">On this page</h4>
-      <nav className="flex flex-col gap-3">
-        <a className="-ml-[2px] border-l-2 border-[hsl(var(--primary))] pl-4 text-[13px] font-medium" href="#folder-structure">Folder Structure</a>
-        <a className="pl-4 text-[13px] text-[hsl(var(--foreground))/0.65] hover:text-[hsl(var(--foreground))]" href="#state-management">State Management</a>
-        <a className="pl-4 text-[13px] text-[hsl(var(--foreground))/0.65] hover:text-[hsl(var(--foreground))]" href="#database-schema">Database Schema</a>
-        <a className="pl-4 text-[13px] text-[hsl(var(--foreground))/0.65] hover:text-[hsl(var(--foreground))]" href="#visualization">Visualization</a>
-      </nav>
-      <div className="mt-12 rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--muted))] p-5">
-        <p className="mb-2 text-[12px] font-bold">Questions?</p>
-        <p className="mb-4 text-[12px] leading-relaxed text-[hsl(var(--foreground))/0.7]">Need help with our architecture? Reach out to our community.</p>
-        <a className="text-[12px] font-bold text-[hsl(var(--primary))] hover:underline" href="/docs/contributing">Ask community</a>
-      </div>
-    </aside>
-  </div>
+<div className="overflow-hidden rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--background))] p-2 my-6">
+  <img
+    className="h-auto w-full rounded"
+    alt="Technical architecture diagram"
+    src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9GeV2laOBBSgJNdx3AnbGe8yCIqmD13cnq2LmH7dWi_zo1JptB2kooir__vVt7QXxwvcgzC7iLBDewKw6sNGK-t9VBkqhhIfuXTVuZpTY05wPm8s48NQzVxcITjRU2dMZDvhYxIhGo5CFyqbjHJywYY2eBknHP-OvsD35ZzLjad0j9q96Xy-7L3jjQvu6UPda1_1aGbHNh2lCAUB-FnyG5qYSCaes-hPNaf_FNmF5rlmkR-1tY5WuCD8M2cbciuJ90kZaMWJqvZ0"
+  />
 </div>

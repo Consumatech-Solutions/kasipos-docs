@@ -1,5 +1,7 @@
 import { useMDXComponents as getThemeComponents } from 'nextra-theme-docs'
 import React from 'react'
+import { TableOfContents, TOCItem } from '@/components/docs/table-of-contents'
+import { DocBreadcrumbs, DocPageNavigation } from '@/components/docs/doc-navigation'
 
 // Note: Nextra expects this named export.
 // It is a plain function returning MDX component mappings (not a React hook).
@@ -12,24 +14,29 @@ export function useMDXComponents(components: unknown = {}) {
     children: React.ReactNode
     toc?: unknown
     metadata?: unknown
-  }> = ({ children, metadata }) => {
+  }> = ({ children, metadata, toc }) => {
     const isHomePage =
       typeof metadata === 'object' &&
       metadata !== null &&
       'title' in metadata &&
       (metadata as { title?: unknown }).title === 'Home'
-    const isFullWidthPage =
-      typeof metadata === 'object' &&
-      metadata !== null &&
-      'fullWidth' in metadata &&
-      Boolean((metadata as { fullWidth?: unknown }).fullWidth)
 
-    const containerClass = isHomePage || isFullWidthPage ? 'w-full' : 'w-full px-4 py-10 lg:pl-72'
-    const contentClass = isHomePage || isFullWidthPage ? 'nextra-content' : 'nextra-content mx-auto max-w-5xl'
+    if (isHomePage) {
+      return (
+        <div className="w-full">
+          <main className="nextra-content">{children}</main>
+        </div>
+      )
+    }
 
     return (
-      <div className={containerClass}>
-        <main className={contentClass}>{children}</main>
+      <div className="w-full min-h-screen pl-0 lg:pl-64 xl:pr-60 pt-1 flex bg-[hsl(var(--background))] text-[hsl(var(--foreground))]">
+        <div className="flex-1 w-full max-w-[760px] mx-auto px-6 py-10 md:px-10">
+          <DocBreadcrumbs />
+          <main className="nextra-content">{children}</main>
+          <DocPageNavigation />
+        </div>
+        <TableOfContents toc={toc as TOCItem[]} />
       </div>
     )
   }
