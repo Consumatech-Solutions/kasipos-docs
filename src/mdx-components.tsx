@@ -2,6 +2,14 @@ import { useMDXComponents as getThemeComponents } from 'nextra-theme-docs'
 import React from 'react'
 import { TableOfContents, TOCItem } from '@/components/docs/table-of-contents'
 import { DocBreadcrumbs, DocPageNavigation } from '@/components/docs/doc-navigation'
+import { FileTree, Dir, File } from '@/components/docs/FileTree'
+import { CodeBlock } from '@/components/docs/CodeBlock'
+
+const Table: React.FC<any> = ({ children }) => (
+  <div className="mdx-table-wrapper">
+    <table>{children}</table>
+  </div>
+)
 
 // Note: Nextra expects this named export.
 // It is a plain function returning MDX component mappings (not a React hook).
@@ -43,6 +51,11 @@ export function useMDXComponents(components: unknown = {}) {
 
   return {
     ...base,
-    wrapper: MinimalWrapper
+    wrapper: MinimalWrapper,
+    FileTree,
+    Dir,
+    File,
+    pre: CodeBlock,
+    table: Table
   }
 }
