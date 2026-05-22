@@ -1,6 +1,7 @@
 const meta = {
-  architecture: 'Architecture',
-  contributing: 'Contributing'
+  overview: 'Developer Overview',
+  architecture: 'Project Architecture',
+  'managing-emails': 'Email Administration'
 }
 
 export default meta

@@ -1,6 +1,6 @@
 const meta = {
-  pos: 'POS',
-  inventory: 'Inventory'
+  pos: 'POS Operations',
+  inventory: 'Inventory Management'
 }
 
 export default meta
