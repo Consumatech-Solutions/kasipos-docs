@@ -51,7 +51,6 @@ KasiPOS is built with a **local-first, offline-aware architecture** designed to 
   </div>
 </div>
 
----
 
 ## 1. Architectural Evolution: From Monorepo to Single Repo
 
@@ -115,7 +114,6 @@ KasiPOS was originally designed around a classic monorepo structure. To eliminat
 - **Team efficiency** — No inter-package dependency management or versioning to maintain.
 - **Offline-first priority** — The local-first architecture demands tight coupling between the data layer and UI components.
 
----
 
 ## 2. Root Repository Structure
 
@@ -217,7 +215,6 @@ The root structure focuses exclusively on build rules, type systems, and pipelin
   </div>
 </div>
 
----
 
 ## 3. Folder Structure
 
@@ -462,7 +459,6 @@ Shared TypeScript types and interfaces — the source of truth for all data cont
   </Dir>
 </FileTree>
 
----
 
 ## 4. State Management
 
@@ -499,7 +495,6 @@ KasiPOS uses two complementary state layers — each optimized for a different t
   </div>
 </div>
 
----
 
 ## 5. Database Schema
 
@@ -534,7 +529,6 @@ export const db = new KasiDatabase();
 
 The `synced` boolean field is central to the offline architecture — it flags which records have been pushed to the cloud and which are still pending. The background sync worker queries `synced: false` to build its upload batch.
 
----
 
 ## 6. Shared Elements Matrix
 
@@ -630,7 +624,6 @@ import { mutationQueue } from "@/lib/mutation-queue";
   </div>
 </div>
 
----
 
 ## 7. Core Architectural Principles
 

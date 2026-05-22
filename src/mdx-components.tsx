@@ -5,6 +5,18 @@ import { DocBreadcrumbs, DocPageNavigation } from '@/components/docs/doc-navigat
 import { FileTree, Dir, File } from '@/components/docs/FileTree'
 import { CodeBlock } from '@/components/docs/CodeBlock'
 
+const H1: React.FC<any> = ({ children, ...props }) => (
+  <h1 className="mdx-h1" {...props}>{children}</h1>
+)
+
+const H2: React.FC<any> = ({ children, ...props }) => (
+  <h2 className="mdx-h2" {...props}>{children}</h2>
+)
+
+const H3: React.FC<any> = ({ children, ...props }) => (
+  <h3 className="mdx-h3" {...props}>{children}</h3>
+)
+
 const Table: React.FC<any> = ({ children }) => (
   <div className="mdx-table-wrapper">
     <table>{children}</table>
@@ -55,6 +67,9 @@ export function useMDXComponents(components: unknown = {}) {
     FileTree,
     Dir,
     File,
+    h1: H1,
+    h2: H2,
+    h3: H3,
     pre: CodeBlock,
     table: Table
   }
