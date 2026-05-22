@@ -1,6 +1,5 @@
 const meta = {
   home: 'Home',
-  documentation: { title: 'Documentation' },
   'getting-started': { title: 'Getting Started' },
   'user-guide': { title: 'User Guide' },
   modules: { title: 'Modules' },

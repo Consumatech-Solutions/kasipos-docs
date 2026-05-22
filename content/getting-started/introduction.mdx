@@ -1,133 +1,63 @@
 ---
 title: Introduction
 description: Introduction to KasiPOS docs.
-fullWidth: true
 ---
 
-import {
-  ChevronRight,
-  Package,
-  CreditCard,
-  Info,
-  Check,
-  ArrowLeft,
-  ArrowRight
-} from 'lucide-react'
+import { Package, CreditCard, Info, Check } from 'lucide-react'
 
-<div className="min-h-screen bg-[hsl(var(--background))] text-[hsl(var(--foreground))]">
-  <div className="mx-auto flex max-w-[1440px]">
+# Introduction
 
-    <main className="flex-1 pt-14 lg:ml-[240px] xl:mr-[240px]">
-      <div className="mx-auto max-w-[720px] px-8 py-16">
-        <nav className="mb-10 flex items-center gap-2 text-[13px] text-[hsl(var(--foreground))/0.65]">
-          <span>Guides</span>
-          <ChevronRight size={14} />
-          <span className="font-medium text-[hsl(var(--foreground))]">Introduction</span>
-        </nav>
+Learn how KasiPOS empowers township entrepreneurs with a robust, enterprise-grade Point of Sale system designed specifically for low-connectivity environments.
 
-        <header className="mb-12">
-          <h1 className="mb-6 text-5xl font-bold tracking-tight">Introduction</h1>
-          <p className="text-[17px] leading-relaxed text-[hsl(var(--foreground))/0.7]">
-            Learn how KasiPOS empowers township entrepreneurs with a robust, enterprise-grade
-            Point of Sale system designed specifically for low-connectivity environments.
-          </p>
-        </header>
+<div className="my-8 overflow-hidden rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--background))] shadow-sm">
+  <img
+    alt="KasiPOS Retail Interface"
+    className="aspect-video w-full object-cover"
+    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQt_0_09yC8On17jnoPjoB9kQX0W3QA5eeA3dn-MIFd6POk_VY0AWPhrJHogoElp_jDWfGR1Bq86PzDC5kWF-4ld-ifBYnl6Y2vZIrFk4yW0VRgmAcRrDzyhgaFIj4RCXCgDi2xthy9Yew6x-ZwXVOfmjLl0kS7mV3HGjOs_TEyYKku98X4Kpbm4PoZGx4c3mz8fkWog-s_9M7NGKazKmC2n20pjGwP1zQwx9-8eIwg7ww2eBludeZLfGoF6Z_SfYYCjct2wiwOG8"
+  />
+</div>
 
-        <div className="mb-16 overflow-hidden rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--background))] shadow-sm">
-          <img
-            alt="KasiPOS Retail Interface"
-            className="aspect-video w-full object-cover"
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQt_0_09yC8On17jnoPjoB9kQX0W3QA5eeA3dn-MIFd6POk_VY0AWPhrJHogoElp_jDWfGR1Bq86PzDC5kWF-4ld-ifBYnl6Y2vZIrFk4yW0VRgmAcRrDzyhgaFIj4RCXCgDi2xthy9Yew6x-ZwXVOfmjLl0kS7mV3HGjOs_TEyYKku98X4Kpbm4PoZGx4c3mz8fkWog-s_9M7NGKazKmC2n20pjGwP1zQwx9-8eIwg7ww2eBludeZLfGoF6Z_SfYYCjct2wiwOG8"
-          />
-        </div>
+## What is KasiPOS?
 
-        <section className="mb-16" id="overview">
-          <h2 className="mb-6 text-3xl font-semibold">What is KasiPOS?</h2>
-          <p className="mb-8 text-[16px] leading-relaxed text-[hsl(var(--foreground))/0.7]">
-            KasiPOS is a specialized retail management platform built to bridge the gap between
-            traditional informal trade and modern digital commerce. Unlike generic POS systems,
-            KasiPOS is architected with a deep understanding of the unique challenges faced in
-            the Kasi economy ranging from intermittent power supply to expensive or unreliable
-            data connectivity.
-          </p>
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div className="rounded-xl border border-[hsl(var(--border))] p-6">
-              <div className="mb-4 inline-flex rounded-lg bg-[hsl(var(--muted))] p-2 text-[hsl(var(--primary))]"><Package size={18} /></div>
-              <h3 className="mb-2 text-[15px] font-semibold">Smart Inventory</h3>
-              <p className="text-[14px] text-[hsl(var(--foreground))/0.7]">Automatic reorder alerts and real-time tracking across multiple locations.</p>
-            </div>
-            <div className="rounded-xl border border-[hsl(var(--border))] p-6">
-              <div className="mb-4 inline-flex rounded-lg bg-[hsl(var(--muted))] p-2 text-[hsl(var(--primary))]"><CreditCard size={18} /></div>
-              <h3 className="mb-2 text-[15px] font-semibold">Omni-Channel Pay</h3>
-              <p className="text-[14px] text-[hsl(var(--foreground))/0.7]">Integrated support for card payments, mobile wallets, and cash reconciliation.</p>
-            </div>
-          </div>
-        </section>
+KasiPOS is a specialized retail management platform built to bridge the gap between traditional informal trade and modern digital commerce. Unlike generic POS systems, KasiPOS is architected with a deep understanding of the unique challenges faced in the Kasi economy—ranging from intermittent power supply to expensive or unreliable data connectivity.
 
-        <section className="mb-16" id="offline">
-          <h2 className="mb-6 text-3xl font-semibold">Offline-First Strategy</h2>
-          <p className="mb-8 text-[16px] leading-relaxed text-[hsl(var(--foreground))/0.7]">
-            Traditional cloud-based systems fail when the internet drops. KasiPOS utilizes a
-            local-first synchronization engine that ensures your business never stops, even during
-            extended downtime.
-          </p>
-          <div className="flex gap-4 rounded-xl border border-[hsl(var(--primary))/0.2] bg-[hsl(var(--accent))] p-5">
-            <Info size={18} className="mt-0.5 text-[hsl(var(--primary))]" />
-            <div>
-              <h4 className="mb-1 text-[14px] font-semibold text-[hsl(var(--primary))]">Local Sync Engine</h4>
-              <p className="text-[14px] leading-relaxed text-[hsl(var(--foreground))/0.7]">
-                Every transaction is encrypted and stored locally in a secure IndexedDB instance.
-                As soon as a connection is detected, the system performs a bidirectional delta
-                sync to merge your data with the central cloud.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        <section className="mb-16" id="features">
-          <h2 className="mb-6 text-3xl font-semibold">Key Features</h2>
-          <ul className="space-y-6">
-            <li className="flex items-start gap-4">
-              <div className="mt-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-500"><Check size={12} /></div>
-              <div className="text-[16px]"><strong>Zero-Latency Transactions:</strong> <span className="text-[hsl(var(--foreground))/0.7]">UI interactions are handled locally, providing a sub-50ms response time for every barcode scan.</span></div>
-            </li>
-            <li className="flex items-start gap-4">
-              <div className="mt-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-500"><Check size={12} /></div>
-              <div className="text-[16px]"><strong>Automated Financial Reporting:</strong> <span className="text-[hsl(var(--foreground))/0.7]">Daily Z-reports and monthly P&amp;L statements generated automatically.</span></div>
-            </li>
-            <li className="flex items-start gap-4">
-              <div className="mt-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-500"><Check size={12} /></div>
-              <div className="text-[16px]"><strong>Multi-Device Mesh:</strong> <span className="text-[hsl(var(--foreground))/0.7]">Devices in the same store can share data locally over Wi-Fi even without an external internet gateway.</span></div>
-            </li>
-          </ul>
-        </section>
-
-        <footer className="mt-12 border-t border-[hsl(var(--border))] pt-12" id="next-steps">
-          <div className="flex items-center justify-between">
-            <a className="group flex flex-col gap-1 text-left" href="/docs/home">
-              <span className="text-[12px] text-[hsl(var(--foreground))/0.65] group-hover:text-[hsl(var(--foreground))]">Previous</span>
-              <div className="flex items-center gap-2 font-semibold"><ArrowLeft size={16} /> Home</div>
-            </a>
-            <a className="group flex flex-col gap-1 text-right" href="/docs/getting-started/installation">
-              <span className="text-[12px] text-[hsl(var(--foreground))/0.65] group-hover:text-[hsl(var(--foreground))]">Next</span>
-              <div className="flex items-center gap-2 font-semibold text-[hsl(var(--primary))]">Installation Guide <ArrowRight size={16} /></div>
-            </a>
-          </div>
-          <div className="mt-16 text-center">
-            <p className="text-[12px] text-[hsl(var(--foreground))/0.65]">© 2024 KasiPOS Platform. Built for the community.</p>
-          </div>
-        </footer>
-      </div>
-    </main>
-
-    <aside className="fixed bottom-0 right-0 top-14 hidden w-[240px] overflow-y-auto px-8 pt-16 xl:block">
-      <h5 className="mb-4 text-[11px] font-bold uppercase tracking-wider">On this page</h5>
-      <nav className="flex flex-col gap-3">
-        <a className="text-[13px] font-medium text-[hsl(var(--primary))]" href="#overview">Overview</a>
-        <a className="text-[13px] text-[hsl(var(--foreground))/0.65] hover:text-[hsl(var(--foreground))]" href="#offline">Offline Strategy</a>
-        <a className="text-[13px] text-[hsl(var(--foreground))/0.65] hover:text-[hsl(var(--foreground))]" href="#features">Key Features</a>
-        <a className="text-[13px] text-[hsl(var(--foreground))/0.65] hover:text-[hsl(var(--foreground))]" href="#next-steps">Next Steps</a>
-      </nav>
-    </aside>
+<div className="grid gap-4 sm:grid-cols-2 my-8">
+  <div className="rounded-xl border border-[hsl(var(--border))] p-6">
+    <div className="mb-4 inline-flex rounded-lg bg-[hsl(var(--muted))] p-2 text-[hsl(var(--primary))]">
+      <Package size={18} />
+    </div>
+    <h3 className="mb-2 text-[15px] font-semibold">Smart Inventory</h3>
+    <div className="text-[14px] text-[hsl(var(--foreground))/0.7]">
+      Automatic reorder alerts and real-time tracking across multiple locations.
+    </div>
+  </div>
+  <div className="rounded-xl border border-[hsl(var(--border))] p-6">
+    <div className="mb-4 inline-flex rounded-lg bg-[hsl(var(--muted))] p-2 text-[hsl(var(--primary))]">
+      <CreditCard size={18} />
+    </div>
+    <h3 className="mb-2 text-[15px] font-semibold">Omni-Channel Pay</h3>
+    <div className="text-[14px] text-[hsl(var(--foreground))/0.7]">
+      Integrated support for card payments, mobile wallets, and cash reconciliation.
+    </div>
   </div>
 </div>
+
+## Offline-First Strategy
+
+Traditional cloud-based systems fail when the internet drops. KasiPOS utilizes a local-first synchronization engine that ensures your business never stops, even during extended downtime.
+
+<div className="flex gap-4 rounded-xl border border-[hsl(var(--primary))/0.2] bg-[hsl(var(--accent))] p-5 my-8">
+  <Info size={18} className="mt-0.5 text-[hsl(var(--primary))]" />
+  <div>
+    <h4 className="mb-1 text-[14px] font-semibold text-[hsl(var(--primary))]">Local Sync Engine</h4>
+    <p className="text-[14px] leading-relaxed text-[hsl(var(--foreground))/0.7]">
+      Every transaction is encrypted and stored locally in a secure IndexedDB instance. As soon as a connection is detected, the system performs a bidirectional delta sync to merge your data with the central cloud.
+    </p>
+  </div>
+</div>
+
+## Key Features
+
+*   **Zero-Latency Transactions:** UI interactions are handled locally, providing a sub-50ms response time for every barcode scan.
+*   **Automated Financial Reporting:** Daily Z-reports and monthly P&L statements generated automatically.
+*   **Multi-Device Mesh:** Devices in the same store can share data locally over Wi-Fi even without an external internet gateway.

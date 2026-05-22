@@ -19,11 +19,15 @@ const STORAGE_KEY = 'kasipos-docs-lang'
 
 export function LanguageButton() {
   const [open, setOpen] = useState(false)
-  const [lang, setLang] = useState(() => {
-    if (typeof window === 'undefined') return 'en'
-    return window.localStorage.getItem(STORAGE_KEY) ?? 'en'
-  })
+  const [mounted, setMounted] = useState(false)
+  const [lang, setLang] = useState('en')
   const rootRef = useRef<HTMLDivElement | null>(null)
+
+  useEffect(() => {
+    setMounted(true)
+    const saved = window.localStorage.getItem(STORAGE_KEY)
+    if (saved) setLang(saved)
+  }, [])
 
   useEffect(() => {
     if (!open) return

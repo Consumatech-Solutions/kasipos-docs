@@ -501,3 +501,70 @@ body {
     grid-template-columns: 280px 1fr;
   }
 }
+
+/* Sidebar and Mobile Backdrop styles */
+.custom-sidebar {
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html.sidebar-open {
+  overflow: hidden;
+}
+
+html.sidebar-open .custom-sidebar {
+  transform: translateX(0);
+}
+
+html.sidebar-open .sidebar-backdrop {
+  display: block;
+}
+
+/* Hide default Nextra default elements that we customized */
+.nextra-breadcrumb,
+.nextra-toc-desktop {
+  display: none !important;
+}
+
+/* --- Premium Custom Scrollbars --- */
+/* Firefox Scrollbar styling */
+.custom-sidebar,
+aside,
+main {
+  scrollbar-width: thin;
+  scrollbar-color: hsl(var(--border)) transparent;
+}
+
+/* Chrome, Safari, and Edge scrollbar styling */
+.custom-sidebar::-webkit-scrollbar,
+aside::-webkit-scrollbar,
+main::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.custom-sidebar::-webkit-scrollbar-track,
+aside::-webkit-scrollbar-track,
+main::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-sidebar::-webkit-scrollbar-thumb,
+aside::-webkit-scrollbar-thumb,
+main::-webkit-scrollbar-thumb {
+  background: hsl(var(--border));
+  border-radius: 99px;
+  transition: background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Hover effects for a premium interactive feel */
+.custom-sidebar:hover::-webkit-scrollbar-thumb,
+aside:hover::-webkit-scrollbar-thumb {
+  background: hsl(var(--secondary) / 0.35);
+}
+
+.custom-sidebar::-webkit-scrollbar-thumb:hover,
+aside::-webkit-scrollbar-thumb:hover,
+main::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--secondary)) !important;
+}
+
