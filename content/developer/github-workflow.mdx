@@ -90,13 +90,14 @@ git push origin main`}
           <div id="create-a-branch" className="mb-8 scroll-mt-24">
             <h3 className="mb-3 text-xl font-semibold">5. Create a new branch</h3>
             <div className="mb-4 text-[15px] leading-relaxed text-[hsl(var(--foreground))/0.75]">
-              Create one branch for one focused change. This keeps your contribution easier to review and reduces conflicts with other work.
+              Create one branch for one focused change in KasiPOS. If the change is documentation, name the branch with <code>docs/name_of_branch</code>. If the change is a feature, name it with <code>feat/name_of_branch</code>. This keeps your contribution easier to review and reduces conflicts with other work.
             </div>
             <pre className="mb-4 overflow-x-auto rounded-lg bg-[#0f1117] p-4 text-[13px] leading-relaxed text-[#e6e0e9]">
-{`git checkout -b docs/github-workflow-guide`}
+{`git checkout -b docs/github-workflow-guide
+git checkout -b feat/sales-report-filter`}
             </pre>
             <div className="text-[15px] leading-relaxed text-[hsl(var(--foreground))/0.75]">
-              Good branch names are short and descriptive, such as <code>fix/login-validation</code>, <code>docs/install-steps</code>, or <code>feature/sales-report-filter</code>.
+              Replace <code>name_of_branch</code> with a short, descriptive name that explains the work, such as <code>docs/install-steps</code> or <code>feat/sales-report-filter</code>.
             </div>
           </div>
 
