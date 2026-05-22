@@ -5,19 +5,19 @@ import { DocBreadcrumbs, DocPageNavigation } from '@/components/docs/doc-navigat
 import { FileTree, Dir, File } from '@/components/docs/FileTree'
 import { CodeBlock } from '@/components/docs/CodeBlock'
 
-const H1: React.FC<any> = ({ children, ...props }) => (
+const H1: React.FC<React.HTMLAttributes<HTMLHeadingElement>> = ({ children, ...props }) => (
   <h1 className="mdx-h1" {...props}>{children}</h1>
 )
 
-const H2: React.FC<any> = ({ children, ...props }) => (
+const H2: React.FC<React.HTMLAttributes<HTMLHeadingElement>> = ({ children, ...props }) => (
   <h2 className="mdx-h2" {...props}>{children}</h2>
 )
 
-const H3: React.FC<any> = ({ children, ...props }) => (
+const H3: React.FC<React.HTMLAttributes<HTMLHeadingElement>> = ({ children, ...props }) => (
   <h3 className="mdx-h3" {...props}>{children}</h3>
 )
 
-const Table: React.FC<any> = ({ children }) => (
+const Table: React.FC<{ children: React.ReactNode }> = ({ children }) => (
   <div className="mdx-table-wrapper">
     <table>{children}</table>
   </div>

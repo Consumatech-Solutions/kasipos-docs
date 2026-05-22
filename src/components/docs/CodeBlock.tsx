@@ -3,7 +3,7 @@
 import React from 'react'
 import { ClipboardCopy, Check } from 'lucide-react'
 
-export const CodeBlock: React.FC<any> = ({ children, ...props }) => {
+export const CodeBlock: React.FC<React.ComponentPropsWithoutRef<'div'> & { 'data-language'?: string }> = ({ children, ...props }) => {
   const [copied, setCopied] = React.useState(false)
   const preRef = React.useRef<HTMLPreElement>(null)
 

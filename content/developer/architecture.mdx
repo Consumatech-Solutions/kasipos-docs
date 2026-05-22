@@ -61,7 +61,7 @@ KasiPOS was originally designed around a classic monorepo structure. To eliminat
 | Monorepo Concept | Current Implementation | Rationale |
 |---|---|---|
 | `apps/` (multiple apps) | `src/app/` (Next.js App Router) | Focused on in-store POS operations; admin and mobile can be separate repos if ever needed |
-| `packages/shared-ui` | `src/components/ui/` + Radix UI | Component library lives inline — no external package compilation overhead |
+| `packages/shared-ui` | `src/components/ui/` + Radix UI | Component library lives inline - no external package compilation overhead |
 | `packages/api-clients` | `src/lib/api/` | API layer is domain-specific to POS operations |
 | `packages/utilities` | `src/lib/utils/` + `src/lib/services/` | Utilities co-located with their usage contexts |
 | `packages/types` | `src/types/` | Shared TypeScript definitions for the entire application |

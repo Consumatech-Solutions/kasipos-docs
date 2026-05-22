@@ -18,14 +18,16 @@ export function ThemeToggleButton() {
   const [theme, setTheme] = useState<ThemeMode>('light')
 
   useEffect(() => {
-    setMounted(true)
-    const saved = window.localStorage.getItem(STORAGE_KEY) as ThemeMode | null
-    if (saved) {
-      setTheme(saved)
-    } else {
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-      setTheme(prefersDark ? 'dark' : 'light')
-    }
+    setTimeout(() => {
+      setMounted(true)
+      const saved = window.localStorage.getItem(STORAGE_KEY) as ThemeMode | null
+      if (saved) {
+        setTheme(saved)
+      } else {
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+        setTheme(prefersDark ? 'dark' : 'light')
+      }
+    }, 0)
   }, [])
 
   useEffect(() => {

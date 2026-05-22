@@ -33,7 +33,7 @@ const Dir: React.FC<DirProps> = ({ name, comment, children }) => {
         <span className="font-medium text-amber-500">{name}</span>
         {comment && (
           <span className="ml-3 text-[11px] text-[hsl(var(--foreground))/0.45]">
-            // {comment}
+            {"// "}{comment}
           </span>
         )}
       </div>
@@ -62,7 +62,7 @@ const File: React.FC<FileProps> = ({ name, comment, highlight }) => {
       </span>
       {comment && (
         <span className="ml-3 text-[11px] text-[hsl(var(--foreground))/0.45]">
-          // {comment}
+          {"// "}{comment}
         </span>
       )}
     </div>

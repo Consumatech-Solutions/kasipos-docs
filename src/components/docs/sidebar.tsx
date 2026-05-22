@@ -3,8 +3,8 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import { ChevronDown, ChevronRight, Menu, X, BookOpen, Terminal, Rocket, HelpCircle } from 'lucide-react'
-import { SIDEBAR_STRUCTURE, FLAT_PAGES } from './sidebar-config'
+import { ChevronDown, ChevronRight, X, BookOpen, Terminal, Rocket, HelpCircle } from 'lucide-react'
+import { SIDEBAR_STRUCTURE } from './sidebar-config'
 
 const STORAGE_KEY = 'kasipos-docs-expanded'
 
@@ -41,20 +41,20 @@ export function Sidebar() {
       defaultState[cat.category] = hasActive
     })
 
-    try {
-      const saved = window.localStorage.getItem(STORAGE_KEY)
-      if (saved) {
-        const parsed = JSON.parse(saved)
-        // Merge so active path is always expanded
-        setExpanded({ ...parsed, ...defaultState })
-      } else {
-        // Expand active category or Getting Started by default
-        defaultState['Getting Started'] = true
+    setTimeout(() => {
+      try {
+        const saved = window.localStorage.getItem(STORAGE_KEY)
+        if (saved) {
+          const parsed = JSON.parse(saved)
+          setExpanded((prev) => ({ ...parsed, ...prev, ...defaultState }))
+        } else {
+          defaultState['Getting Started'] = true
+          setExpanded(defaultState)
+        }
+      } catch {
         setExpanded(defaultState)
       }
-    } catch {
-      setExpanded(defaultState)
-    }
+    }, 0)
   }, [pathname])
 
   const toggleCategory = (categoryName: string) => {
