@@ -40,6 +40,7 @@ export const SIDEBAR_STRUCTURE: SidebarCategory[] = [
     pages: [
       { title: 'Developer Overview', path: '/docs/developer/overview' },
       { title: 'Project Architecture', path: '/docs/developer/architecture' },
+      { title: 'GitHub Workflow Guide', path: '/docs/developer/github-workflow' },
       { title: 'Contributing Guidelines', path: '/docs/contributing' },
       { title: 'Email Administration', path: '/docs/developer/managing-emails' }
     ]

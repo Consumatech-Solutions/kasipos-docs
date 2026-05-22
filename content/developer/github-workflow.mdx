@@ -1,0 +1,253 @@
+---
+title: GitHub Workflow Guide
+description: Beginner-friendly GitHub contribution workflow for KasiPOS contributors.
+fullWidth: true
+---
+
+import { ChevronRight } from 'lucide-react'
+
+<div className="bg-[hsl(var(--background))] text-[hsl(var(--foreground))]">
+  <div className="flex">
+    <main className="min-h-screen flex-1 pb-20">
+      <div className="max-w-[720px]">
+        <nav className="mb-6 flex items-center gap-2 text-[12px] text-[hsl(var(--foreground))/0.45]">
+          <span>Developer Guide</span>
+          <ChevronRight size={14} />
+          <span className="font-medium text-[hsl(var(--foreground))]">GitHub Workflow Guide</span>
+        </nav>
+
+        <header className="mb-10">
+          <h1 className="mb-4 text-[40px] font-extrabold tracking-tight">GitHub Workflow Guide for KasiPOS Contributors</h1>
+          <div className="text-[17px] leading-relaxed text-[hsl(var(--foreground))/0.7]">
+            This guide helps new contributors understand how to contribute to KasiPOS using GitHub, from creating a fork to opening a pull request for review.
+          </div>
+        </header>
+
+        <section id="introduction" className="mb-10 scroll-mt-24">
+          <h2 className="mb-3 text-2xl font-semibold">Introduction</h2>
+          <div className="text-[15px] leading-relaxed text-[hsl(var(--foreground))/0.75]">
+            KasiPOS is an open-source project, which means contributors can suggest improvements, fix bugs, update documentation, and add features through GitHub. This page explains the complete contribution workflow in beginner-friendly steps so you can work confidently and keep your changes easy to review.
+          </div>
+        </section>
+
+        <section id="repository-workflow" className="mb-10 scroll-mt-24">
+          <h2 className="mb-4 text-2xl font-semibold">Repository Workflow</h2>
+
+          <div id="fork-the-repository" className="mb-8 scroll-mt-24">
+            <h3 className="mb-3 text-xl font-semibold">1. Fork the repository</h3>
+            <div className="mb-4 text-[15px] leading-relaxed text-[hsl(var(--foreground))/0.75]">
+              A fork is your own copy of the KasiPOS repository on GitHub. Forking lets you make changes without affecting the main project. You will push your work to your fork first, then ask the KasiPOS maintainers to review it through a pull request.
+            </div>
+            <ol className="list-decimal space-y-1 pl-5 text-[15px] text-[hsl(var(--foreground))/0.75]">
+              <li>Open the KasiPOS repository on GitHub.</li>
+              <li>Click the <strong>Fork</strong> button.</li>
+              <li>Choose your GitHub account as the destination.</li>
+            </ol>
+          </div>
+
+          <div id="clone-the-project" className="mb-8 scroll-mt-24">
+            <h3 className="mb-3 text-xl font-semibold">2. Clone the project</h3>
+            <div className="mb-4 text-[15px] leading-relaxed text-[hsl(var(--foreground))/0.75]">
+              Cloning downloads your fork to your local machine so you can open it in VS Code, install dependencies, run the Next.js app, and make changes.
+            </div>
+            <pre className="mb-4 overflow-x-auto rounded-lg bg-[#0f1117] p-4 text-[13px] leading-relaxed text-[#e6e0e9]">
+{`git clone https://github.com/YOUR_USERNAME/KasiPOS.git`}
+            </pre>
+            <div className="text-[15px] leading-relaxed text-[hsl(var(--foreground))/0.75]">
+              Replace <code>YOUR_USERNAME</code> with your GitHub username. After cloning, move into the project folder.
+            </div>
+            <pre className="mt-4 overflow-x-auto rounded-lg bg-[#0f1117] p-4 text-[13px] leading-relaxed text-[#e6e0e9]">
+{`cd KasiPOS`}
+            </pre>
+          </div>
+
+          <div id="add-upstream" className="mb-8 scroll-mt-24">
+            <h3 className="mb-3 text-xl font-semibold">3. Add the original repository as upstream</h3>
+            <div className="mb-4 text-[15px] leading-relaxed text-[hsl(var(--foreground))/0.75]">
+              The upstream remote points to the main KasiPOS repository. Keeping this remote makes it easier to pull the latest project changes into your fork before starting new work.
+            </div>
+            <pre className="mb-4 overflow-x-auto rounded-lg bg-[#0f1117] p-4 text-[13px] leading-relaxed text-[#e6e0e9]">
+{`git remote add upstream https://github.com/ORIGINAL_OWNER/KasiPOS.git
+git remote -v`}
+            </pre>
+            <div className="text-[15px] leading-relaxed text-[hsl(var(--foreground))/0.75]">
+              Replace <code>ORIGINAL_OWNER</code> with the GitHub organization or account that owns the main KasiPOS repository.
+            </div>
+          </div>
+
+          <div id="sync-your-fork" className="mb-8 scroll-mt-24">
+            <h3 className="mb-3 text-xl font-semibold">4. Sync your fork before starting</h3>
+            <div className="mb-4 text-[15px] leading-relaxed text-[hsl(var(--foreground))/0.75]">
+              Before creating a new branch, update your local main branch so your work starts from the latest available version.
+            </div>
+            <pre className="overflow-x-auto rounded-lg bg-[#0f1117] p-4 text-[13px] leading-relaxed text-[#e6e0e9]">
+{`git checkout main
+git pull upstream main
+git push origin main`}
+            </pre>
+          </div>
+
+          <div id="create-a-branch" className="mb-8 scroll-mt-24">
+            <h3 className="mb-3 text-xl font-semibold">5. Create a new branch</h3>
+            <div className="mb-4 text-[15px] leading-relaxed text-[hsl(var(--foreground))/0.75]">
+              Create one branch for one focused change in KasiPOS. If the change is documentation, name the branch with <code>docs/name_of_branch</code>. If the change is a feature, name it with <code>feat/name_of_branch</code>. This keeps your contribution easier to review and reduces conflicts with other work.
+            </div>
+            <pre className="mb-4 overflow-x-auto rounded-lg bg-[#0f1117] p-4 text-[13px] leading-relaxed text-[#e6e0e9]">
+{`git checkout -b docs/github-workflow-guide
+git checkout -b feat/sales-report-filter`}
+            </pre>
+            <div className="text-[15px] leading-relaxed text-[hsl(var(--foreground))/0.75]">
+              Replace <code>name_of_branch</code> with a short, descriptive name that explains the work, such as <code>docs/install-steps</code> or <code>feat/sales-report-filter</code>.
+            </div>
+          </div>
+
+          <div id="make-changes" className="mb-8 scroll-mt-24">
+            <h3 className="mb-3 text-xl font-semibold">6. Make and review your changes</h3>
+            <div className="mb-4 text-[15px] leading-relaxed text-[hsl(var(--foreground))/0.75]">
+              Make your code or documentation changes in VS Code. Keep the change focused on the issue or improvement you are working on. If the update affects the user interface, take screenshots so reviewers can see the result quickly.
+            </div>
+            <pre className="overflow-x-auto rounded-lg bg-[#0f1117] p-4 text-[13px] leading-relaxed text-[#e6e0e9]">
+{`git status
+git diff`}
+            </pre>
+          </div>
+
+          <div id="test-locally" className="mb-8 scroll-mt-24">
+            <h3 className="mb-3 text-xl font-semibold">7. Test locally</h3>
+            <div className="mb-4 text-[15px] leading-relaxed text-[hsl(var(--foreground))/0.75]">
+              Run the project checks before committing. For this documentation site, use the available Next.js project scripts.
+            </div>
+            <pre className="mb-4 overflow-x-auto rounded-lg bg-[#0f1117] p-4 text-[13px] leading-relaxed text-[#e6e0e9]">
+{`npm install
+npm run lint
+npm run build`}
+            </pre>
+            <div className="text-[15px] leading-relaxed text-[hsl(var(--foreground))/0.75]">
+              If your change touches the main KasiPOS application, also run the relevant app-specific tests and manually check the affected screens.
+            </div>
+          </div>
+
+          <div id="commit-changes" className="mb-8 scroll-mt-24">
+            <h3 className="mb-3 text-xl font-semibold">8. Commit your changes</h3>
+            <div className="mb-4 text-[15px] leading-relaxed text-[hsl(var(--foreground))/0.75]">
+              A commit saves a snapshot of your changes. Use a clear message that explains what changed.
+            </div>
+            <pre className="mb-4 overflow-x-auto rounded-lg bg-[#0f1117] p-4 text-[13px] leading-relaxed text-[#e6e0e9]">
+{`git add .
+git commit -m "docs: add GitHub workflow guide"`}
+            </pre>
+            <div className="text-[15px] leading-relaxed text-[hsl(var(--foreground))/0.75]">
+              Before committing, check <code>git status</code> and make sure you are only including files related to your contribution.
+            </div>
+          </div>
+
+          <div id="push-branch" className="mb-8 scroll-mt-24">
+            <h3 className="mb-3 text-xl font-semibold">9. Push your branch</h3>
+            <div className="mb-4 text-[15px] leading-relaxed text-[hsl(var(--foreground))/0.75]">
+              Pushing uploads your branch to your GitHub fork so you can open a pull request.
+            </div>
+            <pre className="overflow-x-auto rounded-lg bg-[#0f1117] p-4 text-[13px] leading-relaxed text-[#e6e0e9]">
+{`git push origin docs/github-workflow-guide`}
+            </pre>
+          </div>
+
+          <div id="open-pull-request" className="mb-8 scroll-mt-24">
+            <h3 className="mb-3 text-xl font-semibold">10. Open a pull request</h3>
+            <div className="mb-4 text-[15px] leading-relaxed text-[hsl(var(--foreground))/0.75]">
+              A pull request asks the KasiPOS maintainers to review and merge your branch into the main repository. On GitHub, open your fork, choose your branch, and create a pull request into the KasiPOS main branch.
+            </div>
+            <div className="mb-4 rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--muted))/0.45] p-4">
+              <h4 className="mb-2 text-[15px] font-semibold">Pull request steps for the KasiPOS app</h4>
+              <ol className="list-decimal space-y-2 pl-5 text-[15px] leading-relaxed text-[hsl(var(--foreground))/0.75]">
+                <li>Go to your fork on GitHub and open the branch you pushed, such as <code>docs/github-workflow-guide</code> or <code>fix/checkout-total</code>.</li>
+                <li>Click <strong>Compare & pull request</strong>. If GitHub does not show the button, open the <strong>Pull requests</strong> tab and choose <strong>New pull request</strong>.</li>
+                <li>Set the base repository to the main KasiPOS repository and the base branch to <code>main</code>. Set the compare branch to your fork branch.</li>
+                <li>Use a clear title, for example <code>fix: correct checkout tax calculation</code> or <code>docs: update installation steps</code>.</li>
+                <li>In the description, explain what changed, why it was needed, and which part of the KasiPOS app is affected.</li>
+                <li>Add your test evidence. Include commands such as <code>npm run lint</code>, <code>npm run build</code>, or any app-specific checks you ran.</li>
+                <li>If the change affects screens, attach screenshots or a short recording of the before and after state.</li>
+                <li>Submit the pull request and wait for maintainer review. Keep pushing fixes to the same branch if reviewers request changes.</li>
+              </ol>
+            </div>
+            <div className="mb-4 text-[15px] leading-relaxed text-[hsl(var(--foreground))/0.75]">
+              A strong KasiPOS pull request is small, focused, and easy to verify. Avoid mixing unrelated work, such as updating documentation and changing checkout logic, in the same pull request unless they are part of the same issue.
+            </div>
+            <ul className="list-disc space-y-1 pl-5 text-[15px] text-[hsl(var(--foreground))/0.75]">
+              <li>Use a short title that describes the change.</li>
+              <li>Explain what problem the pull request solves.</li>
+              <li>List the commands you ran to test the change.</li>
+              <li>Add screenshots or recordings for UI changes.</li>
+              <li>Link related issues when available.</li>
+            </ul>
+          </div>
+
+          <div id="review-feedback" className="scroll-mt-24">
+            <h3 className="mb-3 text-xl font-semibold">11. Respond to review feedback</h3>
+            <div className="mb-4 text-[15px] leading-relaxed text-[hsl(var(--foreground))/0.75]">
+              Maintainers may ask questions or request changes. Update your branch locally, commit the fixes, and push again. GitHub automatically updates the same pull request.
+            </div>
+            <pre className="overflow-x-auto rounded-lg bg-[#0f1117] p-4 text-[13px] leading-relaxed text-[#e6e0e9]">
+{`git add .
+git commit -m "docs: address review feedback"
+git push origin docs/github-workflow-guide`}
+            </pre>
+          </div>
+        </section>
+
+        <section id="pull-request-checklist" className="mb-10 scroll-mt-24">
+          <h2 className="mb-3 text-2xl font-semibold">Pull Request Checklist</h2>
+          <ul className="list-disc space-y-1 pl-5 text-[15px] text-[hsl(var(--foreground))/0.75]">
+            <li>The branch contains one focused change.</li>
+            <li>The code or documentation is clear and consistent with the project style.</li>
+            <li>Local checks have been run and any failures are explained.</li>
+            <li>The pull request description explains the change, testing, and impact.</li>
+            <li>Screenshots or recordings are attached for visual changes.</li>
+          </ul>
+        </section>
+
+        <section id="common-commands" className="mb-10 scroll-mt-24">
+          <h2 className="mb-3 text-2xl font-semibold">Common Git Commands</h2>
+          <div className="overflow-hidden rounded-lg border border-[hsl(var(--border))]">
+            <div className="grid grid-cols-1 border-b border-[hsl(var(--border))] md:grid-cols-[190px_1fr]">
+              <div className="bg-[hsl(var(--muted))] px-4 py-3 font-mono text-[13px]">git status</div>
+              <div className="px-4 py-3 text-[13px] text-[hsl(var(--foreground))/0.75]">Show changed files and staged files.</div>
+            </div>
+            <div className="grid grid-cols-1 border-b border-[hsl(var(--border))] md:grid-cols-[190px_1fr]">
+              <div className="bg-[hsl(var(--muted))] px-4 py-3 font-mono text-[13px]">git diff</div>
+              <div className="px-4 py-3 text-[13px] text-[hsl(var(--foreground))/0.75]">Review unstaged changes before committing.</div>
+            </div>
+            <div className="grid grid-cols-1 border-b border-[hsl(var(--border))] md:grid-cols-[190px_1fr]">
+              <div className="bg-[hsl(var(--muted))] px-4 py-3 font-mono text-[13px]">git branch</div>
+              <div className="px-4 py-3 text-[13px] text-[hsl(var(--foreground))/0.75]">List local branches and confirm where you are working.</div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-[190px_1fr]">
+              <div className="bg-[hsl(var(--muted))] px-4 py-3 font-mono text-[13px]">git log --oneline</div>
+              <div className="px-4 py-3 text-[13px] text-[hsl(var(--foreground))/0.75]">View recent commits in a compact format.</div>
+            </div>
+          </div>
+        </section>
+
+        <section id="contribution-tips" className="scroll-mt-24">
+          <h2 className="mb-3 text-2xl font-semibold">Contribution Tips</h2>
+          <ul className="list-disc space-y-1 pl-5 text-[15px] text-[hsl(var(--foreground))/0.75]">
+            <li>Start with documentation, small bug fixes, or clearly scoped issues if you are new to the project.</li>
+            <li>Ask questions early when requirements are unclear.</li>
+            <li>Keep pull requests small enough for maintainers to review carefully.</li>
+            <li>Be patient and respectful during review. Feedback improves the project and helps contributors learn the codebase.</li>
+          </ul>
+        </section>
+      </div>
+    </main>
+
+    <aside className="fixed right-[max(0px,calc(50%-700px))] top-14 hidden h-[calc(100vh-3.5rem)] w-64 overflow-y-auto px-8 py-10 xl:block">
+      <h4 className="mb-6 text-[11px] font-bold uppercase tracking-widest text-[hsl(var(--foreground))/0.45]">On this page</h4>
+      <nav className="flex flex-col gap-3">
+        <a className="-ml-[2px] border-l-2 border-[hsl(var(--secondary))] pl-4 text-[13px] font-medium" href="#introduction">Introduction</a>
+        <a className="pl-4 text-[13px] text-[hsl(var(--foreground))/0.65] hover:text-[hsl(var(--foreground))]" href="#repository-workflow">Repository Workflow</a>
+        <a className="pl-4 text-[13px] text-[hsl(var(--foreground))/0.65] hover:text-[hsl(var(--foreground))]" href="#pull-request-checklist">Pull Request Checklist</a>
+        <a className="pl-4 text-[13px] text-[hsl(var(--foreground))/0.65] hover:text-[hsl(var(--foreground))]" href="#common-commands">Common Git Commands</a>
+        <a className="pl-4 text-[13px] text-[hsl(var(--foreground))/0.65] hover:text-[hsl(var(--foreground))]" href="#contribution-tips">Contribution Tips</a>
+      </nav>
+    </aside>
+  </div>
+</div>
