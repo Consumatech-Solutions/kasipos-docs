@@ -1,10 +1,14 @@
 'use client'
 
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { Search, Menu } from 'lucide-react'
 import { LanguageButton } from '@/components/docs/language-button'
 import { ThemeToggleButton } from '@/components/docs/theme-toggle-button'
 
 export function DocsNavbar() {
+  const pathname = usePathname()
+
   const toggleMobileSidebar = () => {
     document.documentElement.classList.add('sidebar-open')
   }
@@ -21,9 +25,21 @@ export function DocsNavbar() {
           >
             <Menu size={20} />
           </button>
-          <a href="/docs/home" className="text-sm font-bold tracking-tight">
+          <Link href="/docs/home" className="text-sm font-bold tracking-tight">
             KasiPOS Docs
-          </a>
+          </Link>
+          <nav className="hidden items-center gap-1 md:flex">
+            <Link
+              href="/docs/developer/github-workflow"
+              className={`rounded-md px-2.5 py-1.5 text-[13px] font-medium transition-colors ${
+                pathname === '/docs/developer/github-workflow'
+                  ? 'bg-[hsl(var(--accent))] text-[hsl(var(--secondary))]'
+                  : 'text-[hsl(var(--foreground))/0.68] hover:bg-[hsl(var(--muted))] hover:text-[hsl(var(--foreground))]'
+              }`}
+            >
+              GitHub Workflow
+            </Link>
+          </nav>
         </div>
         <div className="flex items-center gap-4">
           <div className="hidden items-center rounded border border-[hsl(var(--border))] bg-[hsl(var(--muted))] px-2 py-1 sm:flex">

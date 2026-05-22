@@ -6,6 +6,7 @@ const withNextra = nextra({
 })
 
 export default withNextra({
+  allowedDevOrigins: ['192.168.56.1'],
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx']
 })
 

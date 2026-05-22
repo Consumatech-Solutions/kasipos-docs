@@ -1,9 +1,7 @@
 const meta = {
-  architecture: 'Architecture',
-  contributing: 'Contributing',
-  'github-workflow': 'GitHub Workflow Guide'
   overview: 'Developer Overview',
   architecture: 'Project Architecture',
+  'github-workflow': 'GitHub Workflow Guide',
   'managing-emails': 'Email Administration'
 }
 
