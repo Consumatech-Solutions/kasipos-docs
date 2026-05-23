@@ -1,17 +1,75 @@
 ---
 title: Installation
-description: Install KasiPOS locally.
+description: Install and run the KasiPOS documentation site locally.
 ---
 
 # Installation
 
-## Requirements
+This guide walks you through running the **KasiPOS documentation website** on your machine. You will clone the repo, install dependencies with npm, and start the Next.js development server.
 
-- Node.js 20+
-- npm 10+
+## Prerequisites
 
-## Steps
+Install these tools before you begin:
 
-1. Install dependencies.
-2. Run the development server.
-3. Open the app in your browser.
+- **[Git](https://git-scm.com/downloads)** — to clone the repository.
+- **[Node.js 20.9+](https://nodejs.org)** (LTS recommended) — check with `node -v`.
+- **npm 10+** — included with Node; check with `npm -v`.
+
+Optional: a code editor such as [VS Code](https://code.visualstudio.com/).
+
+No environment variables or `.env` file are required for local development.
+
+## Clone the repository
+
+```bash
+git clone https://github.com/kasipos/kasipos-docs.git
+cd kasipos-docs
+```
+
+If you contribute via a fork, clone your fork URL instead.
+
+## Install dependencies
+
+From the project root:
+
+```bash
+npm install
+```
+
+This reads `package-lock.json` and installs the same dependency versions used by the project.
+
+## Start the development server
+
+```bash
+npm run dev
+```
+
+When the server is ready, open **[http://localhost:3000](http://localhost:3000)** in your browser. The root URL redirects into the docs; you will typically land at **`/docs/home`**.
+
+## Verify it works
+
+1. Confirm the docs home page loads at [http://localhost:3000/docs/home](http://localhost:3000/docs/home).
+2. Optional: run a production build to catch MDX or type errors early:
+
+   ```bash
+   npm run build
+   ```
+
+3. Optional: run the linter before opening a pull request:
+
+   ```bash
+   npm run lint
+   ```
+
+To serve a production build locally, run `npm run build` then `npm run start`.
+
+## Common issues
+
+- **`node: command not found` or version too old** — Install [Node.js 20 LTS](https://nodejs.org). You need **20.9.0** or higher (`node -v`).
+- **`npm install` permission errors** — Avoid `sudo npm`. Use a Node version manager (nvm, fnm, or Volta) instead.
+- **Port 3000 already in use** — Stop other apps on that port, or run `npx next dev -p 3001`.
+- **404 or blank page on `/`** — Open `/docs/home` directly; the site root redirects there.
+- **Errors after `git pull`** — Run `npm install` again, then `npm run build` and `npm run lint`.
+- **Edits not showing** — Hard-refresh the browser or restart `npm run dev`.
+
+For contributor workflow (fork, branch, pull request), see [GitHub workflow](/docs/developer/github-workflow).

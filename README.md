@@ -23,9 +23,21 @@ If Nextra or MDX are new to you, that is normal. Start by running the site local
 
 ## Installation
 
-You need **[Node.js](https://nodejs.org)** (LTS recommended) and **npm** (ships with Node).
+Follow these steps to run the documentation site on your machine.
 
-**1. Clone the repository**
+### Prerequisites
+
+Before you start, install:
+
+- **[Git](https://git-scm.com/downloads)** — to clone the repository and contribute changes.
+- **[Node.js 20.9+](https://nodejs.org)** (LTS recommended) — verify with `node -v`.
+- **npm 10+** — ships with Node; verify with `npm -v`.
+
+Optional: a code editor such as [VS Code](https://code.visualstudio.com/).
+
+This docs site does **not** require environment variables or a `.env` file for local development.
+
+### Clone the repository
 
 ```bash
 git clone https://github.com/kasipos/kasipos-docs.git
@@ -34,19 +46,21 @@ cd kasipos-docs
 
 If you use a fork, clone your fork instead and add `upstream` pointing at this repo when you want to sync.
 
-**2. Install dependencies**
+### Install dependencies
+
+From the project root:
 
 ```bash
 npm install
 ```
 
-**3. Start the development server**
+### Run the development server
 
 ```bash
 npm run dev
 ```
 
-**4. Open the site**
+### Open the site
 
 In your browser, go to **[http://localhost:3000](http://localhost:3000)**. The root URL redirects into the docs; you will typically land at **`/docs/home`**.
 
@@ -55,6 +69,18 @@ Other useful scripts:
 - **`npm run build`** — production build (catches many MDX and type issues).
 - **`npm run lint`** — ESLint.
 - **`npm run start`** — serve a production build locally (run `build` first).
+
+### Common setup issues
+
+| Problem | What to try |
+|---------|-------------|
+| `node: command not found` or version too old | Install [Node.js 20 LTS](https://nodejs.org). Ensure `node -v` reports **20.9.0** or higher. |
+| `npm install` fails (permissions / EACCES) | Do not use `sudo npm`. Fix your npm prefix or use a version manager (nvm, fnm, or Volta). |
+| Port 3000 already in use | Stop other dev servers, or run `npx next dev -p 3001` and open the URL shown in the terminal. |
+| Blank page or 404 on `/` | The root redirects to `/docs/home` — open **[http://localhost:3000/docs/home](http://localhost:3000/docs/home)** directly. |
+| MDX or build errors after pulling latest | Run `npm run build` to surface errors, then `npm run lint`. |
+| Changes not appearing in the browser | Hard-refresh the page or restart `npm run dev`. |
+| Windows path or tooling issues | Clone to a short path without special characters if scripts misbehave. |
 
 ---
 
