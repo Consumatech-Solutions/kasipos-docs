@@ -2,6 +2,26 @@ import { useMDXComponents as getThemeComponents } from 'nextra-theme-docs'
 import React from 'react'
 import { TableOfContents, TOCItem } from '@/components/docs/table-of-contents'
 import { DocBreadcrumbs, DocPageNavigation } from '@/components/docs/doc-navigation'
+import { FileTree, Dir, File } from '@/components/docs/FileTree'
+import { CodeBlock } from '@/components/docs/CodeBlock'
+
+const H1: React.FC<React.HTMLAttributes<HTMLHeadingElement>> = ({ children, ...props }) => (
+  <h1 className="mdx-h1" {...props}>{children}</h1>
+)
+
+const H2: React.FC<React.HTMLAttributes<HTMLHeadingElement>> = ({ children, ...props }) => (
+  <h2 className="mdx-h2" {...props}>{children}</h2>
+)
+
+const H3: React.FC<React.HTMLAttributes<HTMLHeadingElement>> = ({ children, ...props }) => (
+  <h3 className="mdx-h3" {...props}>{children}</h3>
+)
+
+const Table: React.FC<{ children: React.ReactNode }> = ({ children }) => (
+  <div className="mdx-table-wrapper">
+    <table>{children}</table>
+  </div>
+)
 
 // Note: Nextra expects this named export.
 // It is a plain function returning MDX component mappings (not a React hook).
@@ -43,6 +63,14 @@ export function useMDXComponents(components: unknown = {}) {
 
   return {
     ...base,
-    wrapper: MinimalWrapper
+    wrapper: MinimalWrapper,
+    FileTree,
+    Dir,
+    File,
+    h1: H1,
+    h2: H2,
+    h3: H3,
+    pre: CodeBlock,
+    table: Table
   }
 }

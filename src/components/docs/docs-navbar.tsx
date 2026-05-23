@@ -1,6 +1,7 @@
 'use client'
 
 import { Search, Menu } from 'lucide-react'
+import Link from 'next/link'
 import { LanguageButton } from '@/components/docs/language-button'
 import { ThemeToggleButton } from '@/components/docs/theme-toggle-button'
 
@@ -21,9 +22,9 @@ export function DocsNavbar() {
           >
             <Menu size={20} />
           </button>
-          <a href="/docs/home" className="text-sm font-bold tracking-tight">
+          <Link href="/docs/home" className="text-sm font-bold tracking-tight">
             KasiPOS Docs
-          </a>
+          </Link>
         </div>
         <div className="flex items-center gap-4">
           <div className="hidden items-center rounded border border-[hsl(var(--border))] bg-[hsl(var(--muted))] px-2 py-1 sm:flex">
