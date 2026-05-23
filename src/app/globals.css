@@ -504,7 +504,7 @@ body {
 
 /* Sidebar and Mobile Backdrop styles */
 .custom-sidebar {
-  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), translate 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 html.sidebar-open {
@@ -512,11 +512,16 @@ html.sidebar-open {
 }
 
 html.sidebar-open .custom-sidebar {
-  transform: translateX(0);
+  --tw-translate-x: 0 !important;
+  transform: none !important;
+  translate: none !important;
+  display: block !important;
 }
 
-html.sidebar-open .sidebar-backdrop {
-  display: block;
+@media (max-width: 1023px) {
+  html.sidebar-open .sidebar-backdrop {
+    display: block;
+  }
 }
 
 /* Hide default Nextra default elements that we customized */

@@ -488,7 +488,7 @@ KasiPOS uses two complementary state layers — each optimized for a different t
 <div className="flex gap-4 rounded-lg border border-[hsl(var(--primary))/0.25] bg-[hsl(var(--accent))] p-4 my-6">
   <Info size={18} className="text-[hsl(var(--primary))] mt-0.5 flex-shrink-0" />
   <div>
-    <p className="mb-1 text-[13px] font-bold">Architecture Note</p>
+    <div className="mb-1 text-[13px] font-bold">Architecture Note</div>
     <div className="text-[13px] text-[hsl(var(--foreground))/0.7]">
       The synchronization layer uses a background worker (<code>cloud-data-pull.ts</code>) to push locally-stored records to the cloud once connectivity is restored. The mutation queue ensures no write operation is ever dropped during an offline session.
     </div>

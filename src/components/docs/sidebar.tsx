@@ -34,6 +34,9 @@ export function Sidebar() {
   useEffect(() => {
     if (typeof window === 'undefined') return
 
+    // Auto-close mobile sidebar when path changes
+    document.documentElement.classList.remove('sidebar-open')
+
     // Default: expand categories that contain the active path, or expand all by default
     const defaultState: Record<string, boolean> = {}
     SIDEBAR_STRUCTURE.forEach((cat) => {
@@ -84,7 +87,7 @@ export function Sidebar() {
         onClick={closeMobileSidebar}
       />
 
-      <aside className="custom-sidebar fixed left-0 top-14 z-40 h-[calc(100vh-3.5rem)] w-64 -translate-x-full border-r border-[hsl(var(--border))] bg-[hsl(var(--background))] px-5 py-6 overflow-y-auto transition-transform duration-300 ease-in-out lg:left-[max(0px,calc(50%-700px))] lg:block lg:translate-x-0 lg:px-6 lg:py-8">
+      <aside className="custom-sidebar fixed left-0 top-14 z-50 h-[calc(100vh-3.5rem)] w-64 -translate-x-full border-r border-[hsl(var(--border))] bg-[hsl(var(--background))] px-5 py-6 overflow-y-auto transition-transform duration-300 ease-in-out lg:left-[max(0px,calc(50%-700px))] lg:block lg:translate-x-0 lg:px-6 lg:py-8">
         <div className="flex items-center justify-between mb-6 lg:hidden">
           <span className="text-[12px] font-extrabold uppercase tracking-widest text-[hsl(var(--foreground))/0.6]">
             Navigation
