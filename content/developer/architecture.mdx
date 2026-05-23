@@ -28,23 +28,23 @@ KasiPOS is built with a resilient, offline-first architecture designed to operat
 <div className="mb-8 grid grid-cols-1 gap-4 md:grid-cols-2 my-6">
   <div className="rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--background))] p-5">
     <h3 className="mb-2 text-sm font-bold">Offline Persistence</h3>
-    <p className="text-[13px] leading-relaxed text-[hsl(var(--foreground))/0.7]">
+    <div className="text-[13px] leading-relaxed text-[hsl(var(--foreground))/0.7]">
       We utilize Dexie for IndexedDB management. This ensures that every transaction is stored locally immediately.
-    </p>
+    </div>
   </div>
   <div className="rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--background))] p-5">
     <h3 className="mb-2 text-sm font-bold">Runtime State</h3>
-    <p className="text-[13px] leading-relaxed text-[hsl(var(--foreground))/0.7]">
+    <div className="text-[13px] leading-relaxed text-[hsl(var(--foreground))/0.7]">
       Zustand handles high-frequency UI state, such as cart items and temporary modals, keeping the interface snappy.
-    </p>
+    </div>
   </div>
 </div>
 
 <div className="flex gap-4 rounded-lg border border-[hsl(var(--primary))/0.25] bg-[hsl(var(--accent))] p-4 my-6">
   <Info size={18} className="text-[hsl(var(--primary))]" />
   <div>
-    <p className="mb-1 text-[13px] font-bold">Architecture Note</p>
-    <p className="text-[13px] text-[hsl(var(--foreground))/0.7]">The synchronization layer uses a background worker to push local records once connectivity is restored.</p>
+    <div className="mb-1 text-[13px] font-bold">Architecture Note</div>
+    <div className="text-[13px] text-[hsl(var(--foreground))/0.7]">The synchronization layer uses a background worker to push local records once connectivity is restored.</div>
   </div>
 </div>
 

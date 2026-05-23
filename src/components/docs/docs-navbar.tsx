@@ -6,11 +6,11 @@ import { ThemeToggleButton } from '@/components/docs/theme-toggle-button'
 
 export function DocsNavbar() {
   const toggleMobileSidebar = () => {
-    document.documentElement.classList.add('sidebar-open')
+    document.documentElement.classList.toggle('sidebar-open')
   }
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 h-14 border-b border-[hsl(var(--border))] bg-[hsl(var(--background))/0.85] backdrop-blur-md">
+    <header className="fixed inset-x-0 top-0 z-50 h-14 border-b border-[hsl(var(--border))] bg-[hsl(var(--background))] backdrop-blur-none lg:bg-[hsl(var(--background))/0.85] lg:backdrop-blur-md">
       <div className="mx-auto flex h-full max-w-[1400px] items-center justify-between px-6">
         <div className="flex items-center gap-4">
           <button
