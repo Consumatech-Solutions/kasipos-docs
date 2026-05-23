@@ -6,7 +6,9 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
     <>
       <DocsNavbar />
       <Sidebar />
-      {children}
+      <div className="mt-16">
+        {children}
+      </div>
     </>
   )
 }

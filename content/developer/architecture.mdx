@@ -1,54 +1,504 @@
 ---
 title: Project Architecture
-description: High-level architecture guide.
+description: High-level architecture guide and exhaustive directory layout for KASIPOS — local-first philosophy, folder structure, state management, database schema, and development conventions.
 ---
 
-import { Folder, FileText, Info } from 'lucide-react'
+import {
+  Folder,
+  FileText,
+  Code,
+  Layers,
+  ShieldAlert,
+  CheckCircle,
+  Settings,
+  Zap,
+  Box,
+  Layout,
+  GitBranch,
+  Database,
+  Wifi,
+  WifiOff,
+  RefreshCw,
+  Terminal,
+  TestTube,
+  Cpu,
+  HardDrive,
+  Package,
+  Globe,
+  Lock,
+  Printer,
+  Scan,
+  ShoppingCart,
+  BarChart2,
+  Image,
+  Wrench,
+  AlertTriangle,
+  BookOpen,
+  Info,
+} from 'lucide-react'
 
 # Project Architecture
 
-KasiPOS is built with a resilient, offline-first architecture designed to operate in low-connectivity environments while maintaining a high-performance retail experience.
+KasiPOS is built with a **local-first, offline-aware architecture** designed to operate reliably in low-connectivity or no-connectivity environments, while maintaining a high-performance retail experience. Every structural decision — from directory layout to layer separation — serves this operational reality.
 
-## Folder Structure
-
-<div className="rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--muted))] p-6 text-[13px] leading-relaxed my-6">
-  <div className="mb-2 flex items-center gap-2 text-[hsl(var(--foreground))]"><Folder size={16} className="text-amber-500" /> src/</div>
-  <div className="ml-3 border-l border-[hsl(var(--border))] pl-4">
-    <div className="mb-2 flex items-center gap-2 text-[hsl(var(--foreground))/0.75]"><Folder size={16} className="text-amber-500" /> components/ <span className="ml-3 text-[11px] text-[hsl(var(--foreground))/0.45]">// Atomic UI elements &amp; layout shells</span></div>
-    <div className="mb-2 flex items-center gap-2 text-[hsl(var(--foreground))/0.75]"><Folder size={16} className="text-amber-500" /> hooks/ <span className="ml-3 text-[11px] text-[hsl(var(--foreground))/0.45]">// Reusable logic &amp; database queries</span></div>
-    <div className="mb-2 flex items-center gap-2 text-[hsl(var(--foreground))/0.75]"><Folder size={16} className="text-amber-500" /> store/ <span className="ml-3 text-[11px] text-[hsl(var(--foreground))/0.45]">// State management (Zustand)</span></div>
-    <div className="mb-2 flex items-center gap-2 text-[hsl(var(--foreground))/0.75]"><Folder size={16} className="text-amber-500" /> db/ <span className="ml-3 text-[11px] text-[hsl(var(--foreground))/0.45]">// IndexedDB schema &amp; utils</span></div>
-    <div className="flex items-center gap-2 text-[hsl(var(--foreground))/0.75]"><FileText size={16} className="text-[hsl(var(--primary))/0.7]" /> main.tsx</div>
-    <div className="flex items-center gap-2 text-[hsl(var(--foreground))/0.75]"><FileText size={16} className="text-[hsl(var(--primary))/0.7]" /> App.tsx</div>
+<div className="my-6 rounded-xl border border-yellow-500/20 bg-yellow-500/5 p-5">
+  <div className="mb-2 flex items-center gap-2 font-bold text-yellow-600 dark:text-yellow-400">
+    <WifiOff size={18} />
+    <span>Local-First & Offline-Aware Philosophy</span>
+  </div>
+  <div className="text-sm leading-relaxed text-[hsl(var(--foreground))/0.8]">
+    KASIPOS treats the offline state as a standard operating condition, not an exception. The local data layer (IndexedDB via Dexie), the pending mutation queue, and the cloud synchronization engine are first-class components — co-located with UI logic to guarantee tight coupling and maximum resilience. When the network drops, the system keeps working without interruption.
   </div>
 </div>
 
-## State Management
+
+## 1. Architectural Evolution: From Monorepo to Single Repo
+
+KasiPOS was originally designed around a classic monorepo structure. To eliminate deployment overhead and inter-package versioning friction, those concepts have been **internalized and distributed** within a unified Next.js 15 application — one codebase, one deployment, one team.
+
+### Concept Mapping
+
+| Monorepo Concept | Current Implementation | Rationale |
+|---|---|---|
+| `apps/` (multiple apps) | `src/app/` (Next.js App Router) | Focused on in-store POS operations; admin and mobile can be separate repos if ever needed |
+| `packages/shared-ui` | `src/components/ui/` + Radix UI | Component library lives inline - no external package compilation overhead |
+| `packages/api-clients` | `src/lib/api/` | API layer is domain-specific to POS operations |
+| `packages/utilities` | `src/lib/utils/` + `src/lib/services/` | Utilities co-located with their usage contexts |
+| `packages/types` | `src/types/` | Shared TypeScript definitions for the entire application |
+| `docs/` | `docs/` (root, preserved) | Documentation in `docs/en/` and `docs/fr/` |
+| `public/` | `public/` (root, preserved) | Critical PWA assets: `manifest.json`, `sw.js`, icons |
+
+<div className="my-8 grid grid-cols-1 gap-4 md:grid-cols-2">
+  <div className="rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--background))] p-5 shadow-sm">
+    <div className="mb-2 flex items-center gap-2">
+      <Folder size={18} className="text-amber-500" />
+      <span className="font-bold text-sm">apps/ → src/app/</span>
+    </div>
+    <div className="text-[13px] leading-relaxed text-[hsl(var(--foreground))/0.7]">
+      All POS routes and admin views are consolidated as domain sub-routes within the Next.js 15 App Router. No isolated additional application is needed for the current scope.
+    </div>
+  </div>
+  <div className="rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--background))] p-5 shadow-sm">
+    <div className="mb-2 flex items-center gap-2">
+      <Folder size={18} className="text-amber-500" />
+      <span className="font-bold text-sm">packages/shared-ui → src/components/ui/</span>
+    </div>
+    <div className="text-[13px] leading-relaxed text-[hsl(var(--foreground))/0.7]">
+      Global primitives powered by Radix UI and Tailwind CSS live directly in the source core, eliminating external package compilation latencies.
+    </div>
+  </div>
+  <div className="rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--background))] p-5 shadow-sm">
+    <div className="mb-2 flex items-center gap-2">
+      <Folder size={18} className="text-amber-500" />
+      <span className="font-bold text-sm">packages/utilities → src/lib/utils/</span>
+    </div>
+    <div className="text-[13px] leading-relaxed text-[hsl(var(--foreground))/0.7]">
+      Pure data formatters, calculation helpers, and presentation utilities are centralized in the main library layer for unified, system-wide reuse.
+    </div>
+  </div>
+  <div className="rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--background))] p-5 shadow-sm">
+    <div className="mb-2 flex items-center gap-2">
+      <Folder size={18} className="text-amber-500" />
+      <span className="font-bold text-sm">docs/ & public/ → Root Preserved</span>
+    </div>
+    <div className="text-[13px] leading-relaxed text-[hsl(var(--foreground))/0.7]">
+      Kept cleanly at root level. `public/` orchestrates critical offline assets like `manifest.json` and the main service worker (`sw.js`) for local-first operations.
+    </div>
+  </div>
+</div>
+
+**Why this evolution?**
+
+- **Operational focus** — The project specifically targets in-store POS operations, not a multi-application platform.
+- **Deployment simplicity** — A single Next.js deployment reduces complexity and operational overhead.
+- **Team efficiency** — No inter-package dependency management or versioning to maintain.
+- **Offline-first priority** — The local-first architecture demands tight coupling between the data layer and UI components.
+
+
+## 2. Root Repository Structure
+
+The root structure focuses exclusively on build rules, type systems, and pipeline enforcement. No raw business logic is permitted outside of standard application boundaries.
+
+<FileTree>
+  <Dir name="kasiPOS/">
+    <Dir name="src/" comment="Primary application source code (unified)" />
+    <Dir name="public/" comment="Static web assets (PWA manifests, service workers)" />
+    <Dir name="docs/" comment="Architecture reference files & internal guidelines" />
+    <Dir name="cypress/" comment="E2E test suites and data fixtures" />
+    <File name="package.json" comment="npm dependencies and scripts" />
+    <File name="next.config.ts" comment="Next.js compiler settings" />
+    <File name="tailwind.config.ts" comment="Global token architecture & style themes" />
+    <File name="tsconfig.json" comment="Type resolution schemas & global path aliases" />
+    <File name="vitest.config.ts" comment="Unit test configuration" />
+    <File name="cypress.config.ts" comment="E2E automation and environment flows" />
+  </Dir>
+</FileTree>
+
+### Key Configuration Files — In Detail
+
+<div className="my-8 grid grid-cols-1 gap-6 md:grid-cols-2">
+  <div className="rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--background))] p-5 shadow-sm">
+    <div className="mb-3 flex items-center gap-2">
+      <Settings size={18} className="text-blue-500" />
+      <span className="font-bold text-sm font-mono">next.config.ts</span>
+    </div>
+    <div className="text-[13px] leading-relaxed text-[hsl(var(--foreground))/0.7] space-y-1">
+      <div>— PWA support: service worker injection & manifest headers</div>
+      <div>— Image optimization with remote pattern allowlists</div>
+      <div>— Chunk loading timeouts: <strong>3 min in dev</strong>, 1 min in prod</div>
+      <div>— <code>outputFileTracingRoot</code> for correct asset tracing</div>
+      <div>— Empty <code>basePath</code> & <code>assetPrefix</code> to prevent chunk errors</div>
+      <div>— Service worker and manifest caching strategies</div>
+    </div>
+  </div>
+  <div className="rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--background))] p-5 shadow-sm">
+    <div className="mb-3 flex items-center gap-2">
+      <Settings size={18} className="text-purple-500" />
+      <span className="font-bold text-sm font-mono">tailwind.config.ts</span>
+    </div>
+    <div className="text-[13px] leading-relaxed text-[hsl(var(--foreground))/0.7] space-y-1">
+      <div>— Content paths: <code>src/pages</code>, <code>src/components</code>, <code>src/app</code></div>
+      <div>— Dark mode: class-based CSS switching</div>
+      <div>— HSL CSS-variable-based color system</div>
+      <div>— Consistent border-radius tokens across the app</div>
+      <div>— Color palette for data visualization charts</div>
+      <div>— <code>tailwindcss-animate</code> plugin for accordion keyframes</div>
+    </div>
+  </div>
+  <div className="rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--background))] p-5 shadow-sm">
+    <div className="mb-3 flex items-center gap-2">
+      <Code size={18} className="text-green-500" />
+      <span className="font-bold text-sm font-mono">tsconfig.json</span>
+    </div>
+    <div className="text-[13px] leading-relaxed text-[hsl(var(--foreground))/0.7] space-y-1">
+      <div>— Target: <strong>ES2017</strong></div>
+      <div>— Module resolution: <strong>Bundler</strong> (native Next.js mode)</div>
+      <div>— Path alias: `"@/*"` mapped to `"./src/*"`</div>
+      <div>— Strict mode enabled — no implicit any, null checks enforced</div>
+      <div>— Next.js plugin integration for RSC awareness</div>
+      <div>— Exclusions: <code>node_modules</code> and <code>cypress/</code></div>
+    </div>
+  </div>
+  <div className="rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--background))] p-5 shadow-sm">
+    <div className="mb-3 flex items-center gap-2">
+      <TestTube size={18} className="text-orange-500" />
+      <span className="font-bold text-sm font-mono">vitest.config.ts</span>
+    </div>
+    <div className="text-[13px] leading-relaxed text-[hsl(var(--foreground))/0.7] space-y-1">
+      <div>— Environment: <strong>Node</strong> with <strong>jsdom</strong> for React component tests</div>
+      <div>— `"@/*"` path alias consistent with tsconfig</div>
+      <div>— Coverage: <strong>V8</strong> provider with HTML & LCOV reports</div>
+      <div>— Test glob: `src/**/*.test.ts` and `*.test.tsx`</div>
+      <div>— Setup file: <code>src/tests/setup.ts</code></div>
+      <div>— Coverage exclusions: AI modules, type files, UI components</div>
+    </div>
+  </div>
+</div>
+
+<div className="my-6 rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--background))] p-5 shadow-sm">
+  <div className="mb-3 flex items-center gap-2">
+    <Terminal size={18} className="text-teal-500" />
+    <span className="font-bold text-sm font-mono">cypress.config.ts</span>
+  </div>
+  <div className="grid grid-cols-1 gap-3 text-[13px] text-[hsl(var(--foreground))/0.7] md:grid-cols-2">
+    <div className="space-y-1">
+      <div>— Base URL: <strong>http://localhost:9002</strong></div>
+      <div>— Test modes: <strong>Mock</strong> (default) and real-auth mode</div>
+      <div>— Fixture system: JSON data loading for test scenarios</div>
+    </div>
+    <div className="space-y-1">
+      <div>— Auth session seeding for consistent test state</div>
+      <div>— Seed tasks: <code>seedAuthSession</code>, <code>loadSeedData</code></div>
+      <div>— Video recording for debugging test failures</div>
+      <div>— Next.js component testing support</div>
+    </div>
+  </div>
+</div>
+
+
+## 3. Folder Structure
+
+The `src/` directory is organized according to **Domain-Driven Design (DDD)** principles. Features are grouped by business domain — not by technical layer.
+
+<FileTree>
+  <Dir name="src/">
+    <Dir name="ai/" comment="AI assistant integration (Google Genkit)" />
+    <Dir name="app/" comment="Next.js App Router: pages and layouts" />
+    <Dir name="components/" comment="Atomic UI elements & domain shells" />
+    <Dir name="hooks/" comment="Reusable logic & offline-aware database queries" />
+    <Dir name="lib/" comment="Core utilities, API clients, offline engine & services" />
+    <Dir name="tests/" comment="Shared test utilities and environment setup" />
+    <Dir name="types/" comment="TypeScript type definitions" />
+  </Dir>
+</FileTree>
+
+### 3.1 · `app/` — Next.js App Router
+
+File-system-based routing with React Server Components. Each folder represents a distinct business domain. Server Components handle data fetching; Client Components handle interactivity.
+
+<FileTree>
+  <Dir name="src/app/">
+    <File name="layout.tsx" comment="Root layout: global providers, fonts, metadata" />
+    <File name="page.tsx" comment="Home / landing page" />
+    <Dir name="login/" comment="Authentication flow" />
+    <Dir name="catalogue/" comment="Product catalogue management" />
+    <Dir name="inventory/" comment="Stock management" />
+    <Dir name="customers/" comment="Customer management" />
+    <Dir name="transactions/" comment="Transaction history" />
+    <Dir name="pos/" comment="Main Point-of-Sale interface" />
+    <Dir name="sale/" comment="Sale operations" />
+    <Dir name="vouchers/" comment="Discount voucher management" />
+    <Dir name="marketplace/" comment="Marketplace integration" />
+    <Dir name="boph/" comment="Back-office operations" />
+    <Dir name="buy-stock/" comment="Stock purchasing" />
+    <Dir name="offline/" comment="Offline mode interface" />
+    <Dir name="reports/" comment="Reports and analytics" />
+    <Dir name="settings/" comment="Application settings" />
+    <Dir name="profile/" comment="User profile" />
+    <Dir name="store-setup/" comment="Store initialization wizard" />
+  </Dir>
+</FileTree>
+
+### 3.2 · `components/` — React Component Library
+
+Reusable UI components organized by domain and technical layer. The key rule: primitives go in `ui/`, domain-specific views go in their domain subfolder.
+
+<FileTree>
+  <Dir name="src/components/">
+    <Dir name="ui/" comment="Primitive UI components (Radix-based)" />
+    <Dir name="layout/" comment="Layout components (navigation, shell, headers)" />
+    <Dir name="catalogue/" comment="Catalogue-specific components" />
+    <Dir name="customers/" comment="Customer-specific components" />
+    <Dir name="pos/" comment="POS-specific components" />
+    <Dir name="hardware-setup/" comment="Hardware configuration UI" />
+    <Dir name="stores/" comment="Store management components" />
+    <Dir name="providers/" comment="React context providers" />
+    <File name="sync-status-indicator.tsx" comment="Cross-cutting: shown on every route" />
+  </Dir>
+</FileTree>
+
+<div className="my-6 grid grid-cols-1 gap-4 md:grid-cols-2">
+  <div className="rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--background))] p-4 shadow-sm">
+    <div className="mb-2 flex items-center gap-2">
+      <Box size={16} className="text-amber-500" />
+      <span className="font-bold text-xs uppercase tracking-wider">UI Primitives — components/ui/</span>
+    </div>
+    <div className="text-[12px] leading-relaxed text-[hsl(var(--foreground))/0.7]">
+      Radix UI primitives (buttons, dialogs, selects, etc.) styled with Tailwind and CVA. Reusable across the entire app. <strong>No business logic here, ever.</strong>
+    </div>
+  </div>
+  <div className="rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--background))] p-4 shadow-sm">
+    <div className="mb-2 flex items-center gap-2">
+      <Layout size={16} className="text-blue-500" />
+      <span className="font-bold text-xs uppercase tracking-wider">Domain Components — components/{"{domain}"}/</span>
+    </div>
+    <div className="text-[12px] leading-relaxed text-[hsl(var(--foreground))/0.7]">
+      UI components specific to a feature. They encapsulate domain-aware state and consume hooks specific to their domain (e.g., `useCatalogue()` inside catalogue components).
+    </div>
+  </div>
+  <div className="rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--background))] p-4 shadow-sm">
+    <div className="mb-2 flex items-center gap-2">
+      <Layers size={16} className="text-green-500" />
+      <span className="font-bold text-xs uppercase tracking-wider">Layout — components/layout/</span>
+    </div>
+    <div className="text-[12px] leading-relaxed text-[hsl(var(--foreground))/0.7]">
+      Navigation, shell, headers, and sidebars. Structural skeleton of the application. Shared across all routes through nested layouts.
+    </div>
+  </div>
+  <div className="rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--background))] p-4 shadow-sm">
+    <div className="mb-2 flex items-center gap-2">
+      <RefreshCw size={16} className="text-purple-500" />
+      <span className="font-bold text-xs uppercase tracking-wider">Providers — components/providers/</span>
+    </div>
+    <div className="text-[12px] leading-relaxed text-[hsl(var(--foreground))/0.7]">
+      React context providers for global state, service registration, and cross-cutting concerns. Ex: `client-db-provider.tsx`, `sync-status-indicator.tsx`.
+    </div>
+  </div>
+</div>
+
+### 3.3 · `hooks/` — Custom React Hooks
+
+Hooks are the primary mechanism for business logic reuse. They encapsulate data fetching, offline-aware state management, and side effects — keeping components thin and focused on presentation.
+
+<FileTree>
+  <Dir name="src/hooks/">
+    <File name="use-catalogue.ts" comment="Catalogue data operations (CRUD + search)" />
+    <File name="use-customers.ts" comment="Customer data operations" />
+    <File name="use-vouchers.ts" comment="Discount voucher operations" />
+    <File name="use-marketplace-stores.ts" comment="Marketplace integration" />
+    <File name="use-parcels.ts" comment="Parcel / shipping management" />
+    <File name="use-store.ts" comment="Store configuration" />
+    <File name="use-pwa-install.ts" comment="PWA install prompt management" />
+    <File name="use-mobile.tsx" comment="Mobile device detection and behavior" />
+    <File name="use-network-status.ts" comment="Real-time network connectivity monitoring" />
+    <File name="use-toast.ts" comment="Toast notification system" />
+  </Dir>
+</FileTree>
+
+<div className="flex gap-4 rounded-lg border border-[hsl(var(--primary))/0.25] bg-[hsl(var(--accent))] p-4 my-6">
+  <Info size={18} className="text-[hsl(var(--primary))] mt-0.5 flex-shrink-0" />
+  <div>
+    <p className="mb-1 text-[13px] font-bold">The lib/ ↔ hooks/ relationship</p>
+    <div className="text-[13px] text-[hsl(var(--foreground))/0.7]">
+      <code>lib/</code> provides pure functions and data layer abstractions. <code>hooks/</code> wraps those functions with React state and lifecycle management. For example: <code>use-catalogue.ts</code> calls <code>entity-cache.ts</code> and <code>api/catalogue.ts</code> from <code>lib/</code>, then exposes reactive data and mutation functions to the component layer. Neither layer violates the other's boundary.
+    </div>
+  </div>
+</div>
+
+### 3.4 · `lib/` — The Core Engine: Offline-First Infrastructure
+
+This is the technical heart of the local-first architecture. `lib/` contains the application infrastructure, data layer, hardware integration, and business logic utilities.
+
+<FileTree>
+  <Dir name="src/lib/">
+    <Dir name="api/" comment="Network API client layer">
+      <File name="index.ts" comment="API configuration and initialization" />
+      <File name="catalogue.ts" comment="Catalogue endpoints" />
+      <File name="customers.ts" comment="Customer endpoints" />
+      <File name="transactions.ts" comment="Transaction endpoints" />
+      <File name="vouchers.ts" comment="Voucher endpoints" />
+    </Dir>
+    <Dir name="services/" comment="Business logic services">
+      <File name="image-storage.ts" comment="Image management & persistence" />
+      <File name="image-sync.ts" comment="Product image cloud synchronization" />
+    </Dir>
+    <Dir name="utils/" comment="Pure utility functions">
+      <File name="catalogue-cleanup.ts" comment="Catalogue data normalization" />
+      <File name="product-initials.ts" comment="Product naming utilities" />
+    </Dir>
+    <File name="cloud-data-pull.ts" comment="Cloud sync orchestration" highlight />
+    <File name="entity-cache.ts" comment="IndexedDB entity caching layer" highlight />
+    <File name="mutation-queue.ts" comment="Offline mutation queue" highlight />
+    <File name="mutation-registry.ts" comment="Mutation handler registry" highlight />
+    <File name="query-persister.ts" comment="TanStack Query cache persistence" highlight />
+    <File name="query-persist-policy.ts" comment="Query persistence strategies" highlight />
+    <File name="offline-detector.ts" comment="Network status detection" highlight />
+    <File name="network-error.ts" comment="Network error classification" highlight />
+    <File name="cart-storage.ts" comment="Shopping cart persistence" highlight />
+    <File name="db.ts" comment="IndexedDB schema (Dexie.js)" highlight />
+    <File name="nav-config.ts" comment="Navigation configuration" />
+    <File name="qz-tray.ts" comment="Printer integration (QZ Tray)" />
+    <File name="webhid-scanner.ts" comment="Barcode scanner (WebHID API)" />
+    <File name="device-service.ts" comment="Hardware device management" />
+    <File name="platform.ts" comment="Platform detection (desktop/mobile/PWA)" />
+    <File name="receipt-utils.ts" comment="Receipt generation utilities" />
+    <File name="seed.ts" comment="Test data seeding" />
+  </Dir>
+</FileTree>
+
+#### Decoding the Offline Engine
+
+<div className="my-6 space-y-4">
+  <div className="rounded-xl border border-blue-500/20 bg-blue-500/5 p-5 shadow-sm">
+    <div className="mb-3 flex items-center gap-2 font-bold text-blue-600 dark:text-blue-400">
+      <Database size={18} />
+      <span className="text-sm">Dual Data Layer</span>
+    </div>
+    <div className="text-[13px] leading-relaxed text-[hsl(var(--foreground))/0.7] space-y-2">
+      <div><strong className="font-mono">db.ts</strong> — Defines the complete IndexedDB schema via <strong>Dexie.js</strong>. This is the source of truth for all local tables (products, customers, transactions, pending mutations). Everything that must survive a page reload is defined here.</div>
+      <div><strong className="font-mono">entity-cache.ts</strong> — High-level caching abstraction on top of IndexedDB. Provides read/write operations that components and hooks consume. When the network is unavailable, reads automatically come from local cache without any code change in the caller.</div>
+      <div><strong className="font-mono">api/</strong> — HTTP network clients. Called only when connectivity is confirmed. Fresh data from the network feeds back into the local cache via <code>entity-cache.ts</code>, keeping both layers in sync.</div>
+    </div>
+  </div>
+
+  <div className="rounded-xl border border-orange-500/20 bg-orange-500/5 p-5 shadow-sm">
+    <div className="mb-3 flex items-center gap-2 font-bold text-orange-600 dark:text-orange-400">
+      <RefreshCw size={18} />
+      <span className="text-sm">Offline Mutation Management</span>
+    </div>
+    <div className="text-[13px] leading-relaxed text-[hsl(var(--foreground))/0.7] space-y-2">
+      <div><strong className="font-mono">mutation-queue.ts</strong> — Queues all mutations (creates, updates, deletes) performed while offline. Persisted in IndexedDB — no operation is ever lost, not even after an app restart or device power cycle.</div>
+      <div><strong className="font-mono">mutation-registry.ts</strong> — Central registry of mutation handlers. Maps each mutation type (e.g., <code>CREATE_PRODUCT</code>, <code>UPDATE_CUSTOMER</code>) to its processing function for re-synchronization.</div>
+      <div><strong className="font-mono">cloud-data-pull.ts</strong> — Orchestrates background cloud synchronization. Triggers mutation queue flushing and fresh data fetching once connectivity is restored — automatically, without user intervention.</div>
+    </div>
+  </div>
+
+  <div className="rounded-xl border border-green-500/20 bg-green-500/5 p-5 shadow-sm">
+    <div className="mb-3 flex items-center gap-2 font-bold text-green-600 dark:text-green-400">
+      <Wifi size={18} />
+      <span className="text-sm">Network Awareness & Query Persistence</span>
+    </div>
+    <div className="text-[13px] leading-relaxed text-[hsl(var(--foreground))/0.7] space-y-2">
+      <div><strong className="font-mono">offline-detector.ts</strong> — Continuously monitors connectivity. Exposes a reactive signal consumed by components and hooks to adapt behavior: read from cache vs. fetch from API.</div>
+      <div><strong className="font-mono">network-error.ts</strong> — Classifies network errors (timeout, 503, offline, DNS failure, etc.) to decide whether a mutation should be queued for later or simply retried immediately.</div>
+      <div><strong className="font-mono">query-persister.ts</strong> — Persists the TanStack Query cache into IndexedDB. Allows the app to restart and immediately restore its previous data state from persisted cache, with no loading delay.</div>
+      <div><strong className="font-mono">query-persist-policy.ts</strong> — Defines which queries get persisted (product catalogue, customer list) and which can be discarded (real-time data, ephemeral sessions).</div>
+    </div>
+  </div>
+
+  <div className="rounded-xl border border-purple-500/20 bg-purple-500/5 p-5 shadow-sm">
+    <div className="mb-3 flex items-center gap-2 font-bold text-purple-600 dark:text-purple-400">
+      <Cpu size={18} />
+      <span className="text-sm">Hardware Services & POS Domain</span>
+    </div>
+    <div className="text-[13px] leading-relaxed text-[hsl(var(--foreground))/0.7] space-y-2">
+      <div><strong className="font-mono">webhid-scanner.ts</strong> — Integrates barcode scanners via the browser's <strong>WebHID API</strong>. Handles device detection, connection, and real-time scan events — no system driver required.</div>
+      <div><strong className="font-mono">qz-tray.ts</strong> — Integration with QZ Tray for printing receipts on local thermal printers. Abstracts WebSocket communication with the native QZ Tray process on the host machine.</div>
+      <div><strong className="font-mono">device-service.ts</strong> — Centralized hardware device management (scanners, printers, cash drawers). Coordinates connection state and device availability across the application.</div>
+      <div><strong className="font-mono">cart-storage.ts</strong> — Persists the active shopping cart in IndexedDB. Critical for POS: a page reload or network cut must never erase a transaction in progress.</div>
+      <div><strong className="font-mono">receipt-utils.ts</strong> — Receipt generation utilities: formatting, tax calculations, layout for 80mm thermal printing.</div>
+      <div><strong className="font-mono">platform.ts</strong> — Detects the runtime platform — desktop browser, mobile browser, or installed PWA — and adapts UI and hardware behaviors accordingly.</div>
+    </div>
+  </div>
+</div>
+
+### 3.5 · `types/` — TypeScript Type Definitions
+
+Shared TypeScript types and interfaces — the source of truth for all data contracts across the application.
+
+<FileTree>
+  <Dir name="src/types/">
+    <File name="index.ts" comment="Central type exports (barrel file)" />
+    <File name="catalogue.ts" comment="Catalogue domain types" />
+    <File name="pagination.ts" comment="Pagination utility types" />
+    <File name="file.ts" comment="File management types" />
+    <File name="webusb.d.ts" comment="WebUSB API declarations" />
+    <File name="webhid.d.ts" comment="WebHID API declarations" />
+    <File name="qz-tray.d.ts" comment="QZ Tray (printer) declarations" />
+    <File name="js-scanner-detection.d.ts" comment="Scanner detection declarations" />
+  </Dir>
+</FileTree>
+
+
+## 4. State Management
+
+KasiPOS uses two complementary state layers — each optimized for a different type of data.
 
 <div className="mb-8 grid grid-cols-1 gap-4 md:grid-cols-2 my-6">
   <div className="rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--background))] p-5">
-    <h3 className="mb-2 text-sm font-bold">Offline Persistence</h3>
+    <div className="mb-2 flex items-center gap-2">
+      <Database size={16} className="text-blue-500" />
+      <h3 className="text-sm font-bold">Offline Persistence — Dexie / IndexedDB</h3>
+    </div>
     <div className="text-[13px] leading-relaxed text-[hsl(var(--foreground))/0.7]">
-      We utilize Dexie for IndexedDB management. This ensures that every transaction is stored locally immediately.
+      Dexie manages IndexedDB for durable local storage. Every transaction, product change, and customer update is stored locally immediately — before any network call is attempted. Data survives page reloads, app restarts, and connectivity loss.
     </div>
   </div>
   <div className="rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--background))] p-5">
-    <h3 className="mb-2 text-sm font-bold">Runtime State</h3>
+    <div className="mb-2 flex items-center gap-2">
+      <Zap size={16} className="text-yellow-500" />
+      <h3 className="text-sm font-bold">Runtime State — Zustand</h3>
+    </div>
     <div className="text-[13px] leading-relaxed text-[hsl(var(--foreground))/0.7]">
-      Zustand handles high-frequency UI state, such as cart items and temporary modals, keeping the interface snappy.
+      Zustand handles high-frequency UI state such as cart items, modal visibility, and temporary selections — keeping the interface snappy and reactive without the overhead of serializing to IndexedDB on every keystroke.
     </div>
   </div>
 </div>
 
 <div className="flex gap-4 rounded-lg border border-[hsl(var(--primary))/0.25] bg-[hsl(var(--accent))] p-4 my-6">
-  <Info size={18} className="text-[hsl(var(--primary))]" />
+  <Info size={18} className="text-[hsl(var(--primary))] mt-0.5 flex-shrink-0" />
   <div>
     <div className="mb-1 text-[13px] font-bold">Architecture Note</div>
-    <div className="text-[13px] text-[hsl(var(--foreground))/0.7]">The synchronization layer uses a background worker to push local records once connectivity is restored.</div>
+    <div className="text-[13px] text-[hsl(var(--foreground))/0.7]">
+      The synchronization layer uses a background worker (<code>cloud-data-pull.ts</code>) to push locally-stored records to the cloud once connectivity is restored. The mutation queue ensures no write operation is ever dropped during an offline session.
+    </div>
   </div>
 </div>
 
-## Database Schema
+
+## 5. Database Schema
+
+The core database is managed by Dexie.js wrapping IndexedDB. Below is the foundational schema — each domain extends this base pattern with its own table definitions.
 
 ```typescript
 import Dexie, { Table } from 'dexie';
@@ -67,6 +517,8 @@ export class KasiDatabase extends Dexie {
   constructor() {
     super('KasiPOS_DB');
     this.version(1).stores({
+      // ++id = auto-increment primary key
+      // timestamp, synced = indexed fields for queries
       sales: '++id, timestamp, synced'
     });
   }
@@ -75,12 +527,163 @@ export class KasiDatabase extends Dexie {
 export const db = new KasiDatabase();
 ```
 
-## Visualization
+The `synced` boolean field is central to the offline architecture — it flags which records have been pushed to the cloud and which are still pending. The background sync worker queries `synced: false` to build its upload batch.
 
-<div className="overflow-hidden rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--background))] p-2 my-6">
-  <img
-    className="h-auto w-full rounded"
-    alt="Technical architecture diagram"
-    src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9GeV2laOBBSgJNdx3AnbGe8yCIqmD13cnq2LmH7dWi_zo1JptB2kooir__vVt7QXxwvcgzC7iLBDewKw6sNGK-t9VBkqhhIfuXTVuZpTY05wPm8s48NQzVxcITjRU2dMZDvhYxIhGo5CFyqbjHJywYY2eBknHP-OvsD35ZzLjad0j9q96Xy-7L3jjQvu6UPda1_1aGbHNh2lCAUB-FnyG5qYSCaes-hPNaf_FNmF5rlmkR-1tY5WuCD8M2cbciuJ90kZaMWJqvZ0"
-  />
+
+## 6. Shared Elements Matrix
+
+To maintain structural discipline across the codebase, developers must follow strict co-location and layer separation rules.
+
+### Import patterns
+
+```typescript
+// Always use the path alias (configured in tsconfig.json)
+import { Button } from "@/components/ui/button";
+import { ProductCard } from "@/components/catalogue/product-card";
+import { formatCurrency } from "@/lib/utils/format-currency";
+import { useCatalogue } from "@/hooks/use-catalogue";
+import { entityCache } from "@/lib/entity-cache";
+import { mutationQueue } from "@/lib/mutation-queue";
+```
+
+### Layer responsibility
+
+| Layer | Directory | Responsibility |
+|---|---|---|
+| UI | `components/` | Renders data to the screen. No direct API calls. No IndexedDB access. Consumes hooks for all state. |
+| Business Logic | `hooks/` | Business logic with React lifecycle. Wraps `lib/` functions with React state, effects, and TanStack Query. |
+| Services | `lib/services/` | Stateless service functions for complex operations (image sync, device management, receipt generation). |
+| Data Access | `lib/api/` + `lib/*.ts` | HTTP clients, IndexedDB schema, entity cache, mutation queue. No React dependencies. |
+
+### Anti-patterns vs. Best Practices
+
+<div className="my-8 grid grid-cols-1 gap-4 md:grid-cols-2">
+  <div className="rounded-xl border border-red-500/20 bg-red-500/5 p-6 shadow-sm">
+    <div className="mb-4 flex items-center gap-2 font-bold text-sm uppercase tracking-wider text-red-600 dark:text-red-400">
+      <ShieldAlert size={18} />
+      <span>Never do this</span>
+    </div>
+    <div className="space-y-3 text-[13px] text-[hsl(var(--foreground))/0.8]">
+      <div className="flex gap-2">
+        <span>❌</span>
+        <span>Create UI primitives inside domain route folders (e.g., <code>src/app/catalogue/Button.tsx</code>). Primitives go in <code>components/ui/</code>.</span>
+      </div>
+      <div className="flex gap-2">
+        <span>❌</span>
+        <span>Scatter formatting helpers or micro-utility logic directly inside component files. They belong in <code>lib/utils/</code>.</span>
+      </div>
+      <div className="flex gap-2">
+        <span>❌</span>
+        <span>Hardcode API logic in the presentation layer. No <code>fetch()</code> calls inside components — use <code>lib/api/</code> clients.</span>
+      </div>
+      <div className="flex gap-2">
+        <span>❌</span>
+        <span>Duplicate logic that already exists in the service layer (<code>lib/services/</code>). Always check before writing something new.</span>
+      </div>
+      <div className="flex gap-2">
+        <span>❌</span>
+        <span>Access IndexedDB directly from a component without going through <code>entity-cache.ts</code> or a hook.</span>
+      </div>
+      <div className="flex gap-2">
+        <span>❌</span>
+        <span>Create generic components inside domain folders (e.g., <code>components/catalogue/button.tsx</code>). Generic → <code>components/ui/</code>.</span>
+      </div>
+    </div>
+  </div>
+  <div className="rounded-xl border border-green-500/20 bg-green-500/5 p-6 shadow-sm">
+    <div className="mb-4 flex items-center gap-2 font-bold text-sm uppercase tracking-wider text-green-600 dark:text-green-400">
+      <CheckCircle size={18} />
+      <span>Always do this</span>
+    </div>
+    <div className="space-y-3 text-[13px] text-[hsl(var(--foreground))/0.8]">
+      <div className="flex gap-2">
+        <span>✅</span>
+        <span>Check <code>src/components/ui/</code> first before creating any new UI primitive. Extend existing primitives instead of duplicating.</span>
+      </div>
+      <div className="flex gap-2">
+        <span>✅</span>
+        <span>Move all formatting helpers to <code>src/lib/utils/</code> for system-wide reuse. One format function, used everywhere consistently.</span>
+      </div>
+      <div className="flex gap-2">
+        <span>✅</span>
+        <span>Encapsulate all API interactions in dedicated <code>src/lib/api/</code> clients, one file per domain.</span>
+      </div>
+      <div className="flex gap-2">
+        <span>✅</span>
+        <span>Use hooks from <code>src/hooks/</code> for any React-aware business logic: data fetching, state, side effects.</span>
+      </div>
+      <div className="flex gap-2">
+        <span>✅</span>
+        <span>Route all offline-capable write operations through <code>mutation-queue.ts</code>. If it could happen offline, it must go through the queue.</span>
+      </div>
+      <div className="flex gap-2">
+        <span>✅</span>
+        <span>Co-locate unit tests (<code>*.test.ts</code>) with their source files in <code>src/</code>. Shared test infrastructure only goes in <code>src/tests/</code>.</span>
+      </div>
+    </div>
+  </div>
 </div>
+
+
+## 7. Core Architectural Principles
+
+The KASIPOS structure is the manifestation of a commitment to **resilient retail operations** — six principles that guide every architectural decision.
+
+<div className="my-8 flex flex-col gap-4">
+  <div className="flex items-start gap-4 rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--background))] p-4">
+    <div className="rounded-md bg-blue-500/10 p-2 text-blue-500">
+      <Layout size={20} />
+    </div>
+    <div>
+      <div className="mb-1 font-bold text-sm">Domain-Driven Organization</div>
+      <div className="text-[12px] text-[hsl(var(--foreground))/0.7]">Features are organized strictly by business domain (pos, catalogue, inventory, customers). Technical layers serve business realities, not the reverse. When you look for code, you search by domain — not by technical layer.</div>
+    </div>
+  </div>
+  <div className="flex items-start gap-4 rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--background))] p-4">
+    <div className="rounded-md bg-yellow-500/10 p-2 text-yellow-500">
+      <WifiOff size={20} />
+    </div>
+    <div>
+      <div className="mb-1 font-bold text-sm">Local-First by Design</div>
+      <div className="text-[12px] text-[hsl(var(--foreground))/0.7]">Offline states are standard operating conditions. The synchronization logic (<code>mutation-queue</code>, <code>entity-cache</code>, <code>cloud-data-pull</code>) is embedded in the core engine — not externalized or bolted on as an afterthought.</div>
+    </div>
+  </div>
+  <div className="flex items-start gap-4 rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--background))] p-4">
+    <div className="rounded-md bg-purple-500/10 p-2 text-purple-500">
+      <Box size={20} />
+    </div>
+    <div>
+      <div className="mb-1 font-bold text-sm">Co-Location Modularity</div>
+      <div className="text-[12px] text-[hsl(var(--foreground))/0.7]">Tests, types, and utilities live as close as possible to their implementations. Unit tests (<code>*.test.ts</code>) sit next to their source files. Moving a file moves its tests with it.</div>
+    </div>
+  </div>
+  <div className="flex items-start gap-4 rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--background))] p-4">
+    <div className="rounded-md bg-green-500/10 p-2 text-green-500">
+      <Layers size={20} />
+    </div>
+    <div>
+      <div className="mb-1 font-bold text-sm">Clear Separation of Concerns</div>
+      <div className="text-[12px] text-[hsl(var(--foreground))/0.7]">UI components (<code>components/</code>), business logic (<code>hooks/</code>), and the data layer (<code>lib/</code>) are distinct layers with non-overlapping responsibilities. Data flows unidirectionally downward. Nothing flows up.</div>
+    </div>
+  </div>
+  <div className="flex items-start gap-4 rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--background))] p-4">
+    <div className="rounded-md bg-orange-500/10 p-2 text-orange-500">
+      <Wrench size={20} />
+    </div>
+    <div>
+      <div className="mb-1 font-bold text-sm">Pragmatic over Pure</div>
+      <div className="text-[12px] text-[hsl(var(--foreground))/0.7]">The structure evolved to match real needs rather than theoretical ideals. The monorepo-to-single-repo evolution is the clearest example: operational simplicity outweighs architectural purity. Rules exist to serve the product.</div>
+    </div>
+  </div>
+  <div className="flex items-start gap-4 rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--background))] p-4">
+    <div className="rounded-md bg-teal-500/10 p-2 text-teal-500">
+      <GitBranch size={20} />
+    </div>
+    <div>
+      <div className="mb-1 font-bold text-sm">Shared Patterns Over Shared Code</div>
+      <div className="text-[12px] text-[hsl(var(--foreground))/0.7]">Favor shared conventions and patterns over premature code extraction. Consistency comes from documented conventions — not forced abstraction. Extract to a shared utility only when the duplication is clearly a problem.</div>
+    </div>
+  </div>
+</div>
+
+This focused architecture ensures KASIPOS remains a **productive, ultra-reliable environment** for POS delivery under critical field conditions — including poor connectivity, aging hardware, and high-volume transaction environments.
