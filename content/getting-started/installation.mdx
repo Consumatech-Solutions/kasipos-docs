@@ -1,17 +1,174 @@
 ---
 title: Installation
-description: Install KasiPOS locally.
+description: Install and run the KasiPOS documentation site locally.
 ---
+
+import { Folder, FileText, Info } from 'lucide-react'
 
 # Installation
 
-## Requirements
+This guide walks you through running the **KasiPOS documentation website** on your machine. You will clone the repository, install dependencies with npm, and start the Next.js development server powered by Nextra.
 
-- Node.js 20+
-- npm 10+
+## Prerequisites
 
-## Steps
+<div className="mb-8 grid grid-cols-1 gap-4 md:grid-cols-2 my-6">
+  <div className="rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--background))] p-5">
+    <h3 className="mb-2 text-sm font-bold">Git</h3>
+    <p className="text-[13px] leading-relaxed text-[hsl(var(--foreground))/0.7]">
+      Required to clone the repository and contribute changes. Download from{' '}
+      <a href="https://git-scm.com/downloads" className="text-[hsl(var(--primary))] underline">git-scm.com</a>.
+    </p>
+  </div>
+  <div className="rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--background))] p-5">
+    <h3 className="mb-2 text-sm font-bold">Node.js 20.9+</h3>
+    <p className="text-[13px] leading-relaxed text-[hsl(var(--foreground))/0.7]">
+      LTS recommended. Next.js 16 requires Node <strong>20.9.0</strong> or higher. Verify with{' '}
+      <code className="text-[12px]">node -v</code>.
+    </p>
+  </div>
+  <div className="rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--background))] p-5">
+    <h3 className="mb-2 text-sm font-bold">npm 10+</h3>
+    <p className="text-[13px] leading-relaxed text-[hsl(var(--foreground))/0.7]">
+      Ships with Node.js. This project uses <code className="text-[12px]">package-lock.json</code> — verify with{' '}
+      <code className="text-[12px]">npm -v</code>.
+    </p>
+  </div>
+</div>
 
-1. Install dependencies.
-2. Run the development server.
-3. Open the app in your browser.
+<p className="text-[13px] text-[hsl(var(--foreground))/0.7] my-4">
+  Optional: a code editor such as{' '}
+  <a href="https://code.visualstudio.com/" className="text-[hsl(var(--primary))] underline">VS Code</a>.
+</p>
+
+## Repository layout
+
+<div className="rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--muted))] p-6 text-[13px] leading-relaxed my-6">
+  <div className="mb-2 flex items-center gap-2 text-[hsl(var(--foreground))]"><Folder size={16} className="text-amber-500" /> kasipos-docs/</div>
+  <div className="ml-3 border-l border-[hsl(var(--border))] pl-4">
+    <div className="mb-2 flex items-center gap-2 text-[hsl(var(--foreground))/0.75]"><Folder size={16} className="text-amber-500" /> content/ <span className="ml-3 text-[11px] text-[hsl(var(--foreground))/0.45]">// MDX documentation pages</span></div>
+    <div className="mb-2 flex items-center gap-2 text-[hsl(var(--foreground))/0.75]"><Folder size={16} className="text-amber-500" /> src/app/ <span className="ml-3 text-[11px] text-[hsl(var(--foreground))/0.45]">// Next.js App Router routes</span></div>
+    <div className="mb-2 flex items-center gap-2 text-[hsl(var(--foreground))/0.75]"><FileText size={16} className="text-[hsl(var(--primary))/0.7]" /> package.json <span className="ml-3 text-[11px] text-[hsl(var(--foreground))/0.45]">// Dependencies and npm scripts</span></div>
+    <div className="mb-2 flex items-center gap-2 text-[hsl(var(--foreground))/0.75]"><FileText size={16} className="text-[hsl(var(--primary))/0.7]" /> next.config.mjs <span className="ml-3 text-[11px] text-[hsl(var(--foreground))/0.45]">// Nextra configuration</span></div>
+    <div className="flex items-center gap-2 text-[hsl(var(--foreground))/0.75]"><FileText size={16} className="text-[hsl(var(--primary))/0.7]" /> package-lock.json <span className="ml-3 text-[11px] text-[hsl(var(--foreground))/0.45]">// Locked dependency versions</span></div>
+  </div>
+</div>
+
+## Clone the repository
+
+```bash
+git clone https://github.com/kasipos/kasipos-docs.git
+cd kasipos-docs
+```
+
+If you contribute via a fork, clone your fork URL instead.
+
+## Install dependencies
+
+From the project root:
+
+```bash
+npm install
+```
+
+This reads `package-lock.json` and installs the same dependency versions used by the project.
+
+## Start the development server
+
+```bash
+npm run dev
+```
+
+When the server is ready, open **[http://localhost:3000](http://localhost:3000)** in your browser. The root URL redirects into the docs; you will typically land at **`/docs/home`**.
+
+## Verify it works
+
+1. Confirm the docs home page loads at [http://localhost:3000/docs/home](http://localhost:3000/docs/home).
+2. Optional: run a production build to catch MDX or type errors early:
+
+```bash
+npm run build
+```
+
+3. Optional: run the linter before opening a pull request:
+
+```bash
+npm run lint
+```
+
+To serve a production build locally, run `npm run build` then `npm run start`.
+
+<div className="flex gap-4 rounded-lg border border-[hsl(var(--primary))/0.25] bg-[hsl(var(--accent))] p-4 my-6">
+  <Info size={18} className="text-[hsl(var(--primary))]" />
+  <div>
+    <p className="mb-1 text-[13px] font-bold">No environment variables</p>
+    <p className="text-[13px] text-[hsl(var(--foreground))/0.7]">
+      This documentation site does not require a <code className="text-[12px]">.env</code> file or any environment variables for local development.
+    </p>
+  </div>
+</div>
+
+## Useful scripts
+
+<div className="mb-8 grid grid-cols-1 gap-4 md:grid-cols-2 my-6">
+  <div className="rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--background))] p-5">
+    <h3 className="mb-2 text-sm font-bold">npm run build</h3>
+    <p className="text-[13px] leading-relaxed text-[hsl(var(--foreground))/0.7]">
+      Creates a production build and surfaces many MDX and TypeScript errors before you open a pull request.
+    </p>
+  </div>
+  <div className="rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--background))] p-5">
+    <h3 className="mb-2 text-sm font-bold">npm run lint</h3>
+    <p className="text-[13px] leading-relaxed text-[hsl(var(--foreground))/0.7]">
+      Runs ESLint across the project. Use this before submitting documentation or code changes.
+    </p>
+  </div>
+  <div className="rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--background))] p-5">
+    <h3 className="mb-2 text-sm font-bold">npm run start</h3>
+    <p className="text-[13px] leading-relaxed text-[hsl(var(--foreground))/0.7]">
+      Serves the production build locally. Run <code className="text-[12px]">npm run build</code> first.
+    </p>
+  </div>
+</div>
+
+## Common setup issues
+
+<div className="mb-8 grid grid-cols-1 gap-4 md:grid-cols-2 my-6">
+  <div className="rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--background))] p-5">
+    <h3 className="mb-2 text-sm font-bold">Node not found or wrong version</h3>
+    <p className="text-[13px] leading-relaxed text-[hsl(var(--foreground))/0.7]">
+      Install <a href="https://nodejs.org" className="text-[hsl(var(--primary))] underline">Node.js 20 LTS</a>. Ensure <code className="text-[12px]">node -v</code> reports <strong>20.9.0</strong> or higher.
+    </p>
+  </div>
+  <div className="rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--background))] p-5">
+    <h3 className="mb-2 text-sm font-bold">npm permission errors</h3>
+    <p className="text-[13px] leading-relaxed text-[hsl(var(--foreground))/0.7]">
+      Do not use <code className="text-[12px]">sudo npm</code>. Fix your npm prefix or use a version manager (nvm, fnm, or Volta).
+    </p>
+  </div>
+  <div className="rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--background))] p-5">
+    <h3 className="mb-2 text-sm font-bold">Port 3000 already in use</h3>
+    <p className="text-[13px] leading-relaxed text-[hsl(var(--foreground))/0.7]">
+      Stop other apps on that port, or run <code className="text-[12px]">npx next dev -p 3001</code> and open the URL shown in the terminal.
+    </p>
+  </div>
+  <div className="rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--background))] p-5">
+    <h3 className="mb-2 text-sm font-bold">404 or blank page on /</h3>
+    <p className="text-[13px] leading-relaxed text-[hsl(var(--foreground))/0.7]">
+      Open <a href="http://localhost:3000/docs/home" className="text-[hsl(var(--primary))] underline">/docs/home</a> directly — the site root redirects there.
+    </p>
+  </div>
+  <div className="rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--background))] p-5">
+    <h3 className="mb-2 text-sm font-bold">Errors after git pull</h3>
+    <p className="text-[13px] leading-relaxed text-[hsl(var(--foreground))/0.7]">
+      Run <code className="text-[12px]">npm install</code> again, then <code className="text-[12px]">npm run build</code> and <code className="text-[12px]">npm run lint</code>.
+    </p>
+  </div>
+  <div className="rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--background))] p-5">
+    <h3 className="mb-2 text-sm font-bold">Changes not showing</h3>
+    <p className="text-[13px] leading-relaxed text-[hsl(var(--foreground))/0.7]">
+      Hard-refresh the browser or restart <code className="text-[12px]">npm run dev</code>.
+    </p>
+  </div>
+</div>
+
+For contributor workflow (fork, branch, pull request), see [GitHub workflow](/docs/developer/github-workflow).
