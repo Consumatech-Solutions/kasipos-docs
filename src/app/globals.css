@@ -398,6 +398,128 @@ body {
   color: hsl(var(--foreground) / 0.72);
 }
 
+/* MDX Content Typography & Spacing Improvements */
+.nextra-content {
+  line-height: 1.75;
+}
+
+.nextra-content p {
+  margin: 1.25rem 0;
+  line-height: 1.75;
+  letter-spacing: 0.3px;
+}
+
+.nextra-content h1 {
+  margin-top: 2rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.3;
+}
+
+.nextra-content h2 {
+  margin-top: 2rem;
+  margin-bottom: 1.25rem;
+  line-height: 1.4;
+  padding-top: 0.5rem;
+}
+
+.nextra-content h3 {
+  margin-top: 1.75rem;
+  margin-bottom: 1rem;
+  line-height: 1.4;
+}
+
+.nextra-content h4,
+.nextra-content h5,
+.nextra-content h6 {
+  margin-top: 1.25rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.5;
+}
+
+.nextra-content ul,
+.nextra-content ol {
+  margin: 1.25rem 0;
+  padding-left: 2rem;
+  line-height: 1.75;
+}
+
+.nextra-content li {
+  margin: 0.5rem 0;
+}
+
+.nextra-content li > p {
+  margin: 0.5rem 0;
+}
+
+.nextra-content blockquote {
+  margin: 1.5rem 0;
+  padding: 1rem 1.5rem;
+  border-left: 3px solid hsl(var(--border));
+  background: hsl(var(--muted)) / 0.5;
+  line-height: 1.7;
+}
+
+.nextra-content code {
+  background: hsl(var(--muted));
+  border-radius: 0.4rem;
+  padding: 0.2rem 0.5rem;
+  font-size: 0.9em;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+}
+
+.nextra-content pre {
+  margin: 1.5rem 0;
+  padding: 1.25rem;
+  border-radius: 0.6rem;
+  overflow-x: auto;
+  line-height: 1.5;
+}
+
+.nextra-content pre code {
+  background: transparent;
+  padding: 0;
+}
+
+.nextra-content table {
+  margin: 1.5rem 0;
+  border-collapse: collapse;
+  width: 100%;
+  line-height: 1.75;
+}
+
+.nextra-content th,
+.nextra-content td {
+  padding: 0.75rem 1rem;
+  border: 1px solid hsl(var(--border));
+  text-align: left;
+}
+
+.nextra-content th {
+  background: hsl(var(--muted));
+  font-weight: 600;
+}
+
+.nextra-content strong {
+  font-weight: 600;
+}
+
+.nextra-content em {
+  font-style: italic;
+}
+
+/* Code blocks section styling */
+.nextra-content > div + p,
+.nextra-content > pre + p {
+  margin-top: 1.5rem;
+}
+
+/* Better spacing between sections */
+.nextra-content > h2 + p,
+.nextra-content > h3 + p {
+  margin-top: 0.75rem;
+}
+
+
 .home-docs-newsletter form {
   margin: 1.25rem auto 0;
   display: flex;

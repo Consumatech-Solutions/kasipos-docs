@@ -1,82 +1,315 @@
 ---
 title: Contributing
-description: Community contribution guidelines.
+description: Complete guidelines for contributing to KasiPOS documentation and codebase.
 ---
 
-# Contributing
+# Contributing to KasiPOS
 
-This guide defines the standard contribution workflow for the project.
-The goal is to keep collaboration consistent, reviews efficient, and code quality maintainable.
+We welcome contributions from the community. This guide defines the standard workflow for ensuring collaboration is consistent, reviews are efficient, and code quality remains maintainable.
 
-Below are the three essential areas contributors should follow: Workflow, Review Standards, and Testing Expectations.
+Whether you're fixing a bug, adding a feature, or improving documentation, following these guidelines helps keep the project organized and makes everyone's experience better.
 
 ## Workflow
 
-- Branching:
-  - Use descriptive, focused branch names: `feature/<short-description>`, `fix/<short-description>`, `chore/<short>`.
-  - One concern per branch — keep PRs small and reviewable.
-- Commits:
-  - Write clear, imperative commit messages (e.g. "Add validation for checkout form").
-  - Prefer multiple small commits while working, but squash or clean history before merging if appropriate.
-- PRs:
-  - Open a Pull Request with a concise title and a detailed description describing what, why, and any trade-offs.
-  - Link relevant issue(s) using `#123` or `Fixes #123` when applicable.
-  - Add labels and an appropriate assignee or reviewers if your repo uses them.
-  - Include screenshots, animated GIFs, or short recordings for UI/UX changes.
-- Work in public issues/PRs:
-  - Discuss large changes in an issue first to agree on the approach.
-  - For security-sensitive fixes, follow the private disclosure process (if any) instead of public issues.
+The contribution workflow has three main stages: **branching**, **commits**, and **pull requests**. Each stage has clear standards to keep the codebase clean and reviewable.
+
+### Branch Naming Conventions
+
+Use descriptive branch names that clearly communicate the purpose of your work. The format is:
+
+```
+<type>/<scope>-<short-description>
+```
+
+**Types:**
+- `feature`               — New functionality or enhancement
+- `fix` — Bug fixes
+- `docs` — Documentation updates (guides, README, contributing guidelines)
+- `refactor` — Code restructuring without functional changes
+- `test` — Adding or updating tests
+- `chore` — Dependencies, build config, tooling updates
+
+**Examples of well-named branches:**
+- `feature/offline-sync-queue` — Clear feature scope
+- `fix/checkout-validation-error` — Specific bug being addressed
+- `docs/contributing-guidelines` — Documentation improvement
+- `refactor/payment-processor-module` — Code organization work
+- `test/inventory-sync-coverage` — Test improvements
+
+**Best practices:**
+- Use lowercase and hyphens (no spaces or underscores)
+- Keep the description concise but descriptive (max 50 characters)
+- Avoid generic names like `feature/update` or `fix/bug`
+
+### Commits
+
+Write clear, intentional commit messages that explain the *why* behind the change.
+
+**Commit message format (recommended):**
+```
+<type>: <short-description>
+
+<optional-detailed-body>
+```
+
+**Examples:**
+```
+fix: prevent double-submission in checkout form
+
+Fixes #342. Added debouncing to the submit button and reset the form
+state after successful submission to prevent accidental re-submits.
+```
+
+```
+docs: add branch naming conventions guide
+
+Clarifies expected naming for feature, fix, and refactor branches
+to help contributors follow consistent practices.
+```
+
+**Guidelines:**
+- Use imperative mood ("Add feature" not "Added feature")
+- First line is the summary (50 characters or less)
+- Leave a blank line between summary and body if providing details
+- Reference issue numbers if applicable (e.g., `Fixes #123`)
+- Group related changes in one logical commit
+- Feel free to squash or clean up history before pushing
+
+### Pull Requests
+
+A well-written PR is the foundation of effective code review. Include all relevant context so reviewers understand your work immediately.
+
+**PR Title:**
+- Use the same format as commit messages: `<type>: <short-description>`
+- Make it specific, not generic
+
+**PR Description template:**
+
+```markdown
+## Summary
+Brief explanation of what this PR does and why it matters.
+
+## Changes
+- Detailed list of what was changed
+- Why each change was necessary
+- Any trade-offs or alternative approaches considered
+
+## Linked Issues
+Fixes #123 (or "Relates to #456")
+
+## Test Plan
+Steps to verify the changes work as expected:
+1. Clone this branch
+2. Run `npm install` (if dependencies changed)
+3. Run `npm run dev` to start the dev server
+4. Navigate to [specific page/feature]
+5. Perform [specific action] and verify [expected outcome]
+
+## Screenshots / Videos
+[Include screenshots or GIFs for UI changes; paste or attach here]
+
+## Checklist
+- [ ] Code passes `npm run lint`
+- [ ] Tests pass locally with `npm test`
+- [ ] New/updated tests added for this change
+- [ ] `npm run build` succeeds
+- [ ] No console errors in browser dev tools
+- [ ] Updated relevant documentation
+```
+
+**Submitting your PR:**
+- Open the PR as early as possible (use "Draft" if still in progress)
+- Assign reviewers who understand the affected area
+- Keep PRs focused: one feature or fix per PR
+- For large changes, discuss in an issue first
+- Link related issues with `Fixes #123` or `Relates to #456`
+
+---
 
 ## Review Standards
 
-- Readability & Scope:
-  - Keep diffs focused; avoid mixing refactors with feature changes in the same PR.
-  - Aim for changes that are easy for reviewers to understand in a single pass.
-- Checklist for reviewers (suggested):
-  - Does the change match the described scope?
-  - Are edge cases handled and documented?
-  - Are types, linting, and formatting correct?
-  - Are performance and accessibility considerations addressed where relevant?
-- Feedback and Iteration:
-  - Respond to review comments promptly and update the PR with a description of what changed.
-  - When resolving feedback, prefer small follow-up commits with descriptive messages.
-  - If a discussion requires more time, summarize options in the PR and request additional reviewers.
-- Approvals:
-  - Follow repository rules for required approvers (e.g., two maintainer approvals for major changes).
-  - Merges should be performed by maintainers or via the project's merge policy (squash/rebase/merge commit).
+Code review ensures quality, consistency, and knowledge sharing across the team. We all benefit from clear, thorough reviews.
+
+### What Reviewers Look For
+
+**Scope & Intent:**
+- Does the PR address what it claims to address?
+- Are there unrelated changes mixed in (refactors, whitespace, config updates)?
+- Is the change truly necessary or could it be done differently?
+
+**Code Quality:**
+- Is the code readable and maintainable?
+- Do variable and function names clearly describe their purpose?
+- Are edge cases handled properly?
+- Is error handling appropriate?
+
+**Testing:**
+- Are new features covered by tests?
+- Do tests cover edge cases and error scenarios?
+- Are existing tests still passing?
+- Is the manual test plan clear and complete?
+
+**Type Safety & Linting:**
+- Does TypeScript compilation pass without errors?
+- Do linting and formatting pass (`npm run lint`, `npm run format`)?
+- Are imports organized and unused imports removed?
+
+**Documentation & Accessibility:**
+- Is new functionality documented (in code comments or docs)?
+- Do UI changes consider accessibility (ARIA labels, keyboard navigation)?
+- Is the PR description clear enough to understand the change without asking?
+
+### The Review Process
+
+**As a Reviewer:**
+1. Read the PR description first to understand intent
+2. Review the diff carefully, line by line
+3. Test the changes locally if they're complex or UI-related
+4. Request changes if needed, or approve when satisfied
+5. Mark the PR as "Approved" to signal it's ready to merge
+
+**Helpful review practices:**
+- Ask questions if something isn't clear (assume good intent)
+- Suggest alternatives rather than just saying "no"
+- Praise good decisions and clever approaches
+- Keep tone constructive and collaborative
+
+**As a PR Author (responding to feedback):**
+1. Respond to each comment (even if just to confirm you understand)
+2. Make requested changes, then commit with a descriptive message
+3. Push and request another review if you made substantial changes
+4. Don't take criticism personally — it's about the code, not you
+5. Explain your thinking if you disagree with a suggestion
+
+### Approval & Merging
+
+- Minimum **1 approval** required before merging
+- For major features or breaking changes: **2 approvals** recommended
+- All CI checks (lint, tests, build) must pass
+- Maintainers perform the final merge to preserve commit history
+
+---
 
 ## Testing Expectations
 
-- Local checks before opening a PR:
-  - Run the project's linting and formatting commands (e.g., `npm run lint`, `npm run format`).
-  - Run unit and integration tests locally when your change affects code paths covered by tests (`npm test`, or the workspace's test runner).
-  - Ensure TypeScript or build steps succeed (`npm run build` where applicable).
-- CI and test coverage:
-  - The CI pipeline must pass for a PR to be merged. Address failing CI jobs before requesting approval.
-  - Include or update tests for bug fixes and new features; unit tests should cover core logic and edge cases.
-- Manual verification:
-  - For UI or end-to-end changes, include a short manual test plan in the PR describing steps to reproduce and expected results.
-  - Example manual steps: start the app, navigate to X, perform Y, verify Z.
-- Test guidance and examples:
-  - Keep tests deterministic and fast; rely on mocks for external dependencies when suitable.
-  - Document how to run specific tests locally in the PR if they require special setup.
+Thorough testing prevents bugs and gives confidence that changes work as intended. Testing happens at multiple levels: local checks, automated CI, and manual verification.
 
-## Pull Request Template (recommended)
+### Before Opening a PR: Local Checks
 
-- Title: short description
-- Body:
-  - Summary of changes
-  - Linked issue(s)
-  - Test plan (manual steps + automated tests run)
-  - Screenshots or recordings (if UI)
-  - Checklist (lint, tests, type checks, changelog)
+Run these commands to ensure your work is ready for review:
 
-## Helpful Commands
+```bash
+# 1. Install dependencies (if you added any)
+npm install
 
-- Install dependencies: `npm install`
-- Run linting: `npm run lint`
-- Run tests: `npm test`
-- Build: `npm run build`
-- Format: `npm run format`
+# 2. Format your code
+npm run format
 
-Thank you for contributing — small, well-documented contributions make the project better for everyone.
+# 3. Run linting and type checks
+npm run lint
+
+# 4. Run the full test suite
+npm test
+
+# 5. Build the project (catches many issues)
+npm run build
+
+# 6. Start the dev server and test manually
+npm run dev
+```
+
+**If any step fails, fix it before pushing.** This saves reviewers time and keeps the CI pipeline clean.
+
+### Writing Tests
+
+**For new features:**
+- Write tests that cover the happy path
+- Include edge cases (empty inputs, boundary values, errors)
+- Use descriptive test names: `should validate email format and reject invalid domains`
+
+**For bug fixes:**
+- Add a regression test that reproduces the original bug
+- Verify the test fails before your fix
+- Verify it passes after your fix
+
+**Test structure (example):**
+```typescript
+describe('CheckoutForm', () => {
+  it('should submit valid data', async () => {
+    // Arrange: set up test data and component
+    // Act: perform the action
+    // Assert: verify the expected outcome
+  })
+
+  it('should reject invalid email', async () => {
+    // Same pattern for edge case
+  })
+
+  it('should show error message on network failure', async () => {
+    // Test error handling
+  })
+})
+```
+
+### Manual Testing
+
+For UI changes, document your manual test plan in the PR:
+
+```
+## Manual Test Plan
+1. Start the dev server: `npm run dev`
+2. Navigate to Settings > Inventory
+3. Click "Add New Item"
+4. Fill in SKU "TEST-001" and name "Test Product"
+5. Click "Save"
+6. Verify the item appears in the inventory list
+7. Refresh the page and confirm it persists
+```
+
+### CI Pipeline
+
+When you push your PR:
+- GitHub Actions (or your CI tool) automatically runs linting, type checks, and tests
+- **All checks must pass** for your PR to be mergeable
+- If CI fails, review the logs, fix the issues, and push again
+- Don't ask reviewers to merge if CI is red — fix it first
+
+### Performance & Accessibility
+
+- **Performance:** Avoid unnecessary re-renders, optimize images and queries
+- **Accessibility:** Ensure color contrast is sufficient, keyboard navigation works, screen readers can understand the interface
+- **Mobile:** Test on smaller screens if the change affects UI
+
+---
+
+## Quick Reference Commands
+
+```bash
+# Setup
+npm install
+
+# Daily development
+npm run dev           # Start dev server
+npm test             # Run tests in watch mode
+npm run lint         # Check linting and type errors
+npm run format       # Auto-format code
+
+# Before pushing
+npm run format && npm run lint && npm test && npm run build
+
+# Debugging
+npm run lint -- --fix   # Auto-fix linting issues
+npm test -- --coverage  # See test coverage
+```
+
+---
+
+## Final Notes
+
+- **Be Kind:** We're all learning and improving. Assume good intent and be respectful.
+- **Ask Questions:** If guidelines are unclear, ask in the PR or issue — we'll clarify.
+- **Start Small:** Your first contribution can be a typo fix, small bug, or docs improvement. Don't wait for the "perfect" idea.
+- **Read Existing Code:** Looking at how others solved similar problems is one of the best ways to learn the project's style.
+
+Thank you for contributing to KasiPOS. Every improvement—from bug fixes to documentation—makes the project better for everyone.
+
