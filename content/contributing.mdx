@@ -22,24 +22,33 @@ Use descriptive branch names that clearly communicate the purpose of your work. 
 ```
 
 **Types:**
-- `feature`               — New functionality or enhancement
-- `fix` — Bug fixes
-- `docs` — Documentation updates (guides, README, contributing guidelines)
-- `refactor` — Code restructuring without functional changes
-- `test` — Adding or updating tests
-- `chore` — Dependencies, build config, tooling updates
+
+| Type | Purpose |
+|------|----------|
+| `feature` | New functionality or enhancement |
+| `fix` | Bug fixes |
+| `docs` | Documentation updates (guides, README, contributing guidelines) |
+| `refactor` | Code restructuring without functional changes |
+| `test` | Adding or updating tests |
+| `chore` | Dependencies, build config, tooling updates |
 
 **Examples of well-named branches:**
-- `feature/offline-sync-queue` — Clear feature scope
-- `fix/checkout-validation-error` — Specific bug being addressed
-- `docs/contributing-guidelines` — Documentation improvement
-- `refactor/payment-processor-module` — Code organization work
-- `test/inventory-sync-coverage` — Test improvements
+
+| Branch | Why it's good |
+|--------|---------------|
+| `feature/offline-sync-queue` | Clear feature scope |
+| `fix/checkout-validation-error` | Specific bug being addressed |
+| `docs/contributing-guidelines` | Documentation improvement |
+| `refactor/payment-processor-module` | Code organization work |
+| `test/inventory-sync-coverage` | Test improvements |
 
 **Best practices:**
-- Use lowercase and hyphens (no spaces or underscores)
-- Keep the description concise but descriptive (max 50 characters)
-- Avoid generic names like `feature/update` or `fix/bug`
+
+| Practice | Guideline |
+|----------|----------|
+| Naming | Use lowercase and hyphens (no spaces or underscores) |
+| Length | Keep the description concise but descriptive (max 50 characters) |
+| Clarity | Avoid generic names like `feature/update` or `fix/bug` |
 
 ### Commits
 
@@ -68,12 +77,15 @@ to help contributors follow consistent practices.
 ```
 
 **Guidelines:**
-- Use imperative mood ("Add feature" not "Added feature")
-- First line is the summary (50 characters or less)
-- Leave a blank line between summary and body if providing details
-- Reference issue numbers if applicable (e.g., `Fixes #123`)
-- Group related changes in one logical commit
-- Feel free to squash or clean up history before pushing
+
+| Rule | Details |
+|------|----------|
+| Mood | Use imperative mood ("Add feature" not "Added feature") |
+| Summary | First line is the summary (50 characters or less) |
+| Format | Leave a blank line between summary and body if providing details |
+| References | Reference issue numbers if applicable (e.g., `Fixes #123`) |
+| Organization | Group related changes in one logical commit |
+| History | Feel free to squash or clean up history before pushing |
 
 ### Pull Requests
 
@@ -118,11 +130,14 @@ Steps to verify the changes work as expected:
 ```
 
 **Submitting your PR:**
-- Open the PR as early as possible (use "Draft" if still in progress)
-- Assign reviewers who understand the affected area
-- Keep PRs focused: one feature or fix per PR
-- For large changes, discuss in an issue first
-- Link related issues with `Fixes #123` or `Relates to #456`
+
+| Checklist | Action |
+|-----------|----------|
+| Timing | Open the PR as early as possible (use "Draft" if still in progress) |
+| Reviewers | Assign reviewers who understand the affected area |
+| Scope | Keep PRs focused: one feature or fix per PR |
+| Discussion | For large changes, discuss in an issue first |
+| Linking | Link related issues with `Fixes #123` or `Relates to #456` |
 
 ---
 
@@ -132,32 +147,25 @@ Code review ensures quality, consistency, and knowledge sharing across the team.
 
 ### What Reviewers Look For
 
-**Scope & Intent:**
-- Does the PR address what it claims to address?
-- Are there unrelated changes mixed in (refactors, whitespace, config updates)?
-- Is the change truly necessary or could it be done differently?
-
-**Code Quality:**
-- Is the code readable and maintainable?
-- Do variable and function names clearly describe their purpose?
-- Are edge cases handled properly?
-- Is error handling appropriate?
-
-**Testing:**
-- Are new features covered by tests?
-- Do tests cover edge cases and error scenarios?
-- Are existing tests still passing?
-- Is the manual test plan clear and complete?
-
-**Type Safety & Linting:**
-- Does TypeScript compilation pass without errors?
-- Do linting and formatting pass (`npm run lint`, `npm run format`)?
-- Are imports organized and unused imports removed?
-
-**Documentation & Accessibility:**
-- Is new functionality documented (in code comments or docs)?
-- Do UI changes consider accessibility (ARIA labels, keyboard navigation)?
-- Is the PR description clear enough to understand the change without asking?
+| Category | Checklist |
+|----------|----------|
+| **Scope & Intent** | Does the PR address what it claims to address? |
+| | Are there unrelated changes mixed in (refactors, whitespace, config updates)? |
+| | Is the change truly necessary or could it be done differently? |
+| **Code Quality** | Is the code readable and maintainable? |
+| | Do variable and function names clearly describe their purpose? |
+| | Are edge cases handled properly? |
+| | Is error handling appropriate? |
+| **Testing** | Are new features covered by tests? |
+| | Do tests cover edge cases and error scenarios? |
+| | Are existing tests still passing? |
+| | Is the manual test plan clear and complete? |
+| **Type Safety & Linting** | Does TypeScript compilation pass without errors? |
+| | Do linting and formatting pass (`npm run lint`, `npm run format`)? |
+| | Are imports organized and unused imports removed? |
+| **Documentation & Accessibility** | Is new functionality documented (in code comments or docs)? |
+| | Do UI changes consider accessibility (ARIA labels, keyboard navigation)? |
+| | Is the PR description clear enough to understand the change without asking? |
 
 ### The Review Process
 
@@ -169,10 +177,13 @@ Code review ensures quality, consistency, and knowledge sharing across the team.
 5. Mark the PR as "Approved" to signal it's ready to merge
 
 **Helpful review practices:**
-- Ask questions if something isn't clear (assume good intent)
-- Suggest alternatives rather than just saying "no"
-- Praise good decisions and clever approaches
-- Keep tone constructive and collaborative
+
+| Practice | Description |
+|----------|-------------|
+| Questions | Ask questions if something isn't clear (assume good intent) |
+| Suggestions | Suggest alternatives rather than just saying "no" |
+| Recognition | Praise good decisions and clever approaches |
+| Tone | Keep tone constructive and collaborative |
 
 **As a PR Author (responding to feedback):**
 1. Respond to each comment (even if just to confirm you understand)
@@ -223,14 +234,20 @@ npm run dev
 ### Writing Tests
 
 **For new features:**
-- Write tests that cover the happy path
-- Include edge cases (empty inputs, boundary values, errors)
-- Use descriptive test names: `should validate email format and reject invalid domains`
+
+| Item | Description |
+|------|-------------|
+| Happy path | Write tests that cover the happy path |
+| Edge cases | Include edge cases (empty inputs, boundary values, errors) |
+| Naming | Use descriptive test names: `should validate email format and reject invalid domains` |
 
 **For bug fixes:**
-- Add a regression test that reproduces the original bug
-- Verify the test fails before your fix
-- Verify it passes after your fix
+
+| Step | Action |
+|------|----------|
+| Create test | Add a regression test that reproduces the original bug |
+| Verify fail | Verify the test fails before your fix |
+| Verify pass | Verify it passes after your fix |
 
 **Test structure (example):**
 ```typescript
@@ -276,9 +293,11 @@ When you push your PR:
 
 ### Performance & Accessibility
 
-- **Performance:** Avoid unnecessary re-renders, optimize images and queries
-- **Accessibility:** Ensure color contrast is sufficient, keyboard navigation works, screen readers can understand the interface
-- **Mobile:** Test on smaller screens if the change affects UI
+| Area | Considerations |
+|------|----------------|
+| Performance | Avoid unnecessary re-renders, optimize images and queries |
+| Accessibility | Ensure color contrast is sufficient, keyboard navigation works, screen readers can understand the interface |
+| Mobile | Test on smaller screens if the change affects UI |
 
 ---
 
