@@ -8,34 +8,75 @@ description: Community contribution guidelines.
 This guide defines the standard contribution workflow for the project.
 The goal is to keep collaboration consistent, reviews efficient, and code quality maintainable.
 
+Below are the three essential areas contributors should follow: Workflow, Review Standards, and Testing Expectations.
+
 ## Workflow
-### Fork Repository
 
-Start by forking the repository to your personal GitHub account.
-This allows you to work independently without affecting the main project repository.
-
-*   Create focused branches for one concern at a time.
-*   Open pull requests with clear intent and scope.
-*   Include screenshots or recordings for UI-affecting changes.
-
-### Pourquoi ?
-
-- Travailler sans affecter directement le dépôt principal
-- Isoler vos changements
-- Faciliter la collaboration
-
-### Commande :
-```git clone https://github.com/<your-username>/<repository-name>.git```
+- Branching:
+  - Use descriptive, focused branch names: `feature/<short-description>`, `fix/<short-description>`, `chore/<short>`.
+  - One concern per branch — keep PRs small and reviewable.
+- Commits:
+  - Write clear, imperative commit messages (e.g. "Add validation for checkout form").
+  - Prefer multiple small commits while working, but squash or clean history before merging if appropriate.
+- PRs:
+  - Open a Pull Request with a concise title and a detailed description describing what, why, and any trade-offs.
+  - Link relevant issue(s) using `#123` or `Fixes #123` when applicable.
+  - Add labels and an appropriate assignee or reviewers if your repo uses them.
+  - Include screenshots, animated GIFs, or short recordings for UI/UX changes.
+- Work in public issues/PRs:
+  - Discuss large changes in an issue first to agree on the approach.
+  - For security-sensitive fixes, follow the private disclosure process (if any) instead of public issues.
 
 ## Review Standards
 
-
-*   Keep changes readable and easy to verify.
-*   Describe trade-offs and follow-up work in the PR body.
-*   Address review feedback with explicit updates.
+- Readability & Scope:
+  - Keep diffs focused; avoid mixing refactors with feature changes in the same PR.
+  - Aim for changes that are easy for reviewers to understand in a single pass.
+- Checklist for reviewers (suggested):
+  - Does the change match the described scope?
+  - Are edge cases handled and documented?
+  - Are types, linting, and formatting correct?
+  - Are performance and accessibility considerations addressed where relevant?
+- Feedback and Iteration:
+  - Respond to review comments promptly and update the PR with a description of what changed.
+  - When resolving feedback, prefer small follow-up commits with descriptive messages.
+  - If a discussion requires more time, summarize options in the PR and request additional reviewers.
+- Approvals:
+  - Follow repository rules for required approvers (e.g., two maintainer approvals for major changes).
+  - Merges should be performed by maintainers or via the project's merge policy (squash/rebase/merge commit).
 
 ## Testing Expectations
 
-*   Run local lint checks before opening a PR.
-*   Verify impacted routes manually for regressions.
-*   Document the exact test plan in your PR description.
+- Local checks before opening a PR:
+  - Run the project's linting and formatting commands (e.g., `npm run lint`, `npm run format`).
+  - Run unit and integration tests locally when your change affects code paths covered by tests (`npm test`, or the workspace's test runner).
+  - Ensure TypeScript or build steps succeed (`npm run build` where applicable).
+- CI and test coverage:
+  - The CI pipeline must pass for a PR to be merged. Address failing CI jobs before requesting approval.
+  - Include or update tests for bug fixes and new features; unit tests should cover core logic and edge cases.
+- Manual verification:
+  - For UI or end-to-end changes, include a short manual test plan in the PR describing steps to reproduce and expected results.
+  - Example manual steps: start the app, navigate to X, perform Y, verify Z.
+- Test guidance and examples:
+  - Keep tests deterministic and fast; rely on mocks for external dependencies when suitable.
+  - Document how to run specific tests locally in the PR if they require special setup.
+
+## Pull Request Template (recommended)
+
+- Title: short description
+- Body:
+  - Summary of changes
+  - Linked issue(s)
+  - Test plan (manual steps + automated tests run)
+  - Screenshots or recordings (if UI)
+  - Checklist (lint, tests, type checks, changelog)
+
+## Helpful Commands
+
+- Install dependencies: `npm install`
+- Run linting: `npm run lint`
+- Run tests: `npm test`
+- Build: `npm run build`
+- Format: `npm run format`
+
+Thank you for contributing — small, well-documented contributions make the project better for everyone.
