@@ -2,25 +2,142 @@
 title: Contributing
 description: Community contribution guidelines.
 ---
+import Link from 'next/link'
 
-# Contributing
 
-Follow coding standards, branch strategy, and review practices when contributing.
+# Contributing to KasiPOS 
 
-## Workflow
+Thank you for your interest in contributing to KasiPOS! We are thrilled to have you here. Whether you are fixing a typo, refactoring an offline-sync mechanism, or suggesting a new feature, your involvement makes a huge difference.
 
-*   Create focused branches for one concern at a time.
-*   Open pull requests with clear intent and scope.
-*   Include screenshots or recordings for UI-affecting changes.
+As an open-source project, KasiPOS thrives on community collaboration. By contributing, you help us build a robust, accessible, and resilient commerce system for local sellers worldwide.
 
-## Review Standards
 
-*   Keep changes readable and easy to verify.
-*   Describe trade-offs and follow-up work in the PR body.
-*   Address review feedback with explicit updates.
 
-## Testing Expectations
 
-*   Run local lint checks before opening a PR.
-*   Verify impacted routes manually for regressions.
-*   Document the exact test plan in your PR description.
+## 1. We Welcome All Forms of Contributions!
+Contributing to open source isn't just about writing code. We actively encourage and value a wide variety of contributions:
+
+* **💻 Code:** Implement features, fix bugs, optimize database queries, or improve offline sync.
+
+* **🧪 Testing:** Write unit tests, integration tests, or perform manual QA on different devices.
+
+* **📝 Documentation:** Fix typos, expand installation guides, or write technical deep-dives.
+
+* **🎨 Design & UX:** Improve the user interface, refine workflows, or create branding assets.
+
+* **🗣️ Feedback & Strategy:** Report issues, suggest features, or help with business outreach and localized product validation.
+
+* **🌐 Translations:** Localize the application and documentation into regional languages to make it accessible to more merchants globally.
+
+
+
+## 2. Before You Start
+
+To ensure a smooth collaboration process, please complete the following steps before diving into development:
+
+1.  <u>**Read the Documentation:**</u> Familiarize yourself with the project's <span style={{ color: 'green' }}>README, architectural diagrams, and setup instructions</span>. Understanding the data layer layout is crucial for maintaining our offline-first capabilities.
+
+2. <u>**Check Dependencies & Environment:**</u> Ensure your development environment is correctly configured with the required dependencies, including Node.js, React Native, and any other tools specified in our <Link href="getting-started/installation">setup guide</Link>. Run the application locally to verify that it builds and runs without errors.
+
+3.  <u>**Check Existing Issues:**</u> Before opening a new issue or starting work on a feature, search our issue tracker to ensure it hasn't already been reported or isn't currently being handled by someone else.
+
+4.  <u>**Discuss Large Changes:**</u> For major structural adjustments, new architectural patterns, or large feature implementations, please open an issue first to discuss the design with the core maintainers. This prevents redundant work and ensures alignment with the project's direction.
+
+5.  <u>**Understand Project Conventions:**</u> Ensure you have configured your environment according to our specified linting rules, formatting guidelines, and architectural boundaries.
+
+
+
+## 3. Contribution Standards
+
+To keep the codebase maintainable for an evolving open-source community, we enforce strict standards regarding code health and architecture:
+
+* <u>**Offline-First Paradigm:**</u> All operational features <span style={{ color: 'orange' }}>must be fully functional without an active internet connection</span>. Always utilize the local-first storage wrappers and reactive data streams rather than querying external APIs directly within UI components.
+
+* <u>**Clean & Readable Code:**</u> Write expressive code that serves as its own documentation. Use explicit variable naming, keep functions focused on a single responsibility, and add comments for non-obvious business logic.
+
+* <u>**Reusable Components & Services:**</u> Avoid duplicating UI elements or business logic. Break down interfaces into atomic components and isolate shared domains (e.g., currency formatting, tax calculations, database queries) into explicit services.
+
+* <u>**Respect Architectural Patterns:**</u> Strictly follow the established repository layer boundaries. Do not bypass data stores or manipulate application states haphazardly outside of designated state managers.
+
+* <u>**Avoid Unnecessary Complexity:**</u> Choose the simplest structural solution that satisfies the requirement. Avoid over-engineering systems for edge cases that have not yet manifested.
+
+* <u>**Maintain Consistency:**</u> Mimic the structural patterns, naming conventions, and file organization of existing code. Consistency makes reading and maintaining the project easier for everyone.
+
+
+
+## 4. Pull Request (PR) Expectations
+
+When you are ready to submit your changes, please structure your Pull Request according to the following guidelines:
+
+* <u>**Keep PRs Focused and Small:**</u> ✔ Submit incremental updates where possible. A PR that does one thing well is significantly easier to review, test, and safely merge.
+
+* <u>**Write Meaningful Descriptions:**</u> ✔  Clearly state *what* changed and *why*. Outline your testing steps and describe any specific challenges or implementation choices you made.
+
+* <u>**Link Issues Explicitly:**</u> ❕ Use automation keywords in your PR description (e.g.<span style={{ color: 'green' }}>`"Closes #123"`</span> or <span style={{ color: 'green' }}>`"Fixes #456"`</span>) to link and automatically close relevant issues upon merge.
+
+* <u>**Pass CI Linting & Testing:**</u> ✔  Before pushing your final commits, run your local linter, formatter, and test suite. <span style={{ color: 'orange' }}>Pull Requests with failing builds or broken tests will not be reviewed.</span>
+
+* <u>**Engage with Feedback:**</u> Code review is a collaborative dialogue. Be receptive to suggestions, clarify choices constructively, and apply requested changes in a timely manner.
+
+
+
+## 5. Documentation Contributions
+
+Excellent documentation is just as important as excellent code. You can help us improve our documentation in several ways:
+
+* **Refine Content & Structure:** Correct inaccurate explanations, update stale guides, or re-organize sections to make onboarding faster for new developers and merchants.
+
+* **Fix Typos & Grammar:** Spot a typo or a poorly phrased sentence? Submit a quick PR to fix it! Every small improvement counts.
+
+* **Add Missing Explanations:** If you spent time figuring out a complex feature or workflow that wasn't well documented, add a guide to help the next person.
+
+* **Improve Navigation:** Enhance internal cross-referencing, update index menus, or refine sidebar organizations in our MDX platform.
+
+* **Translate Content:** Translate our core markdown files into other languages to expand KasiPOS accessibility to global market communities.
+
+
+
+## 6. Good First Contributions
+
+If you are new to the project or looking for a low-friction place to start, keep an eye out for issues tagged with `good first issue`. Excellent starting points include:
+
+* **Fixing Typos & Updating Code Comments:** Helping us clean up markdown text or internal inline documentation.
+
+* **Improving UI Responsiveness:** Tuning components to scale flawlessly on low-end mobile devices or tablets frequently used by sellers.
+
+* **Expanding Test Coverage:** Adding missing unit tests to basic utility functions or standalone helper classes.
+
+* **Resolving Minor UI Glitches:** Fixing alignment anomalies, correcting icon colors, or tuning padding issues.
+
+* **Verifying Existing Features:** Building the app locally, systematically testing workflows, and documenting steps or reproduction criteria for open edge-case issues.
+
+
+
+## 7. Community & Communication
+
+We aim to foster a welcoming, safe, and collaborative space for all contributors.
+
+* <u>**Where to Get Help:**</u> You can ask technical questions, discuss features, or meet other contributors through our core communication channels (e.g., GitHub Discussions).
+
+* <u>**Collaboration Expectations:**</u> Treat other community members with <span style={{ color: 'green' }}>empathy, patience, and kindness</span>. Remember that our contributors have diverse technical backgrounds and communication styles.
+
+* <u>**Respectful Communication:**</u> <span style={{ color: 'red' }}>Insulting language, harassment, condescension, or dismissive behavior will not be tolerated</span>. Always provide constructive, actionable feedback during code reviews.
+
+* <u>**Community-First Mindset:**</u> We prioritize building tools that genuinely serve local merchants. Decisions are driven by collective utility, code quality, and project goals.
+
+
+
+## 8. AI-Assisted Contributions
+
+We welcome the use of generative AI tools (such as Claude, ChatGPT, or GitHub Copilot) to accelerate development, **provided that these tools are used responsibly and adhere to our strict codebase guidelines.**
+
+### AI Contribution Expectations
+* <u>**Verify Before Committing:**</u> Never commit AI-generated code blindly. You are fully responsible for the changes you submit. Ensure you especially understand the **<i>logic</i>** of the code, if in doubt, do not use it until fully understood whilst keeping in mind performance implications, and correctness of the generated solution.
+
+* <u>**Preserve Project Conventions:**</u> Ensure that any AI-written block strictly aligns with our existing architecture, naming conventions, and offline-first reactive database methodologies. Do not introduce foreign patterns or unnecessary dependencies.
+
+* <u>**Validate Quality Standards:**</u> Code produced with AI assistance must meet the exact same clean code, linting, formatting, and test-coverage criteria as manually written code.
+
+---
+
+Thank you for dedicating your time, energy, and creativity to improving KasiPOS!
