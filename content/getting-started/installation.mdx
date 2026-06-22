@@ -11,7 +11,7 @@ Because the frontend interface relies on the backend server to fetch data right 
 
 
 
-## ⚙️ <u>Part 1: Backend Setup</u>
+## <u>⚙️ Part 1: Backend Setup</u>
 
 ### 1. <span style={{ textDecoration: 'underline', textDecorationStyle: 'dotted' }}>System Requirements & Software Installation</span>
 Before touching the code, your computer needs a few base tools. Let's make sure they are installed correctly.
@@ -163,7 +163,7 @@ The server will initialize and begin listening for incoming requests on the port
 
 
 
-## 🖥️ <u>Part 2: Frontend Setup</u>
+## <u>🖥️ Part 2: Frontend Setup</u>
 
 ### <span style={{ textDecoration: 'underline', textDecorationStyle: 'dotted' }}>Prerequisites</span>
 
@@ -202,7 +202,7 @@ Now, open the frontend's <span style={{ color: '#4CAF50' }}>**.env**</span> file
 
 > If this link is broken, the shop interface will load, but it won't be able to log in users or download product inventory lists.
 
-### 3. Launch the Frontend Interface
+### 3. <span style={{ textDecoration: 'underline', textDecorationStyle: 'dotted' }}>Launch the Frontend Interface</span>
 Run the local development command:
 
 ```bash
@@ -211,11 +211,11 @@ npm run dev
 ```
 
 * Your store interface application is now up and accessible at: **http://localhost:9002**
-* <span style={{ color: '#FF7900' }}>**Development Note:**</span> Your web browser traffic requests are handled by an internal proxy setup using the address configured under your `NEXT_PUBLIC_API_URL` variable.
+* <span style={{ color: '#FF7900' }}>**Development Note:**</span> Your web browser traffic requests are handled by an internal proxy setup using the address configured under your <span style={{ color: '#FF7900' }}>`NEXT_PUBLIC_API_URL`</span> variable.
 
 ### 4. <span style={{ textDecoration: 'underline', textDecorationStyle: 'dotted' }}>Quality Control Verification</span>
 
-Before saving or sharing your code alterations, run these automated check scripts to ensure your code is cleanly formatted and contains no software bugs:
+Run these automated check scripts to ensure your code is cleanly formatted and contains no software bugs:
 
 ```bash
 npm run lint       # Scans code files for layout and syntax formatting mistakes
@@ -232,19 +232,17 @@ For a perfect local development experience where data syncs smoothly across both
 
 1. **Terminal 1 (Backend):**
 ```bash
-
-```
-
-
-
-cd kasiPOS-backend && npm run start:dev
+cd kasiPOS-backend   #ignore this if you are already inside the folder
+npm run start:dev
 
 ```
    *Wait until the terminal tells you the server is successfully listening on port 3001.*
-2. **Terminal 2 (Frontend):**
-   ```bash
-cd kasiPOS && npm run dev
 
+2. **Terminal 2 (Frontend):**
+
+```bash
+cd kasiPOS     #ignore this if you are already inside the folder
+npm run dev
 
 ```
 
@@ -268,30 +266,3 @@ cd kasiPOS && npm run dev
 | `npm run migration:create` | Generates a blank database instruction script file template. |
 | `npm run migration:run` / `revert` | Pushes outstanding updates into the database / Steps backward to undo the latest table update. |
 | `npm run migration:show` | Lists your database timeline updates along with their status. |
-
-```text
-src/
-├── main.ts                 # The primary starting gate file of the application
-├── app.module.ts           # The master module file linking different code parts together
-├── app.controller.ts       # Root routing file (displays version data upon requests)
-├── app.service.ts          # Root business logic processing file
-├── database/               # Folders handling data storage configuration files
-│   ├── data-source.ts      # Main file connecting code blueprints to PostgreSQL
-│   ├── migrations/         # Timed files tracking structural column adjustments
-│   └── seed/               # Code handling sample test data creation or cleanup
-└── [modules]/              # Feature application modules
-
-```
-
-As you build out elements matching the visual layout of the storefront app, code sections live inside specialized modules organized by these business tasks:
-
-* **`pos`**: Processes store checkouts, shopping carts, cash or card payments, and receipts.
-* **`inventory`**: Manages item products, real-time stock levels, inventory audits, and low-stock notification tags.
-* **`customers`**: Holds buyer files, records transaction tracking histories, and accumulates point balances.
-* **`vouchers`**: Creates discount code campaigns, calculates coupons, and processes voucher redemptions.
-* **`reports`**: Tabulates business trends, tracks top-selling products, and splits sales by payment methods.
-* **`marketplace / boph`**: Connects with 3rd-party order portals and local parcel logistics pickup drop-offs.
-
-```
-
-```
