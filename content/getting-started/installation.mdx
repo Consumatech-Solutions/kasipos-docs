@@ -3,15 +3,295 @@ title: Installation
 description: Install KasiPOS locally.
 ---
 
-# Installation
+# KasiPOS Installation Guide
 
-## Requirements
+As mentioned before, KasiPOS is an offline-first Point of Sale system. The frontend web app saves your daily operations locally on your device and sends that data to the backend database when an internet connection is available.
 
-- Node.js 20+
-- npm 10+
+Because the frontend interface relies on the backend server to fetch data right from the start, **you must complete the Backend Setup first**, followed by the Frontend Setup.
 
-## Steps
 
-1. Install dependencies.
-2. Run the development server.
-3. Open the app in your browser.
+
+## ⚙️ <u>Part 1: Backend Setup</u>
+
+### 1. <span style={{ textDecoration: 'underline', textDecorationStyle: 'dotted' }}>System Requirements & Software Installation</span>
+Before touching the code, your computer needs a few base tools. Let's make sure they are installed correctly.
+
+* **<span style={{ color: '#0EE42A' }}>Node.js</span> (v18 or higher):** The engine that executes our backend JavaScript code outside of a browser.
+
+* **<span style={{ color: '#0EE42A' }}>npm or yarn</span>:** Package managers used to download project code blocks (dependencies).
+
+* **<span style={{ color: '#0EE42A' }}>PostgreSQL</span>(v12 or higher):** The main database where all permanent store data (like sales history and products) is securely stored.
+
+
+<details>
+<summary>
+<b>💡 Don't have PostgreSQL? Click here.</b>
+</summary>
+
+    -(1) Go to the official download page: [postgresql.org/download](https://www.postgresql.org/download/) and select your operating system (Windows, macOS, or Linux).
+
+    -(2) Download and run the graphical installer. 
+
+    -(3) **During Installation:** The installer <span style={{ textDecoration: 'underline', textDecorationStyle: 'dotted' }}>will ask you to set a password</span> for the default database administrator user (the username is usually `postgres`). <span style={{ color: '#FF7900' }}>**Write this password down!**</span> You will need it in the next steps.
+
+    -(4) Keep the default port number as **5432**.
+
+    -(5) **Verify it is running:** Open your computer's terminal or command prompt and type:
+
+```bash
+   psql -U postgres
+
+```
+If it prompts you for the password you wrote down, your database is installed correctly and listening for connections! Type <span style={{color: 'green'}}>`\q`</span> and press Enter to exit.
+</details>
+
+### 2. <span style={{ textDecoration: 'underline', textDecorationStyle: 'dotted' }}>Download Project Dependencies</span>
+
+Open your terminal and clone the repository to your device (add  <span style={{color: 'green'}}>'upstream'</span>  at the end, if you want to pull future updates).
+
+```bash
+git clone https://github.com/Consumatech-Solutions/KasiPOS-backend
+
+```
+OR
+
+```bash
+git clone https://github.com/Consumatech-Solutions/KasiPOS-backend upstream
+
+```
+
+Navigate into the backend repository folder, and run the install command to download all required code packages.
+
+```bash
+cd kasiPOS-backend  #ignore this if you are already inside the folder
+npm install
+
+```
+
+### 3. <span style={{ textDecoration: 'underline', textDecorationStyle: 'dotted' }}>Create and Configure Your Environment File</span>
+
+Apps use special configuration files to hide sensitive information (like database passwords) from the public source code. These variables are stored in a file named <span style={{ color: '#4CAF50' }}>**.env**</span> (short for "environment").
+
+First, duplicate the provided template file to create your personal configuration file:
+
+```bash
+cp .env.example .env
+
+```
+
+Now, open the newly created <span style={{ color: '#4CAF50' }}>**.env**</span> file in your text editor or IDE. You will see lines of text matching the list below. Update them to match your local system details:
+
+#### 🗄️ <span style={{ textDecoration: 'underline', textDecorationStyle: 'dotted' }}>Database Variables</span>
+
+
+* <span style={{ color: '#FF7900' }}>**DB_HOST**</span>: Set this to <span style={{ color: '#1A7FDD' }}>`localhost`</span> if the database is running on the same computer.
+
+* <span style={{ color: '#FF7900' }}>**DB_PORT**</span>: Set this to <span style={{ color: '#1A7FDD' }}>`5432`</span> (the standard PostgreSQL connection port).
+
+* <span style={{ color: '#FF7900' }}>**DB_USERNAME**</span>: Set this to your database username (usually <span style={{ color: '#1A7FDD' }}>`postgres`</span>).
+
+* <span style={{ color: '#FF7900' }}>**DB_PASSWORD**</span>: Type the exact administrator password you chose when installing PostgreSQL.
+
+* <span style={{ color: '#FF7900' }}>**DB_DATABASE**</span>: Set this to <span style={{ color: '#1A7FDD' }}>`kasipos`</span>.
+
+#### 📱 <span style={{ textDecoration: 'underline', textDecorationStyle: 'dotted' }}>Core Application Variables</span>
+
+
+* <span style={{ color: '#FF7900' }}>**PORT**</span>: The local network highway your backend server runs on. Set this to <span style={{ color: '#1A7FDD' }}>`3001`</span>.
+
+* <span style={{ color: '#FF7900' }}>**NODE_ENV**</span>: Set this to <span style={{ color: '#1A7FDD' }}>`development`</span> while working locally.
+
+* <span style={{ color: '#FF7900' }}>**FRONTEND_URL**</span>: The web address of your frontend interface (defaults to <span style={{ color: '#1A7FDD' }}>`http://localhost:9002`</span>), which allows the backend to accept data sync requests from it.
+
+#### 🔒 <span style={{ textDecoration: 'underline', textDecorationStyle: 'dotted' }}>Security & Add-ons</span>
+
+
+* <span style={{ color: '#FF7900' }}>**JWT_SECRET**</span> & <span style={{ color: '#FF7900' }}>**JWT_EXPIRES_IN**</span>: Used to sign and handle secure user login tokens.
+
+* <span style={{ color: '#FF7900' }}>**OTP_CODE_LENGTH**</span> & <span style={{ color: '#FF7900' }}>**WINSMS_USERNAME**</span> / <span style={{ color: '#FF7900' }}>**WINSMS_PASSWORD**</span>: Settings used to text security codes to users.
+
+* <span style={{ color: '#FF7900' }}>**DO_SPACES_**</span> Keys: Optional configuration fields used if you want to store product image files up in cloud storage buckets instead of locally.
+
+### 4. <span style={{ textDecoration: 'underline', textDecorationStyle: 'dotted' }}>Initialize the Database Setup</span>
+
+Before starting the software, you need to prepare an empty bucket inside PostgreSQL and create the structural rows and columns.
+
+1. **Create the Empty Database:** Open your PostgreSQL management tool (such as pgAdmin or your terminal via `psql`) and run this command to create the container:
+
+```sql
+   CREATE DATABASE kasipos;
+
+```
+
+2. **Build Database Tables:** Run the migration command. This reads the backend blueprint code and automatically builds all the required tables and connections inside your empty database.
+
+```bash
+   npm run migration:run
+
+```
+
+3. **Populate Sample Test Data (Optional):** If you want some dummy store products, mock users, and test registers loaded in right away so the app isn't empty, run the seed script:
+
+```bash
+   npm run seed:run
+
+```
+
+*(If you ever want to wipe out this sample data and clean the slate later, you can run: <span style={{ color: '#1A7FDD' }}>`npm run seed:clear`</span>)*
+
+### Launch the Backend Server
+
+With the database structured and configurations saved, fire up the application in development mode:
+
+```bash
+npm run start:dev
+
+```
+
+The server will initialize and begin listening for incoming requests on the port specified in your config file.
+
+#### 📍 <span style={{ textDecoration: 'underline', textDecorationStyle: 'dotted' }}>Active Development Locations</span>
+
+
+* **Main REST Base Address:** **http://localhost:3001**
+
+* ⚠️ <span style={{ color: '#FF7900' }}>**URL Pattern Warning:** All data paths sit right at the root directory level (for example: <span style={{ textDecoration: 'underline', textDecorationStyle: 'dotted' }}>`/auth`</span> or <span style={{ textDecoration: 'underline', textDecorationStyle: 'dotted' }}>`/users`</span>). Do **NOT** add an extra <span style={{ textDecoration: 'underline', textDecorationStyle: 'dotted' }}>`/api`</span> into your URL addresses when requesting data.</span>
+
+* <span style={{ color: '#0A9711' }}>**Interactive Testing Dashboard (Swagger UI):**</span> Open **http://localhost:3001/api** in your web browser. This loads an interactive interface where you can view and visually test every backend action.
+
+* **Raw OpenAPI Specification File:** Available at **http://localhost:3001/api-json**. This is a machine-readable file that describes the backend's data endpoints and their expected inputs/outputs.
+
+
+
+## 🖥️ <u>Part 2: Frontend Setup</u>
+
+### <span style={{ textDecoration: 'underline', textDecorationStyle: 'dotted' }}>Prerequisites</span>
+
+* **Node.js 20.x LTS** or higher
+* **npm**
+
+### 1. <span style={{ textDecoration: 'underline', textDecorationStyle: 'dotted' }}>Download Dependencies</span>
+
+Open a brand new terminal window (<span style={{ color: 'orange'}}>keep the backend server running in your first terminal window!</span>), navigate to the frontend folder, and download its layout packages:
+
+```bash
+cd kasiPOS #ignore this if you are already inside the folder
+npm install
+
+```
+
+### 2. <span style={{ textDecoration: 'underline', textDecorationStyle: 'dotted' }}>Set Up Environment Variables</span>
+
+Just like the backend, the frontend interface needs a configuration file to know where to find its data companion. Copy the example configuration template file:
+
+```bash
+cp .env.example .env
+
+```
+
+Now, open the frontend's <span style={{ color: '#4CAF50' }}>**.env**</span> file in your text editor or IDE.
+
+> ⚠️ <span style={{ color: '#F71313' }}>**Crucial Alignment:**</span> Look for the variable named <span style={{ color: '#FF7900' }}>**NEXT_PUBLIC_API_BASE_URL**</span>. It must point exactly to your local running backend root address without any extra extensions:
+> ```env
+> NEXT_PUBLIC_API_BASE_URL=http://localhost:3001
+> 
+> 
+> ```
+
+
+
+> If this link is broken, the shop interface will load, but it won't be able to log in users or download product inventory lists.
+
+### 3. Launch the Frontend Interface
+Run the local development command:
+
+```bash
+npm run dev
+
+```
+
+* Your store interface application is now up and accessible at: **http://localhost:9002**
+* <span style={{ color: '#FF7900' }}>**Development Note:**</span> Your web browser traffic requests are handled by an internal proxy setup using the address configured under your `NEXT_PUBLIC_API_URL` variable.
+
+### 4. <span style={{ textDecoration: 'underline', textDecorationStyle: 'dotted' }}>Quality Control Verification</span>
+
+Before saving or sharing your code alterations, run these automated check scripts to ensure your code is cleanly formatted and contains no software bugs:
+
+```bash
+npm run lint       # Scans code files for layout and syntax formatting mistakes
+npm run typecheck  # Ensures all variables follow strict TypeScript rules
+npm run test       # Fires off the automated unit testing suite
+
+```
+
+
+
+## 🔄 Complete Full-Stack Startup Checklist
+
+For a perfect local development experience where data syncs smoothly across both layers, follow this terminal startup order every single time:
+
+1. **Terminal 1 (Backend):**
+```bash
+
+```
+
+
+
+cd kasiPOS-backend && npm run start:dev
+
+```
+   *Wait until the terminal tells you the server is successfully listening on port 3001.*
+2. **Terminal 2 (Frontend):**
+   ```bash
+cd kasiPOS && npm run dev
+
+
+```
+
+3. **Browser Execution:** Open your web browser and navigate directly to **http://localhost:9002** to interact with the system.
+
+
+
+## 🛠️ Appendix & Project Blueprint Reference
+
+| Running Command | What it does for you |
+| --- | --- |
+| `npm run build` | Bundles and optimizes the raw code files into clean production files. |
+| `npm run start` | Launches the pre-built production server files. |
+| `npm run start:dev` | Starts the server and automatically refreshes whenever you save code changes. |
+| `npm run start:debug` | Starts up the system with a debugger engine attached. |
+| `npm run start:prod` | Simulates and runs a production-built system locally on your machine. |
+| `npm run lint` / `format` | Reviews structural rules / Auto-formats code spacing cleanly via Prettier. |
+| `npm run test` / `test:watch` | Runs code logic tests / Keeps tests open to re-run live as you change files. |
+| `npm run test:cov` / `test:e2e` | Measures test coverage details / Validates full end-to-end user checkout flows. |
+| `npm run migration:generate` | Inspects your database models and builds an update script file automatically. |
+| `npm run migration:create` | Generates a blank database instruction script file template. |
+| `npm run migration:run` / `revert` | Pushes outstanding updates into the database / Steps backward to undo the latest table update. |
+| `npm run migration:show` | Lists your database timeline updates along with their status. |
+
+```text
+src/
+├── main.ts                 # The primary starting gate file of the application
+├── app.module.ts           # The master module file linking different code parts together
+├── app.controller.ts       # Root routing file (displays version data upon requests)
+├── app.service.ts          # Root business logic processing file
+├── database/               # Folders handling data storage configuration files
+│   ├── data-source.ts      # Main file connecting code blueprints to PostgreSQL
+│   ├── migrations/         # Timed files tracking structural column adjustments
+│   └── seed/               # Code handling sample test data creation or cleanup
+└── [modules]/              # Feature application modules
+
+```
+
+As you build out elements matching the visual layout of the storefront app, code sections live inside specialized modules organized by these business tasks:
+
+* **`pos`**: Processes store checkouts, shopping carts, cash or card payments, and receipts.
+* **`inventory`**: Manages item products, real-time stock levels, inventory audits, and low-stock notification tags.
+* **`customers`**: Holds buyer files, records transaction tracking histories, and accumulates point balances.
+* **`vouchers`**: Creates discount code campaigns, calculates coupons, and processes voucher redemptions.
+* **`reports`**: Tabulates business trends, tracks top-selling products, and splits sales by payment methods.
+* **`marketplace / boph`**: Connects with 3rd-party order portals and local parcel logistics pickup drop-offs.
+
+```
+
+```
