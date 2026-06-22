@@ -39,26 +39,34 @@ Which will let us see the Node.js version and npm versions installed. You can do
 <b>💡 Don't have PostgreSQL? Click here.</b>
 </summary>
 
-    -(1) Go to the official download page: [postgresql.org/download](https://www.postgresql.org/download/) and select your operating system (Windows, macOS, or Linux).
+    - <i>**STEP 1.**</i> Go to the official download page: [postgresql.org/download](https://www.postgresql.org/download/) and select your operating system (Windows, macOS, or Linux).
 
-    -(2) Download and run the graphical installer. 
+    - <i>**STEP 2.**</i> Download and run the graphical installer. 
 
-    -(3) **During Installation:** The installer <span style={{ textDecoration: 'underline', textDecorationStyle: 'dotted' }}>will ask you to set a password</span> for the default database administrator user (the username is usually `postgres`). <span style={{ color: '#FF7900' }}>**Write this password down!**</span> You will need it in the next steps.
+    - <i>**STEP 3.**</i> **During Installation:** The installer <span style={{ textDecoration: 'underline', textDecorationStyle: 'dotted' }}>will ask you to set a password for the default database administrator</span> (the username is usually `postgres`). <span style={{ color: '#FF7900' }}>**Write this password down!** You will need it in the next steps.</span>
 
-    -(4) Keep the default port number as **5432**.
+    - <i>**STEP 4.**</i> Keep the default port number as <span style={{ color: '#FF7900' }}>**5432**</span>.
 
-    -(5) **Verify it is running:** Open your computer's terminal or command prompt and type:
+    - <i>**STEP 5.**</i> Let the installer finish and then add PostgreSQL to your system's PATH variable if it doesn't do so automatically. This allows you to run database commands from any terminal window.
+
+    The default folder to add to PATH should be '<span style={{ color: '#FF7900' }}>C:\Program Files\PostgreSQL\18\bin</span>' on Windows, and '<span style={{ color: '#FF7900' }}>/usr/local/pgsql/bin</span>' on macOS. Unless you changed it to something else earlier during the installation process.
+
+    - <i>**STEP 6.**</i> **Verify it is running:** Open your computer's terminal or command prompt and type:
 
 ```bash
    psql -U postgres
 
 ```
-If it prompts you for the password you wrote down, your database is installed correctly and listening for connections! Type <span style={{color: 'green'}}>`\q`</span> and press Enter to exit.
+It should prompt you for the password (the one you wrote down during installation). With this your database is installed correctly and listening for connections! Type <span style={{color: 'green'}}>`\q`</span> and press Enter to exit.
 </details>
 
 ### 2. <span style={{ textDecoration: 'underline', textDecorationStyle: 'dotted' }}>Download Project Dependencies</span>
 
-Open your terminal and clone the repository to your device (add  <span style={{color: 'green'}}>'upstream'</span>  at the end, if you want to pull future updates).
+Create a folder named "Kasi-Backend"
+
+Open your terminal inside this folder and paste the code below (use the <span style={{color: 'green'}}>'upstream'</span> version if you want to receive future updates).
+
+You can also open the folder in an IDE and run the clone command from its terminal. Just remember to include <span style={{color: 'green'}}>'upstream'</span> if you'd like to get updates later.
 
 ```bash
 git clone https://github.com/Consumatech-Solutions/KasiPOS-backend
@@ -71,7 +79,7 @@ git clone https://github.com/Consumatech-Solutions/KasiPOS-backend upstream
 
 ```
 
-Navigate into the backend repository folder, and run the install command to download all required code packages.
+Navigate to the backend repository folder, then run the following install command to download all required code packages.
 
 ```bash
 cd kasiPOS-backend  #ignore this if you are already inside the folder
