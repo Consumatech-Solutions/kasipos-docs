@@ -170,12 +170,23 @@ The server will initialize and begin listening for incoming requests on the port
 * **Node.js 20.x LTS** or higher
 * **npm**
 
-### 1. <span style={{ textDecoration: 'underline', textDecorationStyle: 'dotted' }}>Download Dependencies</span>
+Assuming you have fully completed the backend setup, you will already have the above prerequisites installed.
+
+### 1. <span style={{ textDecoration: 'underline', textDecorationStyle: 'dotted' }}>Download the Front-End Dependencies</span>
 
 Open a brand new terminal window (<span style={{ color: 'orange'}}>keep the backend server running in your first terminal window!</span>), navigate to the frontend folder, and download its layout packages:
 
 ```bash
-cd kasiPOS #ignore this if you are already inside the folder
+git clone https://github.com/Consumatech-Solutions/kasiPOS
+cd kasiPOS     #ignore this if you are already inside the folder
+npm install
+
+```
+OR add "upstream" if you want to pull future updates:
+
+```bash
+git clone https://github.com/Consumatech-Solutions/kasiPOS upstream
+cd kasiPOS     #ignore this if you are already inside the folder
 npm install
 
 ```
@@ -198,8 +209,6 @@ Now, open the frontend's <span style={{ color: '#4CAF50' }}>**.env**</span> file
 > 
 > ```
 
-
-
 > If this link is broken, the shop interface will load, but it won't be able to log in users or download product inventory lists.
 
 ### 3. <span style={{ textDecoration: 'underline', textDecorationStyle: 'dotted' }}>Launch the Frontend Interface</span>
@@ -215,7 +224,7 @@ npm run dev
 
 ### 4. <span style={{ textDecoration: 'underline', textDecorationStyle: 'dotted' }}>Quality Control Verification</span>
 
-Run these automated check scripts to ensure your code is cleanly formatted and contains no software bugs:
+**Run these automated check scripts to ensure your code is cleanly formatted and contains no software bugs:**
 
 ```bash
 npm run lint       # Scans code files for layout and syntax formatting mistakes
