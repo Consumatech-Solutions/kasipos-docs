@@ -18,7 +18,18 @@ Before touching the code, your computer needs a few base tools. Let's make sure 
 
 * **<span style={{ color: '#0EE42A' }}>Node.js</span> (v18 or higher):** The engine that executes our backend JavaScript code outside of a browser.
 
-* **<span style={{ color: '#0EE42A' }}>npm or yarn</span>:** Package managers used to download project code blocks (dependencies).
+* **<span style={{ color: '#0EE42A' }}>npm</span> :** The package manager we'll use to download needed specific project dependencies. It usually comes bundled with Node.js installers. To verify both are installed, open your terminal or command prompt and run:
+
+```bash
+node -v 
+
+```
+and
+```bash
+npm -v 
+
+```
+Which will let us see the Node.js version and npm versions installed. You can download Node.js bundled with npm from the official website: [nodejs.org](https://nodejs.org/en/download/)
 
 * **<span style={{ color: '#0EE42A' }}>PostgreSQL</span>(v12 or higher):** The main database where all permanent store data (like sales history and products) is securely stored.
 
@@ -163,14 +174,14 @@ The server will initialize and begin listening for incoming requests on the port
 
 
 
+
+
+
 ## <u>🖥️ Part 2: Frontend Setup</u>
 
 ### <span style={{ textDecoration: 'underline', textDecorationStyle: 'dotted' }}>Prerequisites</span>
 
-* **Node.js 20.x LTS** or higher
-* **npm**
-
-Assuming you have fully completed the backend setup, you will already have the above prerequisites installed.
+Assuming you have fully completed the backend setup, you will already have the prerequisites needed for the frontend (namely <span style={{ color: 'green'}}>Node.js</span> and <span style={{ color: 'green'}}>npm</span>).
 
 ### 1. <span style={{ textDecoration: 'underline', textDecorationStyle: 'dotted' }}>Download the Front-End Dependencies</span>
 
