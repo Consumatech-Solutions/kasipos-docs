@@ -14,11 +14,11 @@ Because the frontend interface relies on the backend server to fetch data right 
 ## <u>⚙️ Part 1: Backend Setup</u>
 
 ### 1. <span style={{ textDecoration: 'underline', textDecorationStyle: 'dotted' }}>System Requirements & Software Installation</span>
-Before touching the code, your computer needs a few base tools. Let's make sure they are installed correctly.
+Before touching any code, your computer needs a few base tools. Download the following tools and make sure they are installed correctly:
 
-* **<span style={{ color: '#0EE42A' }}>Node.js</span> (v18 or higher):** The engine that executes our backend JavaScript code outside of a browser.
+* **<span style={{ color: '#0EE42A' }}>Node.js</span> (v18 or higher):** The engine that executes our backend JavaScript code outside of a browser. You can download it from the official website: [nodejs.org](https://nodejs.org/en/download/)
 
-* **<span style={{ color: '#0EE42A' }}>npm</span> :** The package manager we'll use to download needed specific project dependencies. It usually comes bundled with Node.js installers. To verify both are installed, open your terminal or command prompt and run:
+* **<span style={{ color: '#0EE42A' }}>npm</span> :** The package manager we'll use to download needed specific project dependencies. It usually comes bundled with Node.js installers (from above). To verify both are installed, open your terminal or command prompt and run:
 
 ```bash
 node -v 
@@ -29,7 +29,6 @@ and
 npm -v 
 
 ```
-Which will let us see the Node.js version and npm versions installed. You can download Node.js bundled with npm from the official website: [nodejs.org](https://nodejs.org/en/download/)
 
 * **<span style={{ color: '#0EE42A' }}>PostgreSQL</span>(v12 or higher):** The main database where all permanent store data (like sales history and products) is securely stored.
 
@@ -49,7 +48,7 @@ Which will let us see the Node.js version and npm versions installed. You can do
 
     - <i>**STEP 5.**</i> Let the installer finish and then add PostgreSQL to your system's PATH variable if it doesn't do so automatically. This allows you to run database commands from any terminal window.
 
-    The default folder to add to PATH should be '<span style={{ color: '#FF7900' }}>C:\Program Files\PostgreSQL\18\bin</span>' on Windows, and '<span style={{ color: '#FF7900' }}>/usr/local/pgsql/bin</span>' on macOS. Unless you changed it to something else earlier during the installation process.
+    The default folder to add to PATH should be '<span style={{ color: '#FF7900' }}>C:\Program Files\PostgreSQL\Version-Number\bin</span>' on Windows, and '<span style={{ color: '#FF7900' }}>/usr/local/pgsql/bin</span>' on macOS. Unless you changed it to something else earlier during the installation process.
 
     - <i>**STEP 6.**</i> **Verify it is running:** Open your computer's terminal or command prompt and type:
 
@@ -60,32 +59,60 @@ Which will let us see the Node.js version and npm versions installed. You can do
 It should prompt you for the password (the one you wrote down during installation). With this your database is installed correctly and listening for connections! Type <span style={{color: 'green'}}>`\q`</span> and press Enter to exit.
 </details>
 
-### 2. <span style={{ textDecoration: 'underline', textDecorationStyle: 'dotted' }}>Download Project Dependencies</span>
+### 2. <span style={{ textDecoration: 'underline', textDecorationStyle: 'dotted' }}>Downloading KasiPOS Backend</span>
 
-Create a folder named "Kasi-Backend"
 
-Open your terminal inside this folder and paste the code below (use the <span style={{color: 'green'}}>'upstream'</span> version if you want to receive future updates).
+Before setting up, create a folder named <span style={{color: 'green'}}>`Kasi-Backend`</span> on your computer and open your terminal (or your IDE's built-in terminal) inside it.
 
-You can also open the folder in an IDE and run the clone command from its terminal. Just remember to include <span style={{color: 'green'}}>'upstream'</span> if you'd like to get updates later.
+Choose the option below that matches your goal:
+
+<span style={{color: 'orange'}}>**Option A:** I just want to use the program</span>
+
+If you only want to run the application locally without making changes to the source code, clone the main repository directly:
 
 ```bash
 git clone https://github.com/Consumatech-Solutions/KasiPOS-backend
 
 ```
-OR
+
+<span style={{color: 'orange'}}>**Option B:** I want to contribute to the project</span>
+
+If you plan on modifying the code and submitting pull requests, you need to work with a fork.
+
+1. Go to the **[Backend Repository](https://github.com/Consumatech-Solutions/KasiPOS-backend)** and click **Fork** to copy it to your GitHub account.
+2. Clone your personal fork to your machine (replace `[YOUR-USERNAME]` with your actual GitHub username):
 
 ```bash
-git clone https://github.com/Consumatech-Solutions/KasiPOS-backend upstream
+git clone https://github.com/[YOUR-USERNAME]/KasiPOS-backend
 
 ```
 
-Navigate to the backend repository folder, then run the following install command to download all required code packages.
+3. *(Optional)* To easily pull future updates from the main project later, add it as an upstream remote:
 
 ```bash
-cd kasiPOS-backend  #ignore this if you are already inside the folder
+cd KasiPOS-backend
+git remote add upstream https://github.com/Consumatech-Solutions/KasiPOS-backend
+
+```
+
+<span style={{color: 'orange'}}>**Installing Dependencies**</span>
+
+Now that you have the files on your device, navigate into the project folder and install the required packages.
+
+```bash
+# Move into the repository folder (skip if your terminal is already there)
+cd KasiPOS-backend  
+
+# Install the necessary code packages
 npm install
 
 ```
+
+
+
+
+
+
 
 ### 3. <span style={{ textDecoration: 'underline', textDecorationStyle: 'dotted' }}>Create and Configure Your Environment File</span>
 
@@ -131,18 +158,33 @@ Now, open the newly created <span style={{ color: '#4CAF50' }}>**.env**</span> f
 
 * <span style={{ color: '#FF7900' }}>**DO_SPACES_**</span> Keys: Optional configuration fields used if you want to store product image files up in cloud storage buckets instead of locally.
 
+
+
+
+
+
 ### 4. <span style={{ textDecoration: 'underline', textDecorationStyle: 'dotted' }}>Initialize the Database Setup</span>
 
 Before starting the software, you need to prepare an empty bucket inside PostgreSQL and create the structural rows and columns.
 
-1. **Create the Empty Database:** Open your PostgreSQL management tool (such as pgAdmin or your terminal via `psql`) and run this command to create the container:
+1. **Create the Empty Database:** Open up your systems terminal and run this command to create the container:
 
+On Linux and MacOS:
 ```sql
+   sudo -u postgres psql
    CREATE DATABASE kasipos;
+   /q
+
+```
+On Windows:
+```sql
+   psql -U postgres
+   CREATE DATABASE kasipos;
+   /q
 
 ```
 
-2. **Build Database Tables:** Run the migration command. This reads the backend blueprint code and automatically builds all the required tables and connections inside your empty database.
+2. **Build Database Tables:** Go Back to the project folder (<span style={{color: 'green'}}>Kasi-Backend</span>) and launch a new terminal (can also be done within the IDE) to run the the following migration commands which basically read the backend blueprint code to automatically build all the required tables and connections inside your empty database.
 
 ```bash
    npm run migration:run
@@ -185,6 +227,7 @@ The server will initialize and begin listening for incoming requests on the port
 
 
 
+
 ## <u>🖥️ Part 2: Frontend Setup</u>
 
 ### <span style={{ textDecoration: 'underline', textDecorationStyle: 'dotted' }}>Prerequisites</span>
@@ -193,22 +236,56 @@ Assuming you have fully completed the backend setup, you will already have the p
 
 ### 1. <span style={{ textDecoration: 'underline', textDecorationStyle: 'dotted' }}>Download the Front-End Dependencies</span>
 
-Open a brand new terminal window (<span style={{ color: 'orange'}}>keep the backend server running in your first terminal window!</span>), navigate to the frontend folder, and download its layout packages:
+> <span style={{color: '#CC461D'}}>⚠️ **Important:** Keep your backend server running in its own terminal window! Open a brand-new terminal (and or new IDE folder) for the steps below.</span>
+
+Create a new folder named <span style={{color: 'green'}}>`KasiPOS-Frontend`</span> on your computer and open your terminal (or your IDE's built-in terminal) inside it.
+
+Choose the option that matches your goal:
+
+<span style={{color: 'orange'}}>**Option A:** I just want to use the program</span>
+
+If you only want to run the application locally, clone the main repository directly:
 
 ```bash
 git clone https://github.com/Consumatech-Solutions/kasiPOS
-cd kasiPOS     #ignore this if you are already inside the folder
-npm install
 
 ```
-OR add "upstream" if you want to pull future updates:
+
+<span style={{color: 'orange'}}>**Option A:** I want to contribute to the project</span>
+
+If you plan on modifying the code and submitting pull requests, work with a fork:
+
+1. Go to the **[Frontend Repository](https://github.com/Consumatech-Solutions/kasiPOS)** and click **Fork** to copy it to your GitHub account.
+2. Clone your personal fork to your machine (replace `[YOUR-USERNAME]` with your actual GitHub username):
 
 ```bash
-git clone https://github.com/Consumatech-Solutions/kasiPOS upstream
+git clone https://github.com/[YOUR-USERNAME]/kasiPOS
+
+```
+
+3. *(Optional)* To easily pull future updates from the main project later, add it as an upstream remote:
+
+```bash
 cd kasiPOS     #ignore this if you are already inside the folder
+git remote add upstream https://github.com/Consumatech-Solutions/kasiPOS
+
+```
+
+<span style={{color: 'orange'}}>**Install Dependencies**</span>
+
+Now, navigate into the frontend project folder and install the required layout packages.
+
+```bash
+# Move into the repository folder (skip if your terminal is already there)
+cd kasiPOS  
+
+# Install the necessary code packages
 npm install
 
 ```
+
+
+
 
 ### 2. <span style={{ textDecoration: 'underline', textDecorationStyle: 'dotted' }}>Set Up Environment Variables</span>
 
